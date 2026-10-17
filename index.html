@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* CSS sama persis dengan sebelumnya */
         :root {
             --font-heading: 'Plus Jakarta Sans', sans-serif; --font-body: 'Nunito Sans', sans-serif;
             --bg-base: #F8FAFC; --bg-surface: #FFFFFF; --sidebar-bg: #0F172A; --sidebar-text: #94A3B8; --sidebar-active: #1E293B;
@@ -65,6 +64,7 @@
         .stat-label { font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; }
         .stat-status { font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
         .status-yellow { background: rgba(245, 158, 11, 0.15); color: #B45309; } .status-red { background: rgba(244, 63, 94, 0.15); color: #BE123C; }
+        .status-green { background: rgba(16, 185, 129, 0.15); color: #047857; }
         .table-responsive { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; }
@@ -334,8 +334,9 @@
             } catch (error) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:red;">Gagal memuat soal.</td></tr>'; }
         }
 
-        // === LOGIKA DIAGNOSTIC DINAMIS ===
+        // === LOGIKA DIAGNOSTIC & PENILAIAN OTOMATIS ===
         let questionsData = [];
+        let userAnswers = []; 
         let currentQuestionIndex = 0;
         let selectedOptions = [];
         let studentName = "";
@@ -346,29 +347,20 @@
             diagScreen.style.display = 'block';
             document.getElementById('diag-welcome').style.display = 'flex';
             document.getElementById('diag-quiz').style.display = 'none';
-            document.getElementById('diag-loading').style.display = 'flex'; // Tampilkan loading dulu
+            document.getElementById('diag-loading').style.display = 'flex'; 
             document.getElementById('diag-result').style.display = 'none';
             
-            // Tarik soal dari Google Sheets
             try {
                 const response = await fetch(URL_APPS_SCRIPT + "?action=getQuestions");
                 const data = await response.json();
-                // Format data dari Sheet: [ID, Domain, Tipe, Soal, OpsiA, OpsiB, OpsiC, OpsiD, Kunci]
                 questionsData = data.map(row => {
                     return {
-                        id: row[0],
-                        domain: row[1],
-                        type: row[2],
-                        question: row[3],
+                        id: row[0], domain: row[1], type: row[2], question: row[3],
                         options: [row[4], row[5], row[6], row[7]],
-                        // Konversi kunci jawaban (string) ke array angka
                         correctAnswer: row[8].toString().split(',').map(Number)
                     };
                 });
-            } catch (e) {
-                alert("Gagal memuat soal dari server. Pastikan koneksi internet stabil.");
-                questionsData = []; // Fallback
-            }
+            } catch (e) { alert("Gagal memuat soal."); questionsData = []; }
 
             document.getElementById('diag-loading').style.display = 'none';
             document.getElementById('studentName').value = '';
@@ -388,6 +380,7 @@
             document.getElementById('diag-welcome').style.display = 'none';
             document.getElementById('diag-quiz').style.display = 'flex';
             currentQuestionIndex = 0;
+            userAnswers = []; // Reset jawaban
             renderQuestion();
         }
 
@@ -428,7 +421,56 @@
             btnNext.style.cursor = selectedOptions.length === 0 ? 'not-allowed' : 'pointer';
         }
 
+        // --- FUNGSI PENILAIAN OTOMATIS ---
+        function calculateScores() {
+            let domainStats = {
+                "Bilangan": { correct: 0, total: 0 },
+                "Geometri & Pengukuran": { correct: 0, total: 0 },
+                "Data": { correct: 0, total: 0 },
+                "Penalaran": { correct: 0, total: 0 }
+            };
+            let totalCorrect = 0;
+
+            questionsData.forEach((q, index) => {
+                let domain = q.domain;
+                // Pastikan domain ada di daftar
+                if (!domainStats[domain]) domainStats[domain] = { correct: 0, total: 0 };
+                
+                domainStats[domain].total += 1;
+
+                let ua = userAnswers[index] || [];
+                let ca = q.correctAnswer || [];
+
+                // Urutkan array agar perbandingan (untuk soal PGK) tidak error
+                ua.sort((a,b) => a-b);
+                ca.sort((a,b) => a-b);
+
+                let isCorrect = ua.length === ca.length && ua.every((val, i) => val === ca[i]);
+
+                if (isCorrect) {
+                    domainStats[domain].correct += 1;
+                    totalCorrect += 1;
+                }
+            });
+
+            let scores = { bilangan: 0, geometri: 0, data: 0, penalaran: 0, readiness: 0 };
+
+            // Hitung persentase per domain
+            if (domainStats["Bilangan"].total > 0) scores.bilangan = Math.round((domainStats["Bilangan"].correct / domainStats["Bilangan"].total) * 100);
+            if (domainStats["Geometri & Pengukuran"].total > 0) scores.geometri = Math.round((domainStats["Geometri & Pengukuran"].correct / domainStats["Geometri & Pengukuran"].total) * 100);
+            if (domainStats["Data"].total > 0) scores.data = Math.round((domainStats["Data"].correct / domainStats["Data"].total) * 100);
+            if (domainStats["Penalaran"].total > 0) scores.penalaran = Math.round((domainStats["Penalaran"].correct / domainStats["Penalaran"].total) * 100);
+
+            // Hitung Readiness (Total Keseluruhan)
+            scores.readiness = Math.round((totalCorrect / questionsData.length) * 100);
+
+            return scores;
+        }
+
         async function nextQuestion() {
+            // Simpan jawaban user
+            userAnswers[currentQuestionIndex] = [...selectedOptions];
+
             if (currentQuestionIndex < questionsData.length - 1) {
                 currentQuestionIndex++; renderQuestion();
             } else {
@@ -436,8 +478,9 @@
                 document.getElementById('diag-quiz').style.display = 'none';
                 document.getElementById('diag-loading').style.display = 'flex';
                 
-                // Simulasi skor (bisa dikembangkan untuk menghitung skor asli nanti)
-                const scores = { bilangan: 85, geometri: 70, data: 80, penalaran: 60, readiness: 74 };
+                // Hitung skor asli
+                const scores = calculateScores();
+                
                 localStorage.setItem('math_ready_scores', JSON.stringify(scores));
                 localStorage.setItem('student_name', studentName);
 
@@ -458,10 +501,10 @@
             const isDark = html.getAttribute('data-theme') === 'dark';
             const trackColor = isDark ? '#334155' : '#E2E8F0';
             const statsData = [
-                { id: 'chart1', label: 'Bilangan', value: data.bilangan, color: '#F59E0B', status: 'Berkembang', statusClass: 'status-yellow' },
-                { id: 'chart2', label: 'Geometri & Pengukuran', value: data.geometri, color: '#F59E0B', status: 'Berkembang', statusClass: 'status-yellow' },
-                { id: 'chart3', label: 'Data', value: data.data, color: '#F59E0B', status: 'Berkembang', statusClass: 'status-yellow' },
-                { id: 'chart4', label: 'Reasoning', value: data.penalaran, color: '#F43F5E', status: 'Perlu Dukungan', statusClass: 'status-red' }
+                { id: 'chart1', label: 'Bilangan', value: data.bilangan, color: '#F59E0B', status: data.bilangan >= 70 ? 'Dikuasai' : 'Berkembang', statusClass: data.bilangan >= 70 ? 'status-green' : 'status-yellow' },
+                { id: 'chart2', label: 'Geometri & Pengukuran', value: data.geometri, color: '#F59E0B', status: data.geometri >= 70 ? 'Dikuasai' : 'Berkembang', statusClass: data.geometri >= 70 ? 'status-green' : 'status-yellow' },
+                { id: 'chart3', label: 'Data', value: data.data, color: '#F59E0B', status: data.data >= 70 ? 'Dikuasai' : 'Berkembang', statusClass: data.data >= 70 ? 'status-green' : 'status-yellow' },
+                { id: 'chart4', label: 'Reasoning', value: data.penalaran, color: '#F43F5E', status: data.penalaran >= 70 ? 'Dikuasai' : 'Perlu Dukungan', statusClass: data.penalaran >= 70 ? 'status-green' : 'status-red' }
             ];
             const gridContainer = document.getElementById('statsGrid');
             gridContainer.innerHTML = '';

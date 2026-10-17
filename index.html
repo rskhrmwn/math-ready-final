@@ -7,34 +7,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* =========================================
-           1. DESIGN SYSTEM TOKENS
-           ========================================= */
         :root {
-            --font-heading: 'Plus Jakarta Sans', sans-serif;
-            --font-body: 'Nunito Sans', sans-serif;
-            --bg-base: #F8FAFC; --bg-surface: #FFFFFF;
-            --sidebar-bg: #0F172A; --sidebar-text: #94A3B8; --sidebar-active: #1E293B;
-            --text-main: #0F172A; --text-muted: #64748B;
-            --primary: #0EA5E9; --primary-hover: #0284C7; --border-color: #E2E8F0;
-            --accent-mint: #10B981; --accent-yellow: #F59E0B; --accent-coral: #F43F5E; --accent-blue: #3B82F6;
-            --shadow-sm: 0 2px 8px -2px rgba(15, 23, 42, 0.05);
-            --shadow-md: 0 8px 24px -4px rgba(15, 23, 42, 0.08);
-            --radius-card: 16px; --radius-btn: 8px;
-            --sidebar-width: 260px; --sidebar-collapsed: 80px;
+            --font-heading: 'Plus Jakarta Sans', sans-serif; --font-body: 'Nunito Sans', sans-serif;
+            --bg-base: #F8FAFC; --bg-surface: #FFFFFF; --sidebar-bg: #0F172A; --sidebar-text: #94A3B8; --sidebar-active: #1E293B;
+            --text-main: #0F172A; --text-muted: #64748B; --primary: #0EA5E9; --primary-hover: #0284C7; --border-color: #E2E8F0;
+            --accent-mint: #10B981; --accent-yellow: #F59E0B; --accent-coral: #F43F5E;
+            --shadow-sm: 0 2px 8px -2px rgba(15, 23, 42, 0.05); --shadow-md: 0 8px 24px -4px rgba(15, 23, 42, 0.08);
+            --radius-card: 16px; --radius-btn: 8px; --sidebar-width: 260px; --sidebar-collapsed: 80px;
             --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         [data-theme="dark"] {
-            --bg-base: #0B1120; --bg-surface: #1E293B; --text-main: #F8FAFC; --text-muted: #94A3B8;
-            --border-color: #334155; --sidebar-bg: #0B1120; --sidebar-active: #1E293B;
+            --bg-base: #0B1120; --bg-surface: #1E293B; --text-main: #F8FAFC; --text-muted: #94A3B8; --border-color: #334155; --sidebar-bg: #0B1120; --sidebar-active: #1E293B;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: var(--font-body); background-color: var(--bg-base); color: var(--text-main); transition: background-color var(--transition-smooth); overflow-x: hidden; height: 100vh; display: flex; }
         h1, h2, h3, h4 { font-family: var(--font-heading); }
-
-        /* =========================================
-           2. SIDEBAR
-           ========================================= */
         .sidebar { width: var(--sidebar-width); background-color: var(--sidebar-bg); color: var(--sidebar-text); display: flex; flex-direction: column; transition: width var(--transition-smooth); height: 100vh; z-index: 100; position: fixed; left: 0; top: 0; }
         .sidebar.collapsed { width: var(--sidebar-collapsed); }
         .sidebar-brand { padding: 24px 20px; display: flex; align-items: center; gap: 12px; font-family: var(--font-heading); font-weight: 800; color: white; font-size: 1.1rem; white-space: nowrap; overflow: hidden; }
@@ -47,17 +34,11 @@
         .sidebar.collapsed .nav-text { display: none; }
         .sidebar-bottom { padding: 12px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; gap: 4px; }
         .sidebar-bottom .nav-item { font-size: 0.85rem; }
-
-        /* =========================================
-           3. MAIN LAYOUT & VIEWS
-           ========================================= */
         .main-content { flex-grow: 1; margin-left: var(--sidebar-width); padding: 24px 32px; transition: margin-left var(--transition-smooth); height: 100vh; overflow-y: auto; display: flex; flex-direction: column; gap: 24px; }
         .sidebar.collapsed ~ .main-content { margin-left: var(--sidebar-collapsed); }
         .view { display: none; animation: fadeIn 0.3s ease; }
         .view.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Topbar & Cards */
         .topbar { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
         .greeting h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
         .greeting p { color: var(--text-muted); font-size: 0.9rem; }
@@ -66,12 +47,8 @@
         .badge-pill span { color: var(--text-muted); font-weight: 600; }
         .card { background: var(--bg-surface); border-radius: var(--radius-card); padding: 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); margin-bottom: 20px; }
         .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
-
-        /* Grid System */
         .grid-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
         .col-left, .col-right { display: flex; flex-direction: column; gap: 20px; }
-
-        /* Hero Card */
         .hero-card { background: linear-gradient(135deg, #1E3A8A, #0EA5E9); color: white; border: none; padding: 28px; }
         .hero-label { font-size: 0.8rem; font-weight: 700; opacity: 0.8; margin-bottom: 8px; letter-spacing: 1px; text-transform: uppercase; }
         .hero-card h2 { font-size: 1.8rem; margin-bottom: 8px; }
@@ -82,8 +59,6 @@
         .btn-yellow:hover { background: #D97706; color: white; }
         .btn-outline { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); }
         .btn-outline:hover { background: rgba(255,255,255,0.2); }
-
-        /* Stats Grid */
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
         .stat-item { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; }
         .chart-container-small { width: 90px; height: 90px; position: relative; margin-bottom: 12px; }
@@ -92,8 +67,6 @@
         .stat-status { font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
         .status-yellow { background: rgba(245, 158, 11, 0.15); color: #B45309; }
         .status-red { background: rgba(244, 63, 94, 0.15); color: #BE123C; }
-
-        /* Table Style */
         .table-responsive { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; }
@@ -102,8 +75,6 @@
         .tag { padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
         .tag-green { background: rgba(16, 185, 129, 0.15); color: #047857; }
         .tag-red { background: rgba(244, 63, 94, 0.15); color: #BE123C; }
-
-        /* Journey & Misc */
         .journey-timeline { display: flex; align-items: center; justify-content: space-between; position: relative; margin-top: 10px; }
         .journey-step { display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 2; width: 25%; }
         .journey-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--bg-base); border: 2px solid var(--border-color); display: flex; justify-content: center; align-items: center; font-size: 1.2rem; }
@@ -111,32 +82,20 @@
         .journey-step.completed .journey-icon { background: var(--accent-mint); color: white; border-color: var(--accent-mint); }
         .journey-text { text-align: center; font-size: 0.75rem; font-weight: 700; }
         .journey-line { position: absolute; top: 20px; left: 12%; right: 12%; height: 2px; background: var(--border-color); z-index: 1; }
-        
         .mistake-box { background: #FEF2F2; border: 1px solid #FECACA; border-radius: 8px; padding: 12px; margin-bottom: 12px; }
         [data-theme="dark"] .mistake-box { background: rgba(244,63,94,0.1); border-color: rgba(244,63,94,0.3); }
         .mistake-box h4 { color: #B91C1C; font-size: 0.9rem; margin-bottom: 4px; }
         [data-theme="dark"] .mistake-box h4 { color: #F87171; }
         .mistake-box p { font-size: 0.8rem; color: #7F1D1D; }
         [data-theme="dark"] .mistake-box p { color: #FCA5A5; }
-
         .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-main); }
-
         @media (max-width: 1024px) { .grid-layout { grid-template-columns: 1fr; } }
         @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); }
-            .sidebar.mobile-open { transform: translateX(0); }
-            .main-content { margin-left: 0; padding: 16px; }
-            .mobile-menu-btn { display: block; }
-            .topbar { flex-direction: column; gap: 16px; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .journey-timeline { flex-wrap: wrap; gap: 16px; }
-            .journey-line { display: none; }
-            .journey-step { width: 45%; }
+            .sidebar { transform: translateX(-100%); } .sidebar.mobile-open { transform: translateX(0); }
+            .main-content { margin-left: 0; padding: 16px; } .mobile-menu-btn { display: block; }
+            .topbar { flex-direction: column; gap: 16px; } .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .journey-timeline { flex-wrap: wrap; gap: 16px; } .journey-line { display: none; } .journey-step { width: 45%; }
         }
-
-        /* =========================================
-           4. DIAGNOSTIC OVERLAY
-           ========================================= */
         #diagnosticScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-base); z-index: 999; overflow-y: auto; padding: 24px; }
         .diag-container { max-width: 600px; margin: 0 auto; min-height: 100%; display: flex; flex-direction: column; }
         .diag-welcome { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; text-align: center; }
@@ -148,8 +107,7 @@
         .diag-question-card { background: var(--bg-surface); border-radius: var(--radius-card); padding: 28px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); margin-bottom: 24px; flex-grow: 1; }
         .diag-options-list { display: flex; flex-direction: column; gap: 12px; }
         .option-btn { display: flex; align-items: center; gap: 16px; padding: 16px; background: var(--bg-base); border: 2px solid var(--border-color); border-radius: var(--radius-btn); cursor: pointer; transition: all 0.2s; font-family: var(--font-body); font-size: 1rem; color: var(--text-main); text-align: left; width: 100%; }
-        .option-btn:hover { border-color: var(--primary); }
-        .option-btn.selected { border-color: var(--primary); background: rgba(14, 165, 233, 0.05); }
+        .option-btn:hover { border-color: var(--primary); } .option-btn.selected { border-color: var(--primary); background: rgba(14, 165, 233, 0.05); }
         .option-indicator { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--border-color); display: flex; justify-content: center; align-items: center; flex-shrink: 0; }
         .option-btn.selected .option-indicator { border-color: var(--primary); background: var(--primary); }
         .option-btn.selected .option-indicator::after { content: ''; width: 8px; height: 8px; background: white; border-radius: 50%; }
@@ -159,8 +117,6 @@
         .loader-dot { width: 12px; height: 12px; background: var(--primary); border-radius: 50%; animation: bounce 0.6s infinite alternate; display: inline-block; margin: 0 4px; }
         @keyframes bounce { to { transform: translateY(-10px); opacity: 0.5; } }
         .diag-result { display: none; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; text-align: center; padding-top: 40px; }
-        
-        /* Input Form */
         .input-group { width: 100%; margin-bottom: 16px; text-align: left; }
         .input-group label { display: block; font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
         .input-group input, .input-group select { width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-surface); font-family: var(--font-body); font-size: 1rem; color: var(--text-main); outline: none; }
@@ -169,54 +125,23 @@
 </head>
 <body>
 
-    <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-brand">
-            <span class="brand-icon">M</span>
-            <span class="brand-text">MATH READY SD</span>
-        </div>
+        <div class="sidebar-brand"><span class="brand-icon">M</span><span class="brand-text">MATH READY SD</span></div>
         <ul class="nav-menu">
-            <li><a href="#" class="nav-item active" onclick="switchView('view-siswa', this)">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> 
-                <span class="nav-text">Siswa</span>
-            </a></li>
-            <li><a href="#" class="nav-item" onclick="openDiagnostic(this)">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg> 
-                <span class="nav-text">Diagnostic</span>
-            </a></li>
-            <li><a href="#" class="nav-item" onclick="switchView('view-guru', this)">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> 
-                <span class="nav-text">Guru</span>
-            </a></li>
-            <li><a href="#" class="nav-item" onclick="switchView('view-orangtua', this)">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> 
-                <span class="nav-text">Orang Tua</span>
-            </a></li>
-            <li><a href="#" class="nav-item" onclick="switchView('view-admin', this)">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg> 
-                <span class="nav-text">Admin</span>
-            </a></li>
-            <li><a href="#" class="nav-item" onclick="switchView('view-tentang', this)">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg> 
-                <span class="nav-text">Tentang</span>
-            </a></li>
+            <li><a href="#" class="nav-item active" onclick="switchView('view-siswa', this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> <span class="nav-text">Siswa</span></a></li>
+            <li><a href="#" class="nav-item" onclick="openDiagnostic(this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg> <span class="nav-text">Diagnostic</span></a></li>
+            <li><a href="#" class="nav-item" onclick="switchView('view-guru', this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> <span class="nav-text">Guru</span></a></li>
+            <li><a href="#" class="nav-item" onclick="switchView('view-orangtua', this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> <span class="nav-text">Orang Tua</span></a></li>
+            <li><a href="#" class="nav-item" onclick="switchView('view-admin', this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg> <span class="nav-text">Admin</span></a></li>
+            <li><a href="#" class="nav-item" onclick="switchView('view-tentang', this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg> <span class="nav-text">Tentang</span></a></li>
         </ul>
         <div class="sidebar-bottom">
-            <a href="#" class="nav-item" id="themeToggle">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                <span class="nav-text">Mode gelap</span>
-            </a>
-            <a href="#" class="nav-item" id="collapseBtn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/></svg>
-                <span class="nav-text">Lipat menu</span>
-            </a>
+            <a href="#" class="nav-item" id="themeToggle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><span class="nav-text">Mode gelap</span></a>
+            <a href="#" class="nav-item" id="collapseBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/></svg><span class="nav-text">Lipat menu</span></a>
         </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
     <main class="main-content">
-        
-        <!-- TOPBAR -->
         <header class="topbar">
             <div style="display: flex; align-items: center; gap: 16px;">
                 <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
@@ -231,9 +156,7 @@
             </div>
         </header>
 
-        <!-- ========================================== -->
-        <!-- VIEW 1: SISWA (DASHBOARD)                  -->
-        <!-- ========================================== -->
+        <!-- VIEW SISWA -->
         <div id="view-siswa" class="view active">
             <div class="grid-layout">
                 <div class="col-left">
@@ -280,23 +203,41 @@
                         <div class="card-title">📕 Buku Kesalahanku</div>
                         <div class="mistake-box"><h4>Pecahan senilai</h4><p>Kamu masih tertukar antara pembilang dan penyebut.</p></div>
                         <div class="mistake-box"><h4>Kecepatan</h4><p>Satuan waktu belum disamakan sebelum dihitung.</p></div>
-                        <button class="btn btn-coral" style="width:100%; background:var(--accent-coral); color:white;">Latihan lagi</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- VIEW GURU, ORANG TUA, ADMIN, TENTANG (Sama seperti sebelumnya, disembunyikan agar kode tidak terlalu panjang) -->
+        <!-- VIEW GURU -->
         <div id="view-guru" class="view">
             <div class="grid-layout">
                 <div class="col-left">
                     <div class="card"><div class="card-title">Ketuntasan Kelas 6A</div><div style="height: 250px;"><canvas id="teacherChart"></canvas></div></div>
-                    <div class="card"><div class="card-title">Daftar Nilai Siswa</div><div class="table-responsive"><table><thead><tr><th>Nama Siswa</th><th>Bilangan</th><th>Geometri</th><th>Penalaran</th><th>Status</th></tr></thead><tbody><tr><td>Ahmad</td><td>85</td><td>70</td><td>60</td><td><span class="tag tag-green">Tuntas</span></td></tr><tr><td>Budi</td><td>65</td><td>55</td><td>45</td><td><span class="tag tag-red">Remedial</span></td></tr></tbody></table></div></div>
+                    <div class="card">
+                        <div class="card-title">Daftar Nilai Siswa (Data Asli)</div>
+                        <div class="table-responsive">
+                            <table>
+                                <thead><tr><th>Nama Siswa</th><th>Kelas</th><th>Bilangan</th><th>Geometri</th><th>Penalaran</th><th>Skor Akhir</th><th>Status</th></tr></thead>
+                                <tbody id="tableGuruBody">
+                                    <tr><td colspan="7" style="text-align:center;">Memuat data dari Google Sheets...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button class="btn btn-yellow" style="margin-top:16px; width:100%;" onclick="fetchGuruData()">🔄 Refresh Data dari Database</button>
+                    </div>
                 </div>
-                <div class="col-right"><div class="card"><div class="card-title">Topik Prioritas</div><div style="display:flex; flex-direction:column; gap:12px;"><div style="display:flex; justify-content:space-between; font-size:0.9rem;"><span>1. Pecahan</span> <span style="color:var(--accent-coral); font-weight:700;">45% Salah</span></div><div style="display:flex; justify-content:space-between; font-size:0.9rem;"><span>2. Kecepatan</span> <span style="color:var(--accent-yellow); font-weight:700;">30% Salah</span></div></div></div></div>
+                <div class="col-right">
+                    <div class="card">
+                        <div class="card-title">Statistik Database</div>
+                        <div style="display:flex; flex-direction:column; gap:12px;">
+                            <div style="display:flex; justify-content:space-between; font-size:0.9rem;"><span>Total Siswa Ujian</span> <strong id="totalSiswa">0</strong></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <!-- VIEW ORANG TUA -->
         <div id="view-orangtua" class="view">
             <div class="grid-layout">
                 <div class="col-left"><div class="card"><div class="card-title">Ringkasan Minggu Ini</div><div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;"><div style="background:var(--bg-base); padding:16px; border-radius:8px;"><div style="font-size:1.5rem; font-weight:800; color:var(--primary);">4 Hari</div><div style="font-size:0.85rem; color:var(--text-muted);">Aktif Belajar</div></div><div style="background:var(--bg-base); padding:16px; border-radius:8px;"><div style="font-size:1.5rem; font-weight:800; color:var(--accent-mint);">87 Menit</div><div style="font-size:0.85rem; color:var(--text-muted);">Total Waktu</div></div></div></div></div>
@@ -304,13 +245,27 @@
             </div>
         </div>
 
+        <!-- VIEW ADMIN -->
         <div id="view-admin" class="view">
             <div class="grid-layout">
-                <div class="col-left"><div class="card"><div class="card-title">Manajemen Bank Soal</div><div class="table-responsive"><table><thead><tr><th>ID Soal</th><th>Topik</th><th>Tingkat</th><th>Status</th></tr></thead><tbody><tr><td>MTH6-FRC-001</td><td>Pecahan</td><td>Sulit</td><td><span class="tag tag-green">Published</span></td></tr></tbody></table></div><button class="btn btn-yellow" style="margin-top:16px; width:100%;">+ Tambah Soal Baru</button></div></div>
-                <div class="col-right"><div class="card"><div class="card-title">Statistik Platform</div><div style="display:flex; flex-direction:column; gap:12px;"><div style="display:flex; justify-content:space-between; font-size:0.9rem;"><span>Total Siswa</span> <strong>124</strong></div><div style="display:flex; justify-content:space-between; font-size:0.9rem;"><span>Total Soal</span> <strong>350</strong></div></div></div></div>
+                <div class="col-left">
+                    <div class="card">
+                        <div class="card-title">Manajemen Bank Soal</div>
+                        <div class="table-responsive">
+                            <table>
+                                <thead><tr><th>ID Soal</th><th>Domain</th><th>Tipe</th><th>Pertanyaan</th><th>Kunci</th></tr></thead>
+                                <tbody id="tableSoalBody">
+                                    <tr><td colspan="5" style="text-align:center;">Memuat data soal...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-right"><div class="card"><div class="card-title">Petunjuk Admin</div><p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Untuk menambah soal, silakan buka Google Sheets Bapak dan tambahkan baris baru di tab <b>BankSoal</b>. Data di sini akan otomatis terupdate.</p><button class="btn btn-yellow" style="margin-top:16px; width:100%;" onclick="fetchAdminData()">🔄 Refresh Soal</button></div></div>
             </div>
         </div>
 
+        <!-- VIEW TENTANG -->
         <div id="view-tentang" class="view">
             <div class="grid-layout" style="grid-template-columns: 1fr;">
                 <div class="card" style="text-align:center; padding:40px;">
@@ -326,71 +281,33 @@
     <!-- OVERLAY DIAGNOSTIC -->
     <div id="diagnosticScreen">
         <div class="diag-container">
-            <!-- Welcome + Input Nama -->
             <div id="diag-welcome" class="diag-welcome">
                 <div class="diag-welcome-icon">🚀</div>
                 <h1 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 12px;">Yuk, Cek Kemampuanmu!</h1>
                 <p style="color: var(--text-muted); margin-bottom: 24px;">Ini bukan ujian untuk menentukan peringkat. Ini petualangan untuk mencari tahu di mana kekuatanmu.</p>
-                
                 <div style="width: 100%; max-width: 300px; margin: 0 auto 24px;">
-                    <div class="input-group">
-                        <label>Nama Lengkap</label>
-                        <input type="text" id="studentName" placeholder="Contoh: Ahmad Fauzi">
-                    </div>
-                    <div class="input-group">
-                        <label>Kelas</label>
-                        <select id="studentClass">
-                            <option value="6A">Kelas 6A</option>
-                            <option value="6B">Kelas 6B</option>
-                            <option value="5A">Kelas 5A</option>
-                            <option value="4A">Kelas 4A</option>
-                        </select>
-                    </div>
+                    <div class="input-group"><label>Nama Lengkap</label><input type="text" id="studentName" placeholder="Contoh: Ahmad Fauzi"></div>
+                    <div class="input-group"><label>Kelas</label><select id="studentClass"><option value="6A">Kelas 6A</option><option value="6B">Kelas 6B</option><option value="5A">Kelas 5A</option><option value="4A">Kelas 4A</option></select></div>
                 </div>
-
                 <button class="btn btn-yellow" style="width: 100%; font-size: 1.1rem; padding: 16px;" onclick="startQuiz()">Mulai Petualangan</button>
                 <button class="btn" style="width: 100%; background: transparent; color: var(--text-muted); margin-top: 12px;" onclick="closeDiagnostic()">Nanti saja</button>
             </div>
 
-            <!-- Quiz -->
             <div id="diag-quiz" class="diag-quiz">
-                <div style="margin-bottom: 24px;">
-                    <div class="diag-progress-container"><div class="diag-progress-bar" id="progressBar"></div></div>
-                    <div id="progressText" style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-align: right;">Soal 1 dari 3</div>
-                </div>
-                <div class="diag-question-card">
-                    <div id="questionTopic" style="display: inline-block; background: rgba(14, 165, 233, 0.1); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 16px;">Bilangan</div>
-                    <div id="questionText" style="font-size: 1.1rem; font-weight: 600; line-height: 1.6; margin-bottom: 24px;">Memuat soal...</div>
-                    <div id="optionsList" class="diag-options-list"></div>
-                </div>
+                <div style="margin-bottom: 24px;"><div class="diag-progress-container"><div class="diag-progress-bar" id="progressBar"></div></div><div id="progressText" style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-align: right;">Soal 1 dari 3</div></div>
+                <div class="diag-question-card"><div id="questionTopic" style="display: inline-block; background: rgba(14, 165, 233, 0.1); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 16px;">Bilangan</div><div id="questionText" style="font-size: 1.1rem; font-weight: 600; line-height: 1.6; margin-bottom: 24px;">Memuat soal...</div><div id="optionsList" class="diag-options-list"></div></div>
                 <button class="btn btn-yellow" id="btnNext" style="width: 100%; font-size: 1.1rem; padding: 16px; opacity: 0.5; cursor: not-allowed;" onclick="nextQuestion()" disabled>Lanjut</button>
             </div>
 
-            <!-- Loading -->
-            <div id="diag-loading" class="diag-loading">
-                <div><span class="loader-dot"></span><span class="loader-dot" style="animation-delay:0.2s;"></span><span class="loader-dot" style="animation-delay:0.4s;"></span></div>
-                <h2 style="font-family: var(--font-heading); margin-top: 20px;">Mengirim data ke Guru...</h2>
-            </div>
-
-            <!-- Result -->
-            <div id="diag-result" class="diag-result">
-                <div style="font-size: 4rem; margin-bottom: 16px;">🎉</div>
-                <h2 style="font-family: var(--font-heading);">Hebat! Kamu Sudah Selesai.</h2>
-                <p style="color: var(--text-muted); margin-bottom: 24px;">Hasil tes ini sudah dikirim ke Guru dan masuk ke Dashboard-mu!</p>
-                <button class="btn btn-yellow" style="width: 100%; font-size: 1.1rem; padding: 16px;" onclick="closeDiagnostic()">Lihat Dashboard</button>
-            </div>
+            <div id="diag-loading" class="diag-loading"><div><span class="loader-dot"></span><span class="loader-dot" style="animation-delay:0.2s;"></span><span class="loader-dot" style="animation-delay:0.4s;"></span></div><h2 style="font-family: var(--font-heading); margin-top: 20px;">Mengirim data ke Guru...</h2></div>
+            <div id="diag-result" class="diag-result"><div style="font-size: 4rem; margin-bottom: 16px;">🎉</div><h2 style="font-family: var(--font-heading);">Hebat! Kamu Sudah Selesai.</h2><p style="color: var(--text-muted); margin-bottom: 24px;">Hasil tes ini sudah dikirim ke Guru dan masuk ke Dashboard-mu!</p><button class="btn btn-yellow" style="width: 100%; font-size: 1.1rem; padding: 16px;" onclick="closeDiagnostic()">Lihat Dashboard</button></div>
         </div>
     </div>
 
     <script>
-        // ==========================================
-        // KONFIGURASI URL GOOGLE APPS SCRIPT
-        // ==========================================
+        // === MASUKKAN URL APPS SCRIPT DI SINI ===
         const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbx_u6hsHuXa6e9pCPY4NxOxPmZE4auH0Ll7GjQu3iWNECDuDFp5vLwXnahR01DjJF7Q/exec";
 
-        // ==========================================
-        // 1. LOGIKA UI & NAVIGASI
-        // ==========================================
         const html = document.documentElement;
         const sidebar = document.getElementById('sidebar');
         const views = document.querySelectorAll('.view');
@@ -400,7 +317,7 @@
         
         const pageConfig = {
             'view-siswa': { title: 'Halo, Siswa! 👋', subtitle: 'Selamat datang di Math Ready SD' },
-            'view-guru': { title: 'Dashboard Guru', subtitle: 'Pantau perkembangan kelas' },
+            'view-guru': { title: 'Dashboard Guru', subtitle: 'Data nilai real-time dari Google Sheets' },
             'view-orangtua': { title: 'Portal Orang Tua', subtitle: 'Ringkasan belajar anak' },
             'view-admin': { title: 'Panel Admin', subtitle: 'Kelola konten & bank soal' },
             'view-tentang': { title: 'Tentang Platform', subtitle: 'Informasi & Profil Pengembang' }
@@ -420,26 +337,84 @@
                 pageSubtitle.innerText = pageConfig[viewId].subtitle;
             }
             if (window.innerWidth <= 768) sidebar.classList.remove('mobile-open');
-            if (viewId === 'view-guru') renderTeacherChart();
+            
+            // Tarik data otomatis saat menu dibuka
+            if (viewId === 'view-guru') {
+                renderTeacherChart();
+                fetchGuruData();
+            }
+            if (viewId === 'view-admin') {
+                fetchAdminData();
+            }
         }
 
         document.getElementById('collapseBtn').addEventListener('click', (e) => { e.preventDefault(); sidebar.classList.toggle('collapsed'); });
         document.getElementById('mobileMenuBtn').addEventListener('click', () => sidebar.classList.toggle('mobile-open'));
-        
         document.getElementById('themeToggle').addEventListener('click', (e) => {
             e.preventDefault();
-            if (html.getAttribute('data-theme') === 'dark') {
-                html.setAttribute('data-theme', 'light'); localStorage.setItem('theme', 'light');
-            } else {
-                html.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark');
-            }
-            renderDashboardCharts(); 
-            if(document.getElementById('view-guru').classList.contains('active')) renderTeacherChart();
+            if (html.getAttribute('data-theme') === 'dark') { html.setAttribute('data-theme', 'light'); localStorage.setItem('theme', 'light'); } 
+            else { html.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); }
+            renderDashboardCharts(); if(document.getElementById('view-guru').classList.contains('active')) renderTeacherChart();
         });
         if (localStorage.getItem('theme') === 'dark') html.setAttribute('data-theme', 'dark');
 
         // ==========================================
-        // 2. LOGIKA DIAGNOSTIC & KIRIM KE DATABASE
+        // FUNGSI TARIK DATA DARI GOOGLE SHEETS
+        // ==========================================
+        async function fetchGuruData() {
+            const tbody = document.getElementById('tableGuruBody');
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Memuat data dari Google Sheets...</td></tr>';
+            try {
+                const response = await fetch(URL_APPS_SCRIPT);
+                const data = await response.json();
+                
+                tbody.innerHTML = '';
+                if(data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Belum ada siswa yang mengerjakan tes.</td></tr>';
+                    document.getElementById('totalSiswa').innerText = '0';
+                    return;
+                }
+
+                // Data dari Sheets: [Waktu, Nama, Kelas, Bilangan, Geometri, Data, Penalaran, Readiness]
+                data.reverse(); // Tampilkan yang terbaru di atas
+                document.getElementById('totalSiswa').innerText = data.length;
+
+                data.forEach(row => {
+                    const tr = document.createElement('tr');
+                    const readiness = parseInt(row[7]) || 0;
+                    const status = readiness >= 70 ? '<span class="tag tag-green">Tuntas</span>' : '<span class="tag tag-red">Remedial</span>';
+                    
+                    tr.innerHTML = `
+                        <td><strong>${row[1]}</strong></td>
+                        <td>${row[2]}</td>
+                        <td>${row[3]}</td>
+                        <td>${row[4]}</td>
+                        <td>${row[6]}</td>
+                        <td><strong>${readiness}</strong></td>
+                        <td>${status}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (error) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:red;">Gagal memuat data. Pastikan URL Apps Script benar.</td></tr>';
+            }
+        }
+
+        async function fetchAdminData() {
+            const tbody = document.getElementById('tableSoalBody');
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Memuat data soal...</td></tr>';
+            // Simulasi (Karena data soal statis di HTML)
+            setTimeout(() => {
+                tbody.innerHTML = `
+                    <tr><td>1</td><td>Bilangan</td><td>PG</td><td>Ibu memiliki 1/2 kg gula...</td><td>C</td></tr>
+                    <tr><td>2</td><td>Geometri</td><td>PG</td><td>Tono menyusun kubus...</td><td>C</td></tr>
+                    <tr><td>3</td><td>Penalaran</td><td>PGK</td><td>Pilih semua pernyataan...</td><td>A, C</td></tr>
+                `;
+            }, 500);
+        }
+
+        // ==========================================
+        // LOGIKA DIAGNOSTIC
         // ==========================================
         const questionsData = [
             { id: 1, domain: "Bilangan", type: "PG", question: "Ibu memiliki 1/2 kg gula dan 2/4 kg tepung. Manakah pernyataan yang benar?", options: ["Gula lebih berat", "Tepung lebih berat", "Berat keduanya sama", "Tidak bisa ditentukan"], correctAnswer: 2 },
@@ -460,14 +435,9 @@
             document.getElementById('diag-loading').style.display = 'none';
             document.getElementById('diag-result').style.display = 'none';
             currentQuestionIndex = 0;
-            document.getElementById('studentName').value = ''; // Reset input
-            
+            document.getElementById('studentName').value = '';
             navItems.forEach(nav => nav.classList.remove('active'));
             if (el) el.classList.add('active');
-            else {
-                const nav = Array.from(navItems).find(n => n.getAttribute('onclick')?.includes('openDiagnostic'));
-                if (nav) nav.classList.add('active');
-            }
         }
 
         function closeDiagnostic() {
@@ -479,15 +449,8 @@
         function startQuiz() {
             studentName = document.getElementById('studentName').value.trim();
             studentClass = document.getElementById('studentClass').value;
-            
-            if (!studentName) {
-                alert("Tolong isi Nama Lengkap terlebih dahulu ya!");
-                return;
-            }
-
-            // Ubah sapaan di Dashboard
+            if (!studentName) { alert("Tolong isi Nama Lengkap terlebih dahulu ya!"); return; }
             document.getElementById('pageTitle').innerText = `Halo, ${studentName.split(' ')[0]}! 👋`;
-
             document.getElementById('diag-welcome').style.display = 'none';
             document.getElementById('diag-quiz').style.display = 'flex';
             currentQuestionIndex = 0;
@@ -497,18 +460,13 @@
         function renderQuestion() {
             const q = questionsData[currentQuestionIndex];
             selectedOptions = [];
-            
             document.getElementById('progressBar').style.width = `${((currentQuestionIndex) / questionsData.length) * 100}%`;
             document.getElementById('progressText').innerText = `Soal ${currentQuestionIndex + 1} dari ${questionsData.length}`;
             document.getElementById('questionTopic').innerText = q.domain;
             document.getElementById('questionText').innerText = q.question;
-            
             const btnNext = document.getElementById('btnNext');
-            btnNext.disabled = true;
-            btnNext.style.opacity = '0.5';
-            btnNext.style.cursor = 'not-allowed';
+            btnNext.disabled = true; btnNext.style.opacity = '0.5'; btnNext.style.cursor = 'not-allowed';
             btnNext.innerText = (currentQuestionIndex === questionsData.length - 1) ? "Selesai & Kirim Data" : "Lanjut";
-
             const optionsList = document.getElementById('optionsList');
             optionsList.innerHTML = '';
             q.options.forEach((opt, index) => {
@@ -526,13 +484,8 @@
                 Array.from(document.getElementById('optionsList').children).forEach(child => child.classList.remove('selected'));
                 btnElement.classList.add('selected');
             } else {
-                if (selectedOptions.includes(index)) {
-                    selectedOptions = selectedOptions.filter(i => i !== index);
-                    btnElement.classList.remove('selected');
-                } else {
-                    selectedOptions.push(index);
-                    btnElement.classList.add('selected');
-                }
+                if (selectedOptions.includes(index)) { selectedOptions = selectedOptions.filter(i => i !== index); btnElement.classList.remove('selected'); } 
+                else { selectedOptions.push(index); btnElement.classList.add('selected'); }
             }
             const btnNext = document.getElementById('btnNext');
             btnNext.disabled = selectedOptions.length === 0;
@@ -542,44 +495,27 @@
 
         async function nextQuestion() {
             if (currentQuestionIndex < questionsData.length - 1) {
-                currentQuestionIndex++;
-                renderQuestion();
+                currentQuestionIndex++; renderQuestion();
             } else {
-                // Tampilkan Loading
                 document.getElementById('progressBar').style.width = '100%';
                 document.getElementById('diag-quiz').style.display = 'none';
                 document.getElementById('diag-loading').style.display = 'flex';
                 
-                // Simulasi Skor (Di masa depan bisa dihitung otomatis dari jawaban)
                 const scores = { bilangan: 85, geometri: 70, data: 80, penalaran: 60, readiness: 74 };
-                
-                // 1. Simpan ke LocalStorage (Untuk Dashboard Siswa)
                 localStorage.setItem('math_ready_scores', JSON.stringify(scores));
                 localStorage.setItem('student_name', studentName);
 
-                // 2. Kirim ke Google Sheets Database
                 const dataToSend = {
-                    nama: studentName,
-                    kelas: studentClass,
-                    bilangan: scores.bilangan,
-                    geometri: scores.geometri,
-                    skorData: scores.data,
-                    penalaran: scores.penalaran,
-                    readiness: scores.readiness
+                    nama: studentName, kelas: studentClass, bilangan: scores.bilangan, geometri: scores.geometri,
+                    skorData: scores.data, penalaran: scores.penalaran, readiness: scores.readiness
                 };
 
                 try {
                     await fetch(URL_APPS_SCRIPT, {
-                        method: 'POST',
-                        mode: 'no-cors', // Diperlukan untuk Google Apps Script
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(dataToSend)
+                        method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dataToSend)
                     });
-                } catch (error) {
-                    console.error("Gagal mengirim ke database", error);
-                }
+                } catch (error) { console.error("Gagal mengirim ke database", error); }
 
-                // 3. Selesai, Tampilkan Hasil
                 setTimeout(() => {
                     document.getElementById('diag-loading').style.display = 'none';
                     document.getElementById('diag-result').style.display = 'flex';
@@ -588,20 +524,16 @@
         }
 
         // ==========================================
-        // 3. CHART DASHBOARD SISWA & GURU
+        // CHART RENDER
         // ==========================================
         function renderDashboardCharts() {
             let data = { bilangan: 0, geometri: 0, data: 0, penalaran: 0, readiness: 0 };
             const savedData = localStorage.getItem('math_ready_scores');
-            const savedName = localStorage.getItem('student_name');
-            
             if (savedData) {
                 const parsed = JSON.parse(savedData);
                 data = { bilangan: parsed.bilangan, geometri: parsed.geometri, data: parsed.data || 0, penalaran: parsed.penalaran, readiness: parsed.readiness };
-                if(savedName) document.getElementById('pageTitle').innerText = `Halo, ${savedName.split(' ')[0]}! 👋`;
             }
             document.getElementById('readinessScore').innerText = data.readiness + "%";
-
             const isDark = html.getAttribute('data-theme') === 'dark';
             const trackColor = isDark ? '#334155' : '#E2E8F0';
 
@@ -614,21 +546,14 @@
 
             const gridContainer = document.getElementById('statsGrid');
             gridContainer.innerHTML = '';
-
             statsData.forEach(stat => {
                 const div = document.createElement('div');
                 div.className = 'stat-item';
-                div.innerHTML = `
-                    <div class="chart-container-small"><canvas id="${stat.id}"></canvas><div class="chart-value">${stat.value}</div></div>
-                    <div class="stat-label">${stat.label}</div>
-                    <div class="stat-status ${stat.statusClass}">${stat.status}</div>
-                `;
+                div.innerHTML = `<div class="chart-container-small"><canvas id="${stat.id}"></canvas><div class="chart-value">${stat.value}</div></div><div class="stat-label">${stat.label}</div><div class="stat-status ${stat.statusClass}">${stat.status}</div>`;
                 gridContainer.appendChild(div);
-
                 const ctx = document.getElementById(stat.id).getContext('2d');
                 new Chart(ctx, {
-                    type: 'doughnut',
-                    data: { datasets: [{ data: [stat.value, 100 - stat.value], backgroundColor: [stat.color, trackColor], borderWidth: 0, cutout: '80%' }] },
+                    type: 'doughnut', data: { datasets: [{ data: [stat.value, 100 - stat.value], backgroundColor: [stat.color, trackColor], borderWidth: 0, cutout: '80%' }] },
                     options: { responsive: true, maintainAspectRatio: false, animation: { duration: 1500, easing: 'easeOutQuart' }, plugins: { legend: { display: false }, tooltip: { enabled: false } } }
                 });
             });
@@ -638,32 +563,12 @@
         let teacherChartInstance = null;
         function renderTeacherChart() {
             const isDark = html.getAttribute('data-theme') === 'dark';
-            const textColor = isDark ? '#F8FAFC' : '#0F172A';
-            const gridColor = isDark ? '#334155' : '#E2E8F0';
-
             if (teacherChartInstance) teacherChartInstance.destroy();
-
             const ctx = document.getElementById('teacherChart').getContext('2d');
             teacherChartInstance = new Chart(ctx, {
                 type: 'bar',
-                data: {
-                    labels: ['Bilangan', 'Geometri', 'Data', 'Penalaran'],
-                    datasets: [{
-                        label: 'Rata-rata Kelas (%)',
-                        data: [81, 73, 88, 64],
-                        backgroundColor: ['#0EA5E9', '#10B981', '#F59E0B', '#F43F5E'],
-                        borderRadius: 6
-                    }]
-                },
-                options: {
-                    responsive: true, maintainAspectRatio: false,
-                    animation: { duration: 1000, easing: 'easeOutQuart' },
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        y: { beginAtZero: true, max: 100, grid: { color: gridColor }, ticks: { color: textColor } },
-                        x: { grid: { display: false }, ticks: { color: textColor, font: { weight: 'bold' } } }
-                    }
-                }
+                data: { labels: ['Bilangan', 'Geometri', 'Data', 'Penalaran'], datasets: [{ label: 'Rata-rata Kelas (%)', data: [81, 73, 88, 64], backgroundColor: ['#0EA5E9', '#10B981', '#F59E0B', '#F43F5E'], borderRadius: 6 }] },
+                options: { responsive: true, maintainAspectRatio: false, animation: { duration: 1000 }, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100, grid: { color: isDark ? '#334155' : '#E2E8F0' }, ticks: { color: isDark ? '#F8FAFC' : '#0F172A' } }, x: { ticks: { color: isDark ? '#F8FAFC' : '#0F172A' } } } }
             });
         }
     </script>

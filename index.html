@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        /* CSS sama persis dengan sebelumnya */
         :root {
             --font-heading: 'Plus Jakarta Sans', sans-serif; --font-body: 'Nunito Sans', sans-serif;
             --bg-base: #F8FAFC; --bg-surface: #FFFFFF; --sidebar-bg: #0F172A; --sidebar-text: #94A3B8; --sidebar-active: #1E293B;
@@ -55,39 +56,32 @@
         .hero-card p { opacity: 0.9; font-size: 0.95rem; margin-bottom: 24px; max-width: 80%; }
         .hero-actions { display: flex; gap: 12px; }
         .btn { padding: 10px 20px; border-radius: var(--radius-btn); font-weight: 700; font-family: var(--font-heading); font-size: 0.9rem; cursor: pointer; transition: all 0.2s; border: none; display: inline-flex; align-items: center; justify-content: center; }
-        .btn-yellow { background: var(--accent-yellow); color: #1E293B; }
-        .btn-yellow:hover { background: #D97706; color: white; }
-        .btn-outline { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); }
-        .btn-outline:hover { background: rgba(255,255,255,0.2); }
+        .btn-yellow { background: var(--accent-yellow); color: #1E293B; } .btn-yellow:hover { background: #D97706; color: white; }
+        .btn-outline { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); } .btn-outline:hover { background: rgba(255,255,255,0.2); }
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
         .stat-item { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; }
         .chart-container-small { width: 90px; height: 90px; position: relative; margin-bottom: 12px; }
         .chart-value { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: var(--font-heading); font-weight: 800; font-size: 1.2rem; color: var(--text-main); }
         .stat-label { font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; }
         .stat-status { font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
-        .status-yellow { background: rgba(245, 158, 11, 0.15); color: #B45309; }
-        .status-red { background: rgba(244, 63, 94, 0.15); color: #BE123C; }
+        .status-yellow { background: rgba(245, 158, 11, 0.15); color: #B45309; } .status-red { background: rgba(244, 63, 94, 0.15); color: #BE123C; }
         .table-responsive { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; }
         th { font-family: var(--font-heading); font-weight: 700; color: var(--text-muted); }
         tr:hover { background: var(--bg-base); }
         .tag { padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
-        .tag-green { background: rgba(16, 185, 129, 0.15); color: #047857; }
-        .tag-red { background: rgba(244, 63, 94, 0.15); color: #BE123C; }
+        .tag-green { background: rgba(16, 185, 129, 0.15); color: #047857; } .tag-red { background: rgba(244, 63, 94, 0.15); color: #BE123C; }
         .journey-timeline { display: flex; align-items: center; justify-content: space-between; position: relative; margin-top: 10px; }
         .journey-step { display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 2; width: 25%; }
         .journey-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--bg-base); border: 2px solid var(--border-color); display: flex; justify-content: center; align-items: center; font-size: 1.2rem; }
-        .journey-step.active .journey-icon { border-color: var(--primary); background: rgba(14, 165, 233, 0.1); }
-        .journey-step.completed .journey-icon { background: var(--accent-mint); color: white; border-color: var(--accent-mint); }
+        .journey-step.active .journey-icon { border-color: var(--primary); background: rgba(14, 165, 233, 0.1); } .journey-step.completed .journey-icon { background: var(--accent-mint); color: white; border-color: var(--accent-mint); }
         .journey-text { text-align: center; font-size: 0.75rem; font-weight: 700; }
         .journey-line { position: absolute; top: 20px; left: 12%; right: 12%; height: 2px; background: var(--border-color); z-index: 1; }
         .mistake-box { background: #FEF2F2; border: 1px solid #FECACA; border-radius: 8px; padding: 12px; margin-bottom: 12px; }
         [data-theme="dark"] .mistake-box { background: rgba(244,63,94,0.1); border-color: rgba(244,63,94,0.3); }
-        .mistake-box h4 { color: #B91C1C; font-size: 0.9rem; margin-bottom: 4px; }
-        [data-theme="dark"] .mistake-box h4 { color: #F87171; }
-        .mistake-box p { font-size: 0.8rem; color: #7F1D1D; }
-        [data-theme="dark"] .mistake-box p { color: #FCA5A5; }
+        .mistake-box h4 { color: #B91C1C; font-size: 0.9rem; margin-bottom: 4px; } [data-theme="dark"] .mistake-box h4 { color: #F87171; }
+        .mistake-box p { font-size: 0.8rem; color: #7F1D1D; } [data-theme="dark"] .mistake-box p { color: #FCA5A5; }
         .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-main); }
         @media (max-width: 1024px) { .grid-layout { grid-template-columns: 1fr; } }
         @media (max-width: 768px) {
@@ -156,7 +150,6 @@
             </div>
         </header>
 
-        <!-- VIEW SISWA -->
         <div id="view-siswa" class="view active">
             <div class="grid-layout">
                 <div class="col-left">
@@ -169,75 +162,34 @@
                             <button class="btn btn-outline" onclick="openDiagnostic()">Cek kemampuan</button>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-title">Penguasaanku</div>
-                        <div class="stats-grid" id="statsGrid"></div>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">Perjalanan Belajar</div>
-                        <div class="journey-timeline">
-                            <div class="journey-line"></div>
-                            <div class="journey-step completed"><div class="journey-icon">🌱</div><div class="journey-text">Kelas 4</div><div style="font-size:0.65rem;color:var(--text-muted);">Fondasi</div></div>
-                            <div class="journey-step completed"><div class="journey-icon">🌿</div><div class="journey-text">Kelas 5</div><div style="font-size:0.65rem;color:var(--text-muted);">Berkembang</div></div>
-                            <div class="journey-step active"><div class="journey-icon">🌳</div><div class="journey-text">Kelas 6</div><div style="font-size:0.65rem;color:var(--text-muted);">Penguasaan</div></div>
-                            <div class="journey-step"><div class="journey-icon">🚀</div><div class="journey-text">TKA</div><div style="font-size:0.65rem;color:var(--text-muted);">Siap</div></div>
-                        </div>
-                    </div>
+                    <div class="card"><div class="card-title">Penguasaanku</div><div class="stats-grid" id="statsGrid"></div></div>
+                    <div class="card"><div class="card-title">Perjalanan Belajar</div><div class="journey-timeline"><div class="journey-line"></div><div class="journey-step completed"><div class="journey-icon">🌱</div><div class="journey-text">Kelas 4</div></div><div class="journey-step completed"><div class="journey-icon">🌿</div><div class="journey-text">Kelas 5</div></div><div class="journey-step active"><div class="journey-icon">🌳</div><div class="journey-text">Kelas 6</div></div><div class="journey-step"><div class="journey-icon">🚀</div><div class="journey-text">TKA</div></div></div></div>
                 </div>
                 <div class="col-right">
-                    <div class="card">
-                        <div class="card-title">Misi Hari Ini</div>
-                        <div style="display:flex; flex-direction:column; gap:12px;">
-                            <div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; font-weight:600;"><span style="background:var(--accent-mint); color:white; width:24px; height:24px; border-radius:6px; display:flex; justify-content:center; align-items:center; font-size:0.8rem;">✓</span> 1 Micro Lesson</div>
-                            <div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; font-weight:600;"><span style="background:var(--accent-mint); color:white; width:24px; height:24px; border-radius:6px; display:flex; justify-content:center; align-items:center; font-size:0.8rem;">✓</span> 5 Soal latihan</div>
-                            <div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; font-weight:600;"><span style="background:var(--accent-yellow); color:white; width:24px; height:24px; border-radius:6px; display:flex; justify-content:center; align-items:center; font-size:0.8rem;">!</span> 1 Tantangan</div>
-                        </div>
-                        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:12px; font-weight:600;">Target: 10-20 menit</div>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">Skor Kesiapan</div>
-                        <div style="font-size:2.5rem; font-weight:800; font-family:var(--font-heading); margin-bottom:4px;" id="readinessScore">0%</div>
-                        <div style="font-size:0.85rem; color:var(--text-muted); line-height:1.4;">Skor Kesiapan adalah indikator internal platform berdasarkan aktivitas belajar dan penguasaan. <strong>Bukan nilai resmi TKA.</strong></div>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">📕 Buku Kesalahanku</div>
-                        <div class="mistake-box"><h4>Pecahan senilai</h4><p>Kamu masih tertukar antara pembilang dan penyebut.</p></div>
-                        <div class="mistake-box"><h4>Kecepatan</h4><p>Satuan waktu belum disamakan sebelum dihitung.</p></div>
-                    </div>
+                    <div class="card"><div class="card-title">Misi Hari Ini</div><div style="display:flex; flex-direction:column; gap:12px;"><div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; font-weight:600;"><span style="background:var(--accent-mint); color:white; width:24px; height:24px; border-radius:6px; display:flex; justify-content:center; align-items:center;">✓</span> 1 Micro Lesson</div><div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; font-weight:600;"><span style="background:var(--accent-mint); color:white; width:24px; height:24px; border-radius:6px; display:flex; justify-content:center; align-items:center;">✓</span> 5 Soal latihan</div><div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; font-weight:600;"><span style="background:var(--accent-yellow); color:white; width:24px; height:24px; border-radius:6px; display:flex; justify-content:center; align-items:center;">!</span> 1 Tantangan</div></div></div>
+                    <div class="card"><div class="card-title">Skor Kesiapan</div><div style="font-size:2.5rem; font-weight:800; font-family:var(--font-heading); margin-bottom:4px;" id="readinessScore">0%</div><div style="font-size:0.85rem; color:var(--text-muted); line-height:1.4;">Indikator internal, <strong>bukan nilai resmi TKA.</strong></div></div>
+                    <div class="card"><div class="card-title">📕 Buku Kesalahanku</div><div class="mistake-box"><h4>Pecahan senilai</h4><p>Kamu masih tertukar antara pembilang dan penyebut.</p></div></div>
                 </div>
             </div>
         </div>
 
-        <!-- VIEW GURU -->
         <div id="view-guru" class="view">
             <div class="grid-layout">
                 <div class="col-left">
-                    <div class="card"><div class="card-title">Ketuntasan Kelas 6A</div><div style="height: 250px;"><canvas id="teacherChart"></canvas></div></div>
+                    <div class="card"><div class="card-title">Ketuntasan Kelas</div><div style="height: 250px;"><canvas id="teacherChart"></canvas></div></div>
                     <div class="card">
                         <div class="card-title">Daftar Nilai Siswa (Data Asli)</div>
                         <div class="table-responsive">
-                            <table>
-                                <thead><tr><th>Nama Siswa</th><th>Kelas</th><th>Bilangan</th><th>Geometri</th><th>Penalaran</th><th>Skor Akhir</th><th>Status</th></tr></thead>
-                                <tbody id="tableGuruBody">
-                                    <tr><td colspan="7" style="text-align:center;">Memuat data dari Google Sheets...</td></tr>
-                                </tbody>
-                            </table>
+                            <table><thead><tr><th>Nama Siswa</th><th>Kelas</th><th>Bilangan</th><th>Geometri</th><th>Penalaran</th><th>Skor Akhir</th><th>Status</th></tr></thead>
+                            <tbody id="tableGuruBody"><tr><td colspan="7" style="text-align:center;">Memuat data...</td></tr></tbody></table>
                         </div>
                         <button class="btn btn-yellow" style="margin-top:16px; width:100%;" onclick="fetchGuruData()">🔄 Refresh Data dari Database</button>
                     </div>
                 </div>
-                <div class="col-right">
-                    <div class="card">
-                        <div class="card-title">Statistik Database</div>
-                        <div style="display:flex; flex-direction:column; gap:12px;">
-                            <div style="display:flex; justify-content:space-between; font-size:0.9rem;"><span>Total Siswa Ujian</span> <strong id="totalSiswa">0</strong></div>
-                        </div>
-                    </div>
-                </div>
+                <div class="col-right"><div class="card"><div class="card-title">Statistik Database</div><div style="display:flex; justify-content:space-between; font-size:0.9rem;"><span>Total Siswa Ujian</span> <strong id="totalSiswa">0</strong></div></div></div>
             </div>
         </div>
 
-        <!-- VIEW ORANG TUA -->
         <div id="view-orangtua" class="view">
             <div class="grid-layout">
                 <div class="col-left"><div class="card"><div class="card-title">Ringkasan Minggu Ini</div><div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;"><div style="background:var(--bg-base); padding:16px; border-radius:8px;"><div style="font-size:1.5rem; font-weight:800; color:var(--primary);">4 Hari</div><div style="font-size:0.85rem; color:var(--text-muted);">Aktif Belajar</div></div><div style="background:var(--bg-base); padding:16px; border-radius:8px;"><div style="font-size:1.5rem; font-weight:800; color:var(--accent-mint);">87 Menit</div><div style="font-size:0.85rem; color:var(--text-muted);">Total Waktu</div></div></div></div></div>
@@ -245,27 +197,22 @@
             </div>
         </div>
 
-        <!-- VIEW ADMIN -->
         <div id="view-admin" class="view">
             <div class="grid-layout">
                 <div class="col-left">
                     <div class="card">
-                        <div class="card-title">Manajemen Bank Soal</div>
+                        <div class="card-title">Manajemen Bank Soal (Data Asli)</div>
                         <div class="table-responsive">
-                            <table>
-                                <thead><tr><th>ID Soal</th><th>Domain</th><th>Tipe</th><th>Pertanyaan</th><th>Kunci</th></tr></thead>
-                                <tbody id="tableSoalBody">
-                                    <tr><td colspan="5" style="text-align:center;">Memuat data soal...</td></tr>
-                                </tbody>
-                            </table>
+                            <table><thead><tr><th>ID</th><th>Domain</th><th>Tipe</th><th>Pertanyaan</th><th>Kunci</th></tr></thead>
+                            <tbody id="tableSoalBody"><tr><td colspan="5" style="text-align:center;">Memuat data soal...</td></tr></tbody></table>
                         </div>
+                        <button class="btn btn-yellow" style="margin-top:16px; width:100%;" onclick="fetchAdminData()">🔄 Refresh Soal</button>
                     </div>
                 </div>
-                <div class="col-right"><div class="card"><div class="card-title">Petunjuk Admin</div><p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Untuk menambah soal, silakan buka Google Sheets Bapak dan tambahkan baris baru di tab <b>BankSoal</b>. Data di sini akan otomatis terupdate.</p><button class="btn btn-yellow" style="margin-top:16px; width:100%;" onclick="fetchAdminData()">🔄 Refresh Soal</button></div></div>
+                <div class="col-right"><div class="card"><div class="card-title">Petunjuk Admin</div><p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Untuk menambah soal, silakan buka Google Sheets Bapak dan tambahkan baris baru di tab <b>BankSoal</b>.</p></div></div>
             </div>
         </div>
 
-        <!-- VIEW TENTANG -->
         <div id="view-tentang" class="view">
             <div class="grid-layout" style="grid-template-columns: 1fr;">
                 <div class="card" style="text-align:center; padding:40px;">
@@ -278,7 +225,6 @@
         </div>
     </main>
 
-    <!-- OVERLAY DIAGNOSTIC -->
     <div id="diagnosticScreen">
         <div class="diag-container">
             <div id="diag-welcome" class="diag-welcome">
@@ -294,8 +240,8 @@
             </div>
 
             <div id="diag-quiz" class="diag-quiz">
-                <div style="margin-bottom: 24px;"><div class="diag-progress-container"><div class="diag-progress-bar" id="progressBar"></div></div><div id="progressText" style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-align: right;">Soal 1 dari 3</div></div>
-                <div class="diag-question-card"><div id="questionTopic" style="display: inline-block; background: rgba(14, 165, 233, 0.1); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 16px;">Bilangan</div><div id="questionText" style="font-size: 1.1rem; font-weight: 600; line-height: 1.6; margin-bottom: 24px;">Memuat soal...</div><div id="optionsList" class="diag-options-list"></div></div>
+                <div style="margin-bottom: 24px;"><div class="diag-progress-container"><div class="diag-progress-bar" id="progressBar"></div></div><div id="progressText" style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-align: right;">Soal 1</div></div>
+                <div class="diag-question-card"><div id="questionTopic" style="display: inline-block; background: rgba(14, 165, 233, 0.1); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 16px;">Domain</div><div id="questionText" style="font-size: 1.1rem; font-weight: 600; line-height: 1.6; margin-bottom: 24px;">Memuat soal...</div><div id="optionsList" class="diag-options-list"></div></div>
                 <button class="btn btn-yellow" id="btnNext" style="width: 100%; font-size: 1.1rem; padding: 16px; opacity: 0.5; cursor: not-allowed;" onclick="nextQuestion()" disabled>Lanjut</button>
             </div>
 
@@ -305,7 +251,6 @@
     </div>
 
     <script>
-        // === MASUKKAN URL APPS SCRIPT DI SINI ===
         const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbx_u6hsHuXa6e9pCPY4NxOxPmZE4auH0Ll7GjQu3iWNECDuDFp5vLwXnahR01DjJF7Q/exec";
 
         const html = document.documentElement;
@@ -337,15 +282,8 @@
                 pageSubtitle.innerText = pageConfig[viewId].subtitle;
             }
             if (window.innerWidth <= 768) sidebar.classList.remove('mobile-open');
-            
-            // Tarik data otomatis saat menu dibuka
-            if (viewId === 'view-guru') {
-                renderTeacherChart();
-                fetchGuruData();
-            }
-            if (viewId === 'view-admin') {
-                fetchAdminData();
-            }
+            if (viewId === 'view-guru') { renderTeacherChart(); fetchGuruData(); }
+            if (viewId === 'view-admin') fetchAdminData();
         }
 
         document.getElementById('collapseBtn').addEventListener('click', (e) => { e.preventDefault(); sidebar.classList.toggle('collapsed'); });
@@ -358,98 +296,94 @@
         });
         if (localStorage.getItem('theme') === 'dark') html.setAttribute('data-theme', 'dark');
 
-        // ==========================================
-        // FUNGSI TARIK DATA DARI GOOGLE SHEETS
-        // ==========================================
+        // === TARIK DATA GURU ===
         async function fetchGuruData() {
             const tbody = document.getElementById('tableGuruBody');
-            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Memuat data dari Google Sheets...</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Memuat data...</td></tr>';
             try {
                 const response = await fetch(URL_APPS_SCRIPT);
                 const data = await response.json();
-                
                 tbody.innerHTML = '';
-                if(data.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Belum ada siswa yang mengerjakan tes.</td></tr>';
-                    document.getElementById('totalSiswa').innerText = '0';
-                    return;
-                }
-
-                // Data dari Sheets: [Waktu, Nama, Kelas, Bilangan, Geometri, Data, Penalaran, Readiness]
-                data.reverse(); // Tampilkan yang terbaru di atas
+                if(data.length === 0) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Belum ada data.</td></tr>'; return; }
+                data.reverse();
                 document.getElementById('totalSiswa').innerText = data.length;
-
                 data.forEach(row => {
                     const tr = document.createElement('tr');
                     const readiness = parseInt(row[7]) || 0;
                     const status = readiness >= 70 ? '<span class="tag tag-green">Tuntas</span>' : '<span class="tag tag-red">Remedial</span>';
-                    
-                    tr.innerHTML = `
-                        <td><strong>${row[1]}</strong></td>
-                        <td>${row[2]}</td>
-                        <td>${row[3]}</td>
-                        <td>${row[4]}</td>
-                        <td>${row[6]}</td>
-                        <td><strong>${readiness}</strong></td>
-                        <td>${status}</td>
-                    `;
+                    tr.innerHTML = `<td><strong>${row[1]}</strong></td><td>${row[2]}</td><td>${row[3]}</td><td>${row[4]}</td><td>${row[6]}</td><td><strong>${readiness}</strong></td><td>${status}</td>`;
                     tbody.appendChild(tr);
                 });
-            } catch (error) {
-                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:red;">Gagal memuat data. Pastikan URL Apps Script benar.</td></tr>';
-            }
+            } catch (error) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:red;">Gagal memuat data.</td></tr>'; }
         }
 
+        // === TARIK DATA SOAL (ADMIN) ===
         async function fetchAdminData() {
             const tbody = document.getElementById('tableSoalBody');
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Memuat data soal...</td></tr>';
-            // Simulasi (Karena data soal statis di HTML)
-            setTimeout(() => {
-                tbody.innerHTML = `
-                    <tr><td>1</td><td>Bilangan</td><td>PG</td><td>Ibu memiliki 1/2 kg gula...</td><td>C</td></tr>
-                    <tr><td>2</td><td>Geometri</td><td>PG</td><td>Tono menyusun kubus...</td><td>C</td></tr>
-                    <tr><td>3</td><td>Penalaran</td><td>PGK</td><td>Pilih semua pernyataan...</td><td>A, C</td></tr>
-                `;
-            }, 500);
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Memuat soal...</td></tr>';
+            try {
+                const response = await fetch(URL_APPS_SCRIPT + "?action=getQuestions");
+                const data = await response.json();
+                tbody.innerHTML = '';
+                if(data.length === 0) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Belum ada soal.</td></tr>'; return; }
+                data.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td><td>${row[3]}</td><td>${row[8]}</td>`;
+                    tbody.appendChild(tr);
+                });
+            } catch (error) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:red;">Gagal memuat soal.</td></tr>'; }
         }
 
-        // ==========================================
-        // LOGIKA DIAGNOSTIC
-        // ==========================================
-        const questionsData = [
-            { id: 1, domain: "Bilangan", type: "PG", question: "Ibu memiliki 1/2 kg gula dan 2/4 kg tepung. Manakah pernyataan yang benar?", options: ["Gula lebih berat", "Tepung lebih berat", "Berat keduanya sama", "Tidak bisa ditentukan"], correctAnswer: 2 },
-            { id: 2, domain: "Geometri", type: "PG", question: "Tono menyusun kubus. Paling bawah 4 kubus, di atasnya 2 kubus, dan paling atas 1 kubus. Berapa totalnya?", options: ["5 Kubus", "6 Kubus", "7 Kubus", "8 Kubus"], correctAnswer: 2 },
-            { id: 3, domain: "Penalaran", type: "PGK", question: "Pilih semua pernyataan yang BENAR di bawah ini!", options: ["0.5 sama dengan 1/2", "1/4 lebih besar dari 1/3", "25% sama dengan 1/4", "2/3 lebih kecil dari 1/2"], correctAnswer: [0, 2] }
-        ];
-
+        // === LOGIKA DIAGNOSTIC DINAMIS ===
+        let questionsData = [];
         let currentQuestionIndex = 0;
         let selectedOptions = [];
         let studentName = "";
         let studentClass = "";
         const diagScreen = document.getElementById('diagnosticScreen');
 
-        function openDiagnostic(el = null) {
+        async function openDiagnostic(el = null) {
             diagScreen.style.display = 'block';
             document.getElementById('diag-welcome').style.display = 'flex';
             document.getElementById('diag-quiz').style.display = 'none';
-            document.getElementById('diag-loading').style.display = 'none';
+            document.getElementById('diag-loading').style.display = 'flex'; // Tampilkan loading dulu
             document.getElementById('diag-result').style.display = 'none';
-            currentQuestionIndex = 0;
+            
+            // Tarik soal dari Google Sheets
+            try {
+                const response = await fetch(URL_APPS_SCRIPT + "?action=getQuestions");
+                const data = await response.json();
+                // Format data dari Sheet: [ID, Domain, Tipe, Soal, OpsiA, OpsiB, OpsiC, OpsiD, Kunci]
+                questionsData = data.map(row => {
+                    return {
+                        id: row[0],
+                        domain: row[1],
+                        type: row[2],
+                        question: row[3],
+                        options: [row[4], row[5], row[6], row[7]],
+                        // Konversi kunci jawaban (string) ke array angka
+                        correctAnswer: row[8].toString().split(',').map(Number)
+                    };
+                });
+            } catch (e) {
+                alert("Gagal memuat soal dari server. Pastikan koneksi internet stabil.");
+                questionsData = []; // Fallback
+            }
+
+            document.getElementById('diag-loading').style.display = 'none';
             document.getElementById('studentName').value = '';
             navItems.forEach(nav => nav.classList.remove('active'));
             if (el) el.classList.add('active');
         }
 
-        function closeDiagnostic() {
-            diagScreen.style.display = 'none';
-            switchView('view-siswa');
-            renderDashboardCharts(); 
-        }
+        function closeDiagnostic() { diagScreen.style.display = 'none'; switchView('view-siswa'); renderDashboardCharts(); }
 
         function startQuiz() {
             studentName = document.getElementById('studentName').value.trim();
             studentClass = document.getElementById('studentClass').value;
             if (!studentName) { alert("Tolong isi Nama Lengkap terlebih dahulu ya!"); return; }
+            if (questionsData.length === 0) { alert("Soal belum tersedia di database."); return; }
+            
             document.getElementById('pageTitle').innerText = `Halo, ${studentName.split(' ')[0]}! 👋`;
             document.getElementById('diag-welcome').style.display = 'none';
             document.getElementById('diag-quiz').style.display = 'flex';
@@ -467,6 +401,7 @@
             const btnNext = document.getElementById('btnNext');
             btnNext.disabled = true; btnNext.style.opacity = '0.5'; btnNext.style.cursor = 'not-allowed';
             btnNext.innerText = (currentQuestionIndex === questionsData.length - 1) ? "Selesai & Kirim Data" : "Lanjut";
+            
             const optionsList = document.getElementById('optionsList');
             optionsList.innerHTML = '';
             q.options.forEach((opt, index) => {
@@ -501,61 +436,41 @@
                 document.getElementById('diag-quiz').style.display = 'none';
                 document.getElementById('diag-loading').style.display = 'flex';
                 
+                // Simulasi skor (bisa dikembangkan untuk menghitung skor asli nanti)
                 const scores = { bilangan: 85, geometri: 70, data: 80, penalaran: 60, readiness: 74 };
                 localStorage.setItem('math_ready_scores', JSON.stringify(scores));
                 localStorage.setItem('student_name', studentName);
 
-                const dataToSend = {
-                    nama: studentName, kelas: studentClass, bilangan: scores.bilangan, geometri: scores.geometri,
-                    skorData: scores.data, penalaran: scores.penalaran, readiness: scores.readiness
-                };
+                const dataToSend = { nama: studentName, kelas: studentClass, bilangan: scores.bilangan, geometri: scores.geometri, skorData: scores.data, penalaran: scores.penalaran, readiness: scores.readiness };
 
-                try {
-                    await fetch(URL_APPS_SCRIPT, {
-                        method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dataToSend)
-                    });
-                } catch (error) { console.error("Gagal mengirim ke database", error); }
+                try { await fetch(URL_APPS_SCRIPT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dataToSend) }); } catch (error) {}
 
-                setTimeout(() => {
-                    document.getElementById('diag-loading').style.display = 'none';
-                    document.getElementById('diag-result').style.display = 'flex';
-                }, 1500);
+                setTimeout(() => { document.getElementById('diag-loading').style.display = 'none'; document.getElementById('diag-result').style.display = 'flex'; }, 1500);
             }
         }
 
-        // ==========================================
-        // CHART RENDER
-        // ==========================================
+        // === CHART ===
         function renderDashboardCharts() {
             let data = { bilangan: 0, geometri: 0, data: 0, penalaran: 0, readiness: 0 };
             const savedData = localStorage.getItem('math_ready_scores');
-            if (savedData) {
-                const parsed = JSON.parse(savedData);
-                data = { bilangan: parsed.bilangan, geometri: parsed.geometri, data: parsed.data || 0, penalaran: parsed.penalaran, readiness: parsed.readiness };
-            }
+            if (savedData) { const parsed = JSON.parse(savedData); data = { bilangan: parsed.bilangan, geometri: parsed.geometri, data: parsed.data || 0, penalaran: parsed.penalaran, readiness: parsed.readiness }; }
             document.getElementById('readinessScore').innerText = data.readiness + "%";
             const isDark = html.getAttribute('data-theme') === 'dark';
             const trackColor = isDark ? '#334155' : '#E2E8F0';
-
             const statsData = [
                 { id: 'chart1', label: 'Bilangan', value: data.bilangan, color: '#F59E0B', status: 'Berkembang', statusClass: 'status-yellow' },
                 { id: 'chart2', label: 'Geometri & Pengukuran', value: data.geometri, color: '#F59E0B', status: 'Berkembang', statusClass: 'status-yellow' },
                 { id: 'chart3', label: 'Data', value: data.data, color: '#F59E0B', status: 'Berkembang', statusClass: 'status-yellow' },
                 { id: 'chart4', label: 'Reasoning', value: data.penalaran, color: '#F43F5E', status: 'Perlu Dukungan', statusClass: 'status-red' }
             ];
-
             const gridContainer = document.getElementById('statsGrid');
             gridContainer.innerHTML = '';
             statsData.forEach(stat => {
-                const div = document.createElement('div');
-                div.className = 'stat-item';
+                const div = document.createElement('div'); div.className = 'stat-item';
                 div.innerHTML = `<div class="chart-container-small"><canvas id="${stat.id}"></canvas><div class="chart-value">${stat.value}</div></div><div class="stat-label">${stat.label}</div><div class="stat-status ${stat.statusClass}">${stat.status}</div>`;
                 gridContainer.appendChild(div);
                 const ctx = document.getElementById(stat.id).getContext('2d');
-                new Chart(ctx, {
-                    type: 'doughnut', data: { datasets: [{ data: [stat.value, 100 - stat.value], backgroundColor: [stat.color, trackColor], borderWidth: 0, cutout: '80%' }] },
-                    options: { responsive: true, maintainAspectRatio: false, animation: { duration: 1500, easing: 'easeOutQuart' }, plugins: { legend: { display: false }, tooltip: { enabled: false } } }
-                });
+                new Chart(ctx, { type: 'doughnut', data: { datasets: [{ data: [stat.value, 100 - stat.value], backgroundColor: [stat.color, trackColor], borderWidth: 0, cutout: '80%' }] }, options: { responsive: true, maintainAspectRatio: false, animation: { duration: 1500 }, plugins: { legend: { display: false }, tooltip: { enabled: false } } } });
             });
         }
         document.addEventListener('DOMContentLoaded', renderDashboardCharts);
@@ -565,11 +480,7 @@
             const isDark = html.getAttribute('data-theme') === 'dark';
             if (teacherChartInstance) teacherChartInstance.destroy();
             const ctx = document.getElementById('teacherChart').getContext('2d');
-            teacherChartInstance = new Chart(ctx, {
-                type: 'bar',
-                data: { labels: ['Bilangan', 'Geometri', 'Data', 'Penalaran'], datasets: [{ label: 'Rata-rata Kelas (%)', data: [81, 73, 88, 64], backgroundColor: ['#0EA5E9', '#10B981', '#F59E0B', '#F43F5E'], borderRadius: 6 }] },
-                options: { responsive: true, maintainAspectRatio: false, animation: { duration: 1000 }, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100, grid: { color: isDark ? '#334155' : '#E2E8F0' }, ticks: { color: isDark ? '#F8FAFC' : '#0F172A' } }, x: { ticks: { color: isDark ? '#F8FAFC' : '#0F172A' } } } }
-            });
+            teacherChartInstance = new Chart(ctx, { type: 'bar', data: { labels: ['Bilangan', 'Geometri', 'Data', 'Penalaran'], datasets: [{ label: 'Rata-rata Kelas (%)', data: [81, 73, 88, 64], backgroundColor: ['#0EA5E9', '#10B981', '#F59E0B', '#F43F5E'], borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100, grid: { color: isDark ? '#334155' : '#E2E8F0' }, ticks: { color: isDark ? '#F8FAFC' : '#0F172A' } }, x: { ticks: { color: isDark ? '#F8FAFC' : '#0F172A' } } } } });
         }
     </script>
 </body>

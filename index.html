@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MATH READY SD - Platform Belajar</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Nunito+Sans:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --font-heading: 'Plus Jakarta Sans', sans-serif; --font-body: 'Nunito Sans', sans-serif;
+            --font-heading: 'Plus Jakarta Sans', sans-serif; --font-body: 'Nunito Sans', sans-serif; --font-serif: 'Playfair Display', serif;
             --bg-base: #F8FAFC; --bg-surface: #FFFFFF; --sidebar-bg: #0F172A; --sidebar-text: #94A3B8; --sidebar-active: #1E293B;
             --text-main: #0F172A; --text-muted: #64748B; --primary: #0EA5E9; --primary-hover: #0284C7; --border-color: #E2E8F0;
             --accent-mint: #10B981; --accent-yellow: #F59E0B; --accent-coral: #F43F5E;
@@ -135,10 +135,52 @@
         .input-group label { display: block; font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
         .input-group input, .input-group select { width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-surface); font-family: var(--font-body); font-size: 1rem; color: var(--text-main); outline: none; }
         .input-group input:focus, .input-group select:focus { border-color: var(--primary); }
+
+        /* === CERTIFICATE STYLES === */
+        #certificateModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); z-index: 3000; overflow-y: auto; padding: 20px; }
+        .cert-wrapper { background: white; width: 100%; max-width: 900px; margin: 20px auto; position: relative; border-radius: 8px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); padding: 40px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        
+        /* Bingkai Sertifikat */
+        .cert-border-outer { border: 8px solid #1E3A8A; padding: 8px; width: 100%; height: 100%; }
+        .cert-border-inner { border: 2px solid #F59E0B; padding: 40px 20px; width: 100%; position: relative; background: #F8FAFC; }
+        
+        .cert-title { font-family: var(--font-serif); font-size: 3rem; color: #1E3A8A; margin-bottom: 8px; letter-spacing: 2px; }
+        .cert-subtitle { font-family: var(--font-heading); font-size: 1rem; color: #64748B; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 32px; }
+        
+        .cert-text { font-family: var(--font-body); font-size: 1.1rem; color: #334155; margin-bottom: 8px; }
+        .cert-name { font-family: var(--font-serif); font-size: 2.5rem; font-weight: 800; color: #0F172A; margin-bottom: 16px; border-bottom: 2px solid #E2E8F0; display: inline-block; padding-bottom: 8px; padding-left: 20px; padding-right: 20px;}
+        .cert-desc { font-family: var(--font-body); font-size: 1rem; color: #475569; max-width: 600px; margin: 0 auto 32px; line-height: 1.6; }
+        
+        .cert-score-box { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; background: #1E3A8A; color: white; width: 120px; height: 120px; border-radius: 50%; margin-bottom: 32px; border: 6px solid #F59E0B; }
+        .cert-score { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 800; line-height: 1; }
+        .cert-score-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+        .cert-footer { display: flex; justify-content: space-between; width: 100%; margin-top: 20px; align-items: flex-end; }
+        .cert-signature { text-align: center; width: 250px; }
+        .cert-sig-line { border-bottom: 1px solid #0F172A; height: 60px; margin-bottom: 8px; display: flex; align-items: flex-end; justify-content: center; }
+        .cert-sig-name { font-family: var(--font-heading); font-weight: 800; font-size: 1.1rem; color: #0F172A; margin-bottom: 4px; }
+        .cert-sig-title { font-family: var(--font-body); font-size: 0.85rem; color: #64748B; }
+        
+        .cert-date { text-align: center; width: 250px; font-family: var(--font-body); font-size: 0.9rem; color: #64748B; }
+        
+        .btn-print-cert { position: fixed; bottom: 30px; right: 30px; z-index: 3001; background: var(--accent-yellow); color: #1E293B; padding: 16px 32px; font-size: 1.1rem; border-radius: 50px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); border: none; cursor: pointer; font-weight: 800; display: flex; align-items: center; gap: 8px; transition: transform 0.2s; }
+        .btn-print-cert:hover { transform: scale(1.05); background: #D97706; color: white; }
+        .btn-close-cert { position: fixed; top: 20px; right: 20px; z-index: 3001; background: var(--accent-coral); color: white; width: 44px; height: 44px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-size: 1.2rem; }
+        
+        /* CSS Khusus Print */
+        @media print {
+            body * { visibility: hidden; }
+            #certificateModal { display: block !important; position: absolute; top: 0; left: 0; background: transparent; padding: 0; overflow: visible; }
+            .cert-wrapper, .cert-wrapper * { visibility: visible; }
+            .cert-wrapper { position: absolute; left: 0; top: 0; width: 100%; max-width: 100%; box-shadow: none; margin: 0; padding: 0; }
+            .btn-print-cert, .btn-close-cert { display: none !important; }
+            @page { size: landscape; margin: 0; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- MODAL PIN -->
     <div id="pinModal">
         <div class="pin-box">
             <h2>🔒 Area Terbatas</h2>
@@ -151,6 +193,7 @@
         </div>
     </div>
 
+    <!-- MODAL DAFTAR SOAL -->
     <div id="questionGridModal">
         <div class="grid-box">
             <h2 style="font-size: 1.2rem; margin-bottom: 8px;">Daftar Soal</h2>
@@ -163,6 +206,46 @@
             </div>
             <button class="btn btn-yellow" style="width: 100%;" onclick="closeQuestionGrid()">Tutup</button>
         </div>
+    </div>
+
+    <!-- MODAL SERTIFIKAT -->
+    <div id="certificateModal">
+        <button class="btn-close-cert" onclick="closeCertificate()">✕</button>
+        <div class="cert-wrapper" id="certificateContent">
+            <div class="cert-border-outer">
+                <div class="cert-border-inner">
+                    <div class="cert-title">SERTIFIKAT PENGHARGAAN</div>
+                    <div class="cert-subtitle">Certificate of Learning Achievement</div>
+                    
+                    <div class="cert-text">Diberikan dengan bangga kepada:</div>
+                    <div class="cert-name" id="certStudentName">Nama Siswa</div>
+                    <div class="cert-desc">Atas dedikasi, ketekunan, dan keberhasilannya dalam menyelesaikan Diagnostic Assessment Matematika pada Platform MATH READY SD dengan predikat sangat baik.</div>
+                    
+                    <div class="cert-score-box">
+                        <div class="cert-score" id="certScore">80%</div>
+                        <div class="cert-score-label">Readiness</div>
+                    </div>
+
+                    <div class="cert-footer">
+                        <div class="cert-date">
+                            Pekalongan, <span id="certDate">27 Oktober 2026</span><br>
+                            <strong>MATH READY SD</strong>
+                        </div>
+                        <div class="cert-signature">
+                            <div class="cert-sig-line">
+                                <!-- Optional: Bisa ditaruh gambar ttd di sini -->
+                            </div>
+                            <div class="cert-sig-name">Riski Hermawan, S.Pd</div>
+                            <div class="cert-sig-title">Wali Kelas 6A — SD Negeri Sapuro 05</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn-print-cert" onclick="printCertificate()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            Cetak / Simpan PDF
+        </button>
     </div>
 
     <aside class="sidebar" id="sidebar">
@@ -218,7 +301,16 @@
                 </div>
                 <div class="col-right">
                     <div class="card"><div class="card-title">Misi Hari Ini</div><div style="display:flex; flex-direction:column; gap:12px;"><div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; font-weight:600;"><span style="background:var(--accent-mint); color:white; width:24px; height:24px; border-radius:6px; display:flex; justify-content:center; align-items:center;">✓</span> 1 Micro Lesson</div><div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; font-weight:600;"><span style="background:var(--accent-mint); color:white; width:24px; height:24px; border-radius:6px; display:flex; justify-content:center; align-items:center;">✓</span> 5 Soal latihan</div><div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; font-weight:600;"><span style="background:var(--accent-yellow); color:white; width:24px; height:24px; border-radius:6px; display:flex; justify-content:center; align-items:center;">!</span> 1 Tantangan</div></div></div>
-                    <div class="card"><div class="card-title">Skor Kesiapan</div><div style="font-size:2.5rem; font-weight:800; font-family:var(--font-heading); margin-bottom:4px;" id="readinessScore">0%</div><div style="font-size:0.85rem; color:var(--text-muted); line-height:1.4;">Indikator internal, <strong>bukan nilai resmi TKA.</strong></div></div>
+                    <div class="card">
+                        <div class="card-title">Skor Kesiapan</div>
+                        <div style="font-size:2.5rem; font-weight:800; font-family:var(--font-heading); margin-bottom:4px;" id="readinessScore">0%</div>
+                        <div style="font-size:0.85rem; color:var(--text-muted); line-height:1.4; margin-bottom: 12px;">Indikator internal, <strong>bukan nilai resmi TKA.</strong></div>
+                        
+                        <!-- TOMBOL SERTIFIKAT (Tersembunyi jika skor < 80) -->
+                        <button id="btnCertificate" class="btn btn-yellow" style="width: 100%; display: none; padding: 12px; font-size: 0.95rem;" onclick="showCertificate()">
+                            🏆 Cetak Sertifikat
+                        </button>
+                    </div>
                     <div class="card">
                         <div class="card-title">📕 Buku Kesalahanku</div>
                         <div id="mistakeList"><p style="font-size:0.85rem; color:var(--text-muted);">Belum ada data kesalahan. Ayo kerjakan tes!</p></div>
@@ -245,11 +337,9 @@
             </div>
         </div>
 
-        <!-- VIEW ORANG TUA (DINAMIS) -->
+        <!-- VIEW ORANG TUA -->
         <div id="view-orangtua" class="view">
             <div class="grid-layout" style="grid-template-columns: 1fr; max-width: 600px; margin: 0 auto;">
-                
-                <!-- Pencarian -->
                 <div class="card">
                     <div class="card-title" style="font-size: 1.2rem;">👨‍👩‍👦 Portal Orang Tua</div>
                     <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Silakan masukkan nama lengkap anak Anda sesuai yang terdaftar saat tes untuk melihat hasil dan rekomendasi belajar.</p>
@@ -259,12 +349,7 @@
                     </div>
                     <button class="btn btn-yellow" style="width: 100%; padding: 14px; font-size: 1rem;" onclick="fetchParentData()">Cari Data Anak</button>
                 </div>
-
-                <!-- Hasil Pencarian -->
-                <div id="parentResult" style="display: none;">
-                    <!-- Diisi oleh JavaScript -->
-                </div>
-
+                <div id="parentResult" style="display: none;"></div>
             </div>
         </div>
 
@@ -442,80 +527,41 @@
         async function fetchParentData() {
             const searchName = document.getElementById('parentSearchName').value.trim().toLowerCase();
             if (!searchName) { alert('Tolong masukkan nama anak Anda terlebih dahulu.'); return; }
-
             const resultDiv = document.getElementById('parentResult');
             resultDiv.style.display = 'block';
             resultDiv.innerHTML = '<div class="card" style="text-align:center; color:var(--text-muted);">Mencari data...</div>';
-
             try {
                 const response = await fetch(URL_APPS_SCRIPT);
                 const data = await response.json();
-
-                // Data dari Sheets: [Waktu, Nama, Kelas, Bilangan, Geometri, Data, Penalaran, Readiness]
-                // Balik urutan agar data terbaru ada di atas
                 const reversedData = data.reverse();
-                
-                // Cari siswa (menggunakan includes agar tidak harus mengetik nama lengkap persis)
                 const studentData = reversedData.find(row => row[1].toLowerCase().includes(searchName));
-
                 if (!studentData) {
                     resultDiv.innerHTML = '<div class="card" style="text-align:center; padding: 32px;"><div style="font-size: 3rem; margin-bottom: 16px;">🔍</div><h3 style="color:var(--accent-coral); margin-bottom: 8px;">Data Tidak Ditemukan</h3><p style="color:var(--text-muted); font-size:0.9rem;">Pastikan nama anak sudah benar dan sudah mengerjakan tes di menu Diagnostic.</p></div>';
                     return;
                 }
-
                 const [time, name, kelas, bil, geo, dataScore, pen, readiness] = studentData;
-
-                // Logika Kekuatan & Kelemahan
-                let strengths = [];
-                let weaknesses = [];
+                let strengths = [], weaknesses = [];
                 if (bil >= 70) strengths.push('Bilangan'); else weaknesses.push('Bilangan');
                 if (geo >= 70) strengths.push('Geometri'); else weaknesses.push('Geometri');
                 if (dataScore >= 70) strengths.push('Data'); else weaknesses.push('Data');
                 if (pen >= 70) strengths.push('Penalaran'); else weaknesses.push('Penalaran');
-
-                // Saran Belajar
                 let suggestion = "";
-                if (weaknesses.length === 0) {
-                    suggestion = "Luar biasa! Anak Anda sudah sangat menguasai semua materi. Pertahankan dengan latihan rutin dan tantangan yang lebih kompleks.";
-                } else {
-                    suggestion = `Ajak anak untuk lebih banyak berlatih soal <strong>${weaknesses[0]}</strong>. Gunakan benda-benda nyata di rumah (seperti kue, buah, atau mainan) untuk membantu visualisasi konsep matematikanya.`;
-                }
-
-                // Tampilkan Hasil
+                if (weaknesses.length === 0) suggestion = "Luar biasa! Anak Anda sudah sangat menguasai semua materi. Pertahankan dengan latihan rutin dan tantangan yang lebih kompleks.";
+                else suggestion = `Ajak anak untuk lebih banyak berlatih soal <strong>${weaknesses[0]}</strong>. Gunakan benda-benda nyata di rumah (seperti kue, buah, atau mainan) untuk membantu visualisasi konsep matematikanya.`;
                 resultDiv.innerHTML = `
                     <div class="card" style="border-left: 4px solid ${readiness >= 70 ? 'var(--accent-mint)' : 'var(--accent-coral)'};">
                         <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;">
-                            <div>
-                                <h3 style="font-size:1.2rem; margin-bottom:4px;">${name}</h3>
-                                <p style="font-size:0.85rem; color:var(--text-muted);">Kelas ${kelas} • Tes terakhir: ${time}</p>
-                            </div>
-                            <div style="text-align:center; background:var(--bg-base); padding:8px 16px; border-radius:12px;">
-                                <div style="font-size:0.7rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Readiness</div>
-                                <div style="font-size:1.5rem; font-weight:800; color:${readiness >= 70 ? 'var(--accent-mint)' : 'var(--accent-coral)'};">${readiness}%</div>
-                            </div>
+                            <div><h3 style="font-size:1.2rem; margin-bottom:4px;">${name}</h3><p style="font-size:0.85rem; color:var(--text-muted);">Kelas ${kelas} • Tes terakhir: ${time}</p></div>
+                            <div style="text-align:center; background:var(--bg-base); padding:8px 16px; border-radius:12px;"><div style="font-size:0.7rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Readiness</div><div style="font-size:1.5rem; font-weight:800; color:${readiness >= 70 ? 'var(--accent-mint)' : 'var(--accent-coral)'};">${readiness}%</div></div>
                         </div>
-
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
-                            <div style="background:rgba(16,185,129,0.1); padding:12px; border-radius:8px;">
-                                <h4 style="font-size:0.85rem; margin-bottom:8px; color:var(--accent-mint);">💪 Kekuatan:</h4>
-                                <div>${strengths.length > 0 ? strengths.map(s => `<span class="tag tag-green" style="margin-right:4px; margin-bottom:4px; display:inline-block;">${s}</span>`).join('') : '<span style="font-size:0.8rem; color:var(--text-muted);">Belum ada.</span>'}</div>
-                            </div>
-                            <div style="background:rgba(244,63,94,0.1); padding:12px; border-radius:8px;">
-                                <h4 style="font-size:0.85rem; margin-bottom:8px; color:var(--accent-coral);">🎯 Perlu Diperkuat:</h4>
-                                <div>${weaknesses.length > 0 ? weaknesses.map(w => `<span class="tag tag-red" style="margin-right:4px; margin-bottom:4px; display:inline-block;">${w}</span>`).join('') : '<span style="font-size:0.8rem; color:var(--text-muted);">Tidak ada.</span>'}</div>
-                            </div>
+                            <div style="background:rgba(16,185,129,0.1); padding:12px; border-radius:8px;"><h4 style="font-size:0.85rem; margin-bottom:8px; color:var(--accent-mint);">💪 Kekuatan:</h4><div>${strengths.length > 0 ? strengths.map(s => `<span class="tag tag-green" style="margin-right:4px; margin-bottom:4px; display:inline-block;">${s}</span>`).join('') : '<span style="font-size:0.8rem; color:var(--text-muted);">Belum ada.</span>'}</div></div>
+                            <div style="background:rgba(244,63,94,0.1); padding:12px; border-radius:8px;"><h4 style="font-size:0.85rem; margin-bottom:8px; color:var(--accent-coral);">🎯 Perlu Diperkuat:</h4><div>${weaknesses.length > 0 ? weaknesses.map(w => `<span class="tag tag-red" style="margin-right:4px; margin-bottom:4px; display:inline-block;">${w}</span>`).join('') : '<span style="font-size:0.8rem; color:var(--text-muted);">Tidak ada.</span>'}</div></div>
                         </div>
-
-                        <div style="background:rgba(14,165,233,0.1); padding:16px; border-radius:8px; border-left:4px solid var(--primary);">
-                            <h4 style="font-size:0.9rem; margin-bottom:6px; color:var(--primary);">💡 Saran Belajar di Rumah:</h4>
-                            <p style="font-size:0.85rem; line-height:1.5; color:var(--text-main);">${suggestion}</p>
-                        </div>
+                        <div style="background:rgba(14,165,233,0.1); padding:16px; border-radius:8px; border-left:4px solid var(--primary);"><h4 style="font-size:0.9rem; margin-bottom:6px; color:var(--primary);">💡 Saran Belajar di Rumah:</h4><p style="font-size:0.85rem; line-height:1.5; color:var(--text-main);">${suggestion}</p></div>
                     </div>
                 `;
-
-            } catch (error) {
-                resultDiv.innerHTML = '<div class="card" style="text-align:center; color:var(--accent-coral);">Terjadi kesalahan koneksi saat mengambil data.</div>';
-            }
+            } catch (error) { resultDiv.innerHTML = '<div class="card" style="text-align:center; color:var(--accent-coral);">Terjadi kesalahan koneksi saat mengambil data.</div>'; }
         }
 
         // === TARIK DATA SOAL (ADMIN) ===
@@ -528,7 +574,7 @@
             } catch (error) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:red;">Gagal memuat soal.</td></tr>'; }
         }
 
-        // === LOGIKA CBT (COMPUTER BASED TEST) ===
+        // === LOGIKA CBT ===
         let questionsData = [];
         let userAnswers = []; 
         let flaggedQuestions = []; 
@@ -692,12 +738,41 @@
             setTimeout(() => { document.getElementById('diag-loading').style.display = 'none'; document.getElementById('diag-result').style.display = 'flex'; }, 1500);
         }
 
-        // === CHART DASHBOARD SISWA & BUKU KESALAHAN ===
+        // === FUNGSI SERTIFIKAT ===
+        function showCertificate() {
+            const savedName = localStorage.getItem('student_name') || "Siswa Hebat";
+            const savedData = JSON.parse(localStorage.getItem('math_ready_scores'));
+            const readiness = savedData ? savedData.readiness : 0;
+            
+            document.getElementById('certStudentName').innerText = savedName;
+            document.getElementById('certScore').innerText = readiness + "%";
+            
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const today = new Date().toLocaleDateString('id-ID', options);
+            document.getElementById('certDate').innerText = today;
+            
+            document.getElementById('certificateModal').style.display = 'block';
+        }
+
+        function closeCertificate() { document.getElementById('certificateModal').style.display = 'none'; }
+        function printCertificate() { window.print(); }
+
+        // === CHART DASHBOARD SISWA ===
         function renderDashboardCharts() {
             let data = { bilangan: 0, geometri: 0, data: 0, penalaran: 0, readiness: 0 };
             const savedData = localStorage.getItem('math_ready_scores');
             if (savedData) { const parsed = JSON.parse(savedData); data = { bilangan: parsed.bilangan, geometri: parsed.geometri, data: parsed.data || 0, penalaran: parsed.penalaran, readiness: parsed.readiness }; }
+            
             document.getElementById('readinessScore').innerText = data.readiness + "%";
+            
+            // Logika Menampilkan Tombol Sertifikat (Jika skor >= 80)
+            const btnCert = document.getElementById('btnCertificate');
+            if (data.readiness >= 80) {
+                btnCert.style.display = 'block';
+            } else {
+                btnCert.style.display = 'none';
+            }
+
             const isDark = html.getAttribute('data-theme') === 'dark'; const trackColor = isDark ? '#334155' : '#E2E8F0';
             const statsData = [
                 { id: 'chart1', label: 'Bilangan', value: data.bilangan, color: '#F59E0B', status: data.bilangan >= 70 ? 'Dikuasai' : 'Berkembang', statusClass: data.bilangan >= 70 ? 'status-green' : 'status-yellow' },

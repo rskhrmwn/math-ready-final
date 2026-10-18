@@ -25,11 +25,8 @@
         
         /* === LANDING PAGE STYLES === */
         body.landing-mode { display: block; overflow-y: auto; height: auto; }
-        
-        /* MENYEMBUNYIKAN DASHBOARD SAAT DI LANDING PAGE */
         body.landing-mode #dashboardContent { display: none !important; }
         body.landing-mode .sidebar { display: none !important; }
-        
         .landing-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         .landing-nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; }
         .landing-brand { font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; color: var(--primary); display: flex; align-items: center; gap: 12px; }
@@ -64,59 +61,15 @@
         
         /* CREATOR SECTION */
         .creator-section { padding: 80px 0; text-align: center; background: var(--bg-base); }
-        .creator-card { 
-            background: linear-gradient(135deg, #1E3A8A, #0EA5E9); 
-            color: white; 
-            padding: 60px 40px; 
-            border-radius: 32px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            max-width: 800px; 
-            margin: 0 auto; 
-            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.2); 
-        }
-        .creator-img { 
-            width: 120px; height: 120px; 
-            border-radius: 50%; 
-            object-fit: cover; 
-            object-position: center 15%; 
-            border: 4px solid white; 
-            margin-bottom: 24px; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
-        }
+        .creator-card { background: linear-gradient(135deg, #1E3A8A, #0EA5E9); color: white; padding: 60px 40px; border-radius: 32px; display: flex; flex-direction: column; align-items: center; max-width: 800px; margin: 0 auto; box-shadow: 0 20px 40px rgba(14, 165, 233, 0.2); }
+        .creator-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; object-position: center 15%; border: 4px solid white; margin-bottom: 24px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
         .creator-card h3 { font-size: 1.8rem; margin-bottom: 8px; font-weight: 700; }
         .creator-card p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 32px; }
-        .creator-quote { 
-            font-style: italic; 
-            font-size: 1.1rem; 
-            background: rgba(255,255,255,0.1); 
-            padding: 24px; 
-            border-radius: 12px; 
-            border-left: 4px solid var(--accent-yellow); 
-            text-align: left; 
-            max-width: 650px; 
-            margin: 0 auto 24px; 
-            line-height: 1.6;
-        }
-        
-        /* SOSIAL MEDIA LINKS */
+        .creator-quote { font-style: italic; font-size: 1.1rem; background: rgba(255,255,255,0.1); padding: 24px; border-radius: 12px; border-left: 4px solid var(--accent-yellow); text-align: left; max-width: 650px; margin: 0 auto 24px; line-height: 1.6; }
         .social-links { display: flex; gap: 16px; justify-content: center; margin-top: 24px; }
-        .social-links a { 
-            color: white; 
-            text-decoration: none; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.1);
-            transition: all 0.3s; 
-        }
+        .social-links a { color: white; text-decoration: none; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.1); transition: all 0.3s; }
         .social-links a:hover { background: white; color: var(--primary); transform: translateY(-3px); }
         .social-links svg { width: 20px; height: 20px; }
-
         .landing-footer { padding: 40px 0; text-align: center; color: var(--text-muted); border-top: 1px solid var(--border-color); font-size: 0.9rem; background: var(--bg-base); }
         
         /* === DASHBOARD STYLES === */
@@ -353,18 +306,10 @@
                         "Jangan takut salah, kesalahan adalah awal dari pintar matematika. Platform ini saya buat agar anak-anak Indonesia bisa belajar tanpa tekanan, tapi tetap terukur kesiapannya."
                     </div>
                     <div class="social-links">
-                        <a href="https://tiktok.com/@rskhrmwn" target="_blank" title="TikTok">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
-                        </a>
-                        <a href="https://instagram.com/rskhrmwn" target="_blank" title="Instagram">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                        </a>
-                        <a href="https://facebook.com/rskhrmwn" target="_blank" title="Facebook">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-                        </a>
-                        <a href="https://github.com/rskhrmwn" target="_blank" title="GitHub">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                        </a>
+                        <a href="https://tiktok.com/@rskhrmwn" target="_blank" title="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></a>
+                        <a href="https://instagram.com/rskhrmwn" target="_blank" title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                        <a href="https://facebook.com/rskhrmwn" target="_blank" title="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                        <a href="https://github.com/rskhrmwn" target="_blank" title="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
                     </div>
                 </div>
             </section>
@@ -420,8 +365,8 @@
                     <div class="cert-subtitle">Certificate of Learning Achievement</div>
                     <div class="cert-text">Diberikan dengan bangga kepada:</div>
                     <div class="cert-name" id="certStudentName">Nama Siswa</div>
-                    <div class="cert-desc">Atas dedikasi, ketekunan, dan keberhasilannya dalam menyelesaikan Diagnostic Assessment Matematika pada Platform MATH READY SD dengan predikat sangat baik.</div>
-                    <div class="cert-score-box"><div class="cert-score" id="certScore">80%</div><div class="cert-score-label">Readiness</div></div>
+                    <div class="cert-desc">Atas dedikasi, ketekunan, dan keberhasilannya dalam menyelesaikan <strong>Simulasi TKA Matematika</strong> pada Platform MATH READY SD dengan predikat sangat baik.</div>
+                    <div class="cert-score-box"><div class="cert-score" id="certScore">80%</div><div class="cert-score-label">Skor TKA</div></div>
                     <div class="cert-footer">
                         <div class="cert-date">Pekalongan, <span id="certDate">27 Oktober 2026</span><br><strong>MATH READY SD</strong></div>
                         <div class="cert-signature"><div class="cert-sig-line"></div><div class="cert-sig-name">Riski Hermawan, S.Pd</div><div class="cert-sig-title">Wali Kelas 6A — SD Negeri Sapuro 05</div></div>
@@ -478,7 +423,7 @@
                         </div>
                     </div>
                     <div class="card"><div class="card-title">Penguasaanku</div><div class="stats-grid" id="statsGrid"></div></div>
-                    <div class="card">
+                    <div class="card" id="journey-card">
                         <div class="card-title">Perjalanan Belajar</div>
                         <div class="journey-timeline">
                             <div class="journey-line"></div>
@@ -496,6 +441,7 @@
                         <div style="font-size:2.5rem; font-weight:800; font-family:var(--font-heading); margin-bottom:4px;" id="readinessScore">0%</div>
                         <div style="font-size:0.85rem; color:var(--text-muted); line-height:1.4; margin-bottom: 12px;">Indikator internal, <strong>bukan nilai resmi TKA.</strong></div>
                         <button id="btnCertificate" class="btn btn-yellow" style="width: 100%; display: none; padding: 12px; font-size: 0.95rem;" onclick="showCertificate()">🏆 Cetak Sertifikat</button>
+                        <div id="certNote" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px; text-align: center; display: none;">*Lulus Simulasi TKA (Min. 80) untuk membuka sertifikat.</div>
                     </div>
                     <div class="card"><div class="card-title">📕 Buku Kesalahanku</div><div id="mistakeList"><p style="font-size:0.85rem; color:var(--text-muted);">Belum ada data kesalahan. Ayo kerjakan tes!</p></div></div>
                 </div>
@@ -643,7 +589,7 @@
         </div>
 
         <div id="diag-loading" class="diag-loading"><div><span class="loader-dot"></span><span class="loader-dot" style="animation-delay:0.2s;"></span><span class="loader-dot" style="animation-delay:0.4s;"></span></div><h2 style="font-family: var(--font-heading); margin-top: 20px;">Mengirim data ke Guru...</h2></div>
-        <div id="diag-result" class="diag-result"><div style="font-size: 4rem; margin-bottom: 16px;">🎉</div><h2 style="font-family: var(--font-heading);">Hebat! Kamu Sudah Selesai.</h2><p style="color: var(--text-muted); margin-bottom: 24px;">Hasil tes ini sudah dikirim ke Guru dan masuk ke Dashboard-mu!</p><button class="btn btn-yellow" style="width: 100%; font-size: 1.1rem; padding: 16px;" onclick="closeDiagnostic()">Lihat Dashboard</button></div>
+        <div id="diag-result" class="diag-result"><div style="font-size: 4rem; margin-bottom: 16px;">🎉</div><h2 style="font-family: var(--font-heading);">Hebat! Kamu Sudah Selesai.</h2><p style="color: var(--text-muted); margin-bottom: 24px;">Hasil tes ini sudah dikirim ke Guru dan masuk ke Dashboard-mu!</p><button class="btn btn-yellow" id="btnDiagResult" style="width: 100%; font-size: 1.1rem; padding: 16px;" onclick="closeDiagnostic()">Lihat Dashboard</button></div>
     </div>
 
     <script>
@@ -673,7 +619,7 @@
         function enterApp() {
             document.body.classList.remove('landing-mode');
             document.getElementById('view-landing').style.display = 'none';
-            document.getElementById('dashboardContent').style.display = 'flex'; // Pastikan dashboard muncul
+            document.getElementById('dashboardContent').style.display = 'flex';
             switchView('view-siswa');
             window.scrollTo(0, 0);
         }
@@ -681,7 +627,7 @@
         function returnToLanding() {
             document.body.classList.add('landing-mode');
             document.getElementById('view-landing').style.display = 'block';
-            document.getElementById('dashboardContent').style.display = 'none'; // Sembunyikan dashboard
+            document.getElementById('dashboardContent').style.display = 'none';
             views.forEach(v => v.classList.remove('active'));
             views.forEach(v => { if(v.id !== 'view-landing') v.style.display = 'none'; });
             window.scrollTo(0, 0);
@@ -912,6 +858,7 @@
             document.getElementById('diagTitle').innerText = "Yuk, Cek Kemampuanmu!";
             document.getElementById('diagDesc').innerText = "Ini bukan ujian untuk menentukan peringkat. Ini petualangan untuk mencari tahu di mana kekuatanmu.";
             document.getElementById('btnStartQuiz').innerText = "Mulai Petualangan";
+            document.getElementById('btnDiagResult').innerText = "Lihat Rekomendasi Materi"; // Ubah teks tombol result
             document.getElementById('cbtHeader').style.background = 'var(--bg-surface)';
             document.getElementById('cbtTitle').innerText = "Diagnostic Assessment";
             document.getElementById('cbtTitle').style.color = 'var(--primary)';
@@ -942,6 +889,7 @@
             document.getElementById('diagTitle').innerText = "Simulasi TKA - Uji Nyali!";
             document.getElementById('diagDesc').innerHTML = "Ujian ini terdiri dari <strong>30 Soal HOTS</strong> dengan waktu <strong>60 Menit</strong>. Siapkan mental dan fokusmu. Kerjakan dengan jujur!";
             document.getElementById('btnStartQuiz').innerText = "Mulai Simulasi TKA";
+            document.getElementById('btnDiagResult').innerText = "Lihat Hasil & Sertifikat"; // Ubah teks tombol result
             document.getElementById('cbtHeader').style.background = 'linear-gradient(135deg, #F43F5E, #F59E0B)';
             document.getElementById('cbtTitle').innerText = "SIMULASI TKA";
             document.getElementById('cbtTitle').style.color = 'white';
@@ -958,7 +906,26 @@
             navItems.forEach(nav => nav.classList.remove('active'));
         }
 
-        function closeDiagnostic() { if(cbtTimerInterval) clearInterval(cbtTimerInterval); diagScreen.style.display = 'none'; switchView('view-siswa'); renderDashboardCharts(); }
+        function closeDiagnostic() { 
+            if(cbtTimerInterval) clearInterval(cbtTimerInterval); 
+            diagScreen.style.display = 'none'; 
+            switchView('view-siswa'); 
+            renderDashboardCharts(); 
+            
+            // JIKA BARU SAJA SELESAI DIAGNOSTIK, ARAHKAN KE MATERI
+            if (currentTestMode === 'Diagnostik') {
+                setTimeout(() => {
+                    const journeyCard = document.getElementById('journey-card');
+                    if (journeyCard) {
+                        journeyCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        // Beri highlight sementara
+                        journeyCard.style.boxShadow = '0 0 0 4px var(--accent-yellow)';
+                        setTimeout(() => { journeyCard.style.boxShadow = 'var(--shadow-sm)'; }, 2000);
+                    }
+                    alert("Hebat! Sekarang pelajari materi Kelas 4-6 di Perjalanan Belajar, lalu uji kemampuanmu di Simulasi TKA (Roket) untuk mendapatkan Sertifikat!");
+                }, 500);
+            }
+        }
         
         function startQuiz() {
             studentName = document.getElementById('studentName').value.trim(); 
@@ -1046,10 +1013,16 @@
                 localStorage.setItem('math_ready_last_date', today);
             }
             
+            // Simpan hasil ke localStorage
             localStorage.setItem('math_ready_scores', JSON.stringify(scores)); 
             localStorage.setItem('math_ready_mistakes', JSON.stringify(mistakes)); 
             localStorage.setItem('student_name', studentName);
             localStorage.setItem('math_ready_xp', (parseInt(localStorage.getItem('math_ready_xp')) || 0) + xpDidapat); 
+            
+            // Jika yang dikerjakan adalah TKA, simpan skornya khusus untuk syarat sertifikat
+            if (currentTestMode === 'TKA') {
+                localStorage.setItem('math_ready_tka_scores', JSON.stringify(scores));
+            }
             
             const dataToSend = { 
                 nama: studentName, sekolah: studentSchool, 
@@ -1065,11 +1038,22 @@
             setTimeout(() => { document.getElementById('diag-loading').style.display = 'none'; document.getElementById('diag-result').style.display = 'flex'; }, 1500);
         }
 
-        function showCertificate() { const savedName = localStorage.getItem('student_name') || "Siswa Hebat"; const savedData = JSON.parse(localStorage.getItem('math_ready_scores')); const readiness = savedData ? savedData.readiness : 0; document.getElementById('certStudentName').innerText = savedName; document.getElementById('certScore').innerText = readiness + "%"; const options = { year: 'numeric', month: 'long', day: 'numeric' }; document.getElementById('certDate').innerText = new Date().toLocaleDateString('id-ID', options); document.getElementById('certificateModal').style.display = 'block'; }
+        function showCertificate() { 
+            const savedName = localStorage.getItem('student_name') || "Siswa Hebat"; 
+            const tkaData = JSON.parse(localStorage.getItem('math_ready_tka_scores')); 
+            const score = tkaData ? tkaData.readiness : 0; 
+            
+            document.getElementById('certStudentName').innerText = savedName; 
+            document.getElementById('certScore').innerText = score + "%"; 
+            const options = { year: 'numeric', month: 'long', day: 'numeric' }; 
+            document.getElementById('certDate').innerText = new Date().toLocaleDateString('id-ID', options); 
+            document.getElementById('certificateModal').style.display = 'block'; 
+        }
         function closeCertificate() { document.getElementById('certificateModal').style.display = 'none'; }
         function printCertificate() { window.print(); }
         
         async function renderDashboardCharts() {
+            // Update XP & Streak
             let xp = localStorage.getItem('math_ready_xp') || 0;
             let streak = localStorage.getItem('math_ready_streak') || 0;
             let savedName = localStorage.getItem('student_name');
@@ -1090,18 +1074,37 @@
                         });
                         xp = totalXP; streak = uniqueDates.size; 
                     }
-                } catch(e) { console.log("Gagal tarik data XP dari server"); }
+                } catch(e) { console.log("Gagal tarik data XP"); }
             }
 
             document.getElementById('xpDisplay').innerText = xp;
             document.getElementById('streakDisplay').innerText = `${streak} Hari`;
 
+            // Update Skor Kesiapan & Sertifikat
             let data = { bilangan: 0, geometri: 0, data: 0, penalaran: 0, readiness: 0 }; 
             const savedData = localStorage.getItem('math_ready_scores'); 
             if (savedData) { const parsed = JSON.parse(savedData); data = { bilangan: parsed.bilangan, geometri: parsed.geometri, data: parsed.data || 0, penalaran: parsed.penalaran, readiness: parsed.readiness }; }
             
             document.getElementById('readinessScore').innerText = data.readiness + "%"; 
-            const btnCert = document.getElementById('btnCertificate'); if (data.readiness >= 80) { btnCert.style.display = 'block'; } else { btnCert.style.display = 'none'; }
+            
+            // LOGIKA BARU SERTIFIKAT: HANYA BERDASARKAN TKA >= 80
+            const tkaDataStr = localStorage.getItem('math_ready_tka_scores');
+            const btnCert = document.getElementById('btnCertificate');
+            const certNote = document.getElementById('certNote');
+            
+            if (tkaDataStr) {
+                const tkaData = JSON.parse(tkaDataStr);
+                if (tkaData.readiness >= 80) {
+                    btnCert.style.display = 'block';
+                    certNote.style.display = 'none';
+                } else {
+                    btnCert.style.display = 'none';
+                    certNote.style.display = 'block'; // Tampilkan pesan
+                }
+            } else {
+                btnCert.style.display = 'none';
+                certNote.style.display = 'block'; // Tampilkan pesan
+            }
             
             const isDark = html.getAttribute('data-theme') === 'dark'; 
             const trackColor = isDark ? '#334155' : '#E2E8F0';

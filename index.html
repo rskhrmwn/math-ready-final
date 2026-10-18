@@ -42,9 +42,8 @@
         .topbar { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
         .greeting h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
         .greeting p { color: var(--text-muted); font-size: 0.9rem; }
-        .topbar-actions { display: flex; gap: 12px; }
-        .badge-pill { background: var(--bg-surface); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 50px; font-weight: 700; font-size: 0.85rem; box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 6px; }
-        .badge-pill span { color: var(--text-muted); font-weight: 600; }
+        .topbar-actions { display: flex; gap: 12px; align-items: center; }
+        .badge-pill { background: var(--bg-surface); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 50px; font-weight: 700; font-size: 0.85rem; box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 8px; color: var(--text-main); }
         .card { background: var(--bg-surface); border-radius: var(--radius-card); padding: 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); margin-bottom: 20px; }
         .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
         .grid-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
@@ -119,6 +118,7 @@
             .main-content { margin-left: 0; padding: 16px; } .mobile-menu-btn { display: block; }
             .topbar { flex-direction: column; gap: 16px; } .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .journey-timeline { flex-wrap: wrap; gap: 16px; } .journey-line { display: none; } .journey-step { width: 45%; }
+            .topbar-actions { width: 100%; justify-content: flex-start; }
         }
 
         /* CBT Styles */
@@ -292,8 +292,7 @@
                 </div>
             </div>
             <div class="topbar-actions">
-                <div class="badge-pill">🔥 Streak <span>5 Hari</span></div>
-                <div class="badge-pill">⭐ XP <span>820</span></div>
+                <div class="badge-pill">📅 <span id="realtimeDate" style="color: var(--text-main);">Memuat tanggal...</span></div>
             </div>
         </header>
 
@@ -360,11 +359,12 @@
         <div id="view-guru" class="view">
             <div class="grid-layout">
                 <div class="col-left">
-                    <div class="card"><div class="card-title">Ketuntasan Kelas (Rata-rata)</div><div style="height: 250px;"><canvas id="teacherChart"></canvas></div></div>
+                    <div class="card"><div class="card-title">Ketuntasan (Rata-rata)</div><div style="height: 250px;"><canvas id="teacherChart"></canvas></div></div>
                     <div class="card">
                         <div class="card-title">Daftar Nilai Siswa (Data Asli)</div>
                         <div class="table-responsive">
-                            <table><thead><tr><th>Nama Siswa</th><th>Kelas</th><th>Jenis Tes</th><th>Bilangan</th><th>Geometri</th><th>Penalaran</th><th>Skor Akhir</th><th>Status</th></tr></thead>
+                            <!-- JUDUL KELAS DIGANTI ASAL SEKOLAH -->
+                            <table><thead><tr><th>Nama Siswa</th><th>Asal Sekolah</th><th>Jenis Tes</th><th>Bilangan</th><th>Geometri</th><th>Penalaran</th><th>Skor Akhir</th><th>Status</th></tr></thead>
                             <tbody id="tableGuruBody"><tr><td colspan="8" style="text-align:center;">Memuat data...</td></tr></tbody></table>
                         </div>
                         <button class="btn btn-yellow" style="margin-top:16px; width:100%;" onclick="fetchGuruData()">🔄 Refresh Data dari Database</button>
@@ -415,7 +415,7 @@
                         <div class="card-title">📖 Panduan Siswa</div>
                         <div style="font-size: 0.95rem; line-height: 1.6; color: var(--text-main);">
                             <p style="margin-bottom: 12px;"><strong>1. Buka Website:</strong> Scan QR Code di samping atau ketik link di browser HP.</p>
-                            <p style="margin-bottom: 12px;"><strong>2. Mulai Tes:</strong> Klik menu "Diagnostic" di pojok kiri atas, lalu isi Nama Lengkap dan Kelas.</p>
+                            <p style="margin-bottom: 12px;"><strong>2. Mulai Tes:</strong> Klik menu "Diagnostic" di pojok kiri atas, lalu isi Nama Lengkap dan Asal Sekolah.</p>
                             <p style="margin-bottom: 12px;"><strong>3. Kerjakan Soal:</strong> Ada timer hitung mundur. Gunakan tombol "Daftar Soal" untuk melihat nomor yang belum dijawab.</p>
                             <p style="margin-bottom: 12px;"><strong>4. Ragu-ragu:</strong> Klik tombol "Tandai Ragu-ragu" jika ingin mengecek kembali soal tersebut nanti.</p>
                             <p style="margin-bottom: 12px;"><strong>5. Selesai:</strong> Klik "Kumpulkan Jawaban", nilai akan muncul otomatis di Dashboard.</p>
@@ -449,20 +449,19 @@
 
     <!-- OVERLAY DIAGNOSTIC CBT -->
     <div id="diagnosticScreen">
-        <!-- Pre-start screen -->
         <div id="diag-welcome" class="diag-welcome">
             <div class="diag-welcome-icon" id="diagWelcomeIcon">🚀</div>
             <h1 id="diagTitle" style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 12px;">Yuk, Cek Kemampuanmu!</h1>
             <p id="diagDesc" style="color: var(--text-muted); margin-bottom: 24px;">Ini bukan ujian untuk menentukan peringkat. Ini petualangan untuk mencari tahu di mana kekuatanmu.</p>
             <div style="width: 100%; max-width: 300px; margin: 0 auto 24px;">
                 <div class="input-group"><label>Nama Lengkap</label><input type="text" id="studentName" placeholder="Contoh: Ahmad Fauzi"></div>
-                <div class="input-group"><label>Kelas</label><select id="studentClass"><option value="6A">Kelas 6A</option><option value="6B">Kelas 6B</option><option value="5A">Kelas 5A</option><option value="4A">Kelas 4A</option></select></div>
+                <!-- INPUT KELAS DIGANTI ASAL SEKOLAH -->
+                <div class="input-group"><label>Asal Sekolah</label><input type="text" id="studentSchool" placeholder="Contoh: SD Negeri 1"></div>
             </div>
             <button class="btn btn-yellow" id="btnStartQuiz" style="width: 100%; font-size: 1.1rem; padding: 16px;" onclick="startQuiz()">Mulai Petualangan</button>
             <button class="btn" style="width: 100%; background: transparent; color: var(--text-muted); margin-top: 12px;" onclick="closeDiagnostic()">Nanti saja</button>
         </div>
 
-        <!-- Quiz screen -->
         <div id="diag-quiz" style="display: none; flex-direction: column; height: 100%;">
             <div class="cbt-header" id="cbtHeader">
                 <div style="font-weight: 800; font-family: var(--font-heading); color: var(--primary); display: flex; align-items: center; gap: 8px;"><span style="font-size: 1.2rem;">📝</span> <span id="cbtTitle">Simulasi TKA</span></div>
@@ -529,8 +528,21 @@
             'view-tentang': { title: 'Tentang Platform', subtitle: 'Informasi & Profil Pengembang' }
         };
 
+        // === FUNGSI TANGGAL REALTIME ===
+        function updateRealtimeDate() {
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            const now = new Date();
+            const dayName = days[now.getDay()];
+            const day = now.getDate();
+            const month = months[now.getMonth()];
+            const year = now.getFullYear();
+            document.getElementById('realtimeDate').innerText = `${dayName}, ${day} ${month} ${year}`;
+        }
+
         function checkLoginStatus() { if (sessionStorage.getItem('isAuthorized') === 'true') { logoutBtn.style.display = 'flex'; } else { logoutBtn.style.display = 'none'; } }
         checkLoginStatus();
+        updateRealtimeDate(); 
 
         function switchView(viewId, el = null) {
             if ((viewId === 'view-guru' || viewId === 'view-admin') && sessionStorage.getItem('isAuthorized') !== 'true') {
@@ -598,6 +610,7 @@
                     const tr = document.createElement('tr'); const readiness = parseInt(row[7]) || 0;
                     const status = readiness >= 70 ? '<span class="tag tag-green">Tuntas</span>' : '<span class="tag tag-red">Remedial</span>';
                     const jenisTes = row[8] || 'Diagnostik';
+                    // Kolom ke-2 (row[2]) sekarang berisi Asal Sekolah
                     tr.innerHTML = `<td><strong>${row[1]}</strong></td><td>${row[2]}</td><td><span class="tag ${jenisTes === 'TKA' ? 'tag-red' : 'tag-green'}">${jenisTes}</span></td><td>${row[3]}</td><td>${row[4]}</td><td>${row[6]}</td><td><strong>${readiness}</strong></td><td>${status}</td>`;
                     tbody.appendChild(tr);
                     tB += parseInt(row[3]) || 0; tG += parseInt(row[4]) || 0; tD += parseInt(row[5]) || 0; tP += parseInt(row[6]) || 0;
@@ -621,7 +634,8 @@
                 const response = await fetch(URL_APPS_SCRIPT); const data = await response.json();
                 const reversedData = data.reverse(); const studentData = reversedData.find(row => row[1].toLowerCase().includes(searchName));
                 if (!studentData) { resultDiv.innerHTML = '<div class="card" style="text-align:center; padding: 32px;"><div style="font-size: 3rem; margin-bottom: 16px;">🔍</div><h3 style="color:var(--accent-coral); margin-bottom: 8px;">Data Tidak Ditemukan</h3><p style="color:var(--text-muted); font-size:0.9rem;">Pastikan nama anak sudah benar dan sudah mengerjakan tes.</p></div>'; return; }
-                const [time, name, kelas, bil, geo, dataScore, pen, readiness, jenisTes] = studentData;
+                // row[2] sekarang berisi Asal Sekolah
+                const [time, name, sekolah, bil, geo, dataScore, pen, readiness, jenisTes] = studentData;
                 let strengths = [], weaknesses = [];
                 if (bil >= 70) strengths.push('Bilangan'); else weaknesses.push('Bilangan');
                 if (geo >= 70) strengths.push('Geometri'); else weaknesses.push('Geometri');
@@ -631,7 +645,7 @@
                 resultDiv.innerHTML = `
                     <div class="card" style="border-left: 4px solid ${readiness >= 70 ? 'var(--accent-mint)' : 'var(--accent-coral)'};">
                         <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;">
-                            <div><h3 style="font-size:1.2rem; margin-bottom:4px;">${name}</h3><p style="font-size:0.85rem; color:var(--text-muted);">Kelas ${kelas} • Tes ${jenisTes || 'Diagnostik'}: ${time}</p></div>
+                            <div><h3 style="font-size:1.2rem; margin-bottom:4px;">${name}</h3><p style="font-size:0.85rem; color:var(--text-muted);">Asal Sekolah: ${sekolah} • Tes ${jenisTes || 'Diagnostik'}: ${time}</p></div>
                             <div style="text-align:center; background:var(--bg-base); padding:8px 16px; border-radius:12px;"><div style="font-size:0.7rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Readiness</div><div style="font-size:1.5rem; font-weight:800; color:${readiness >= 70 ? 'var(--accent-mint)' : 'var(--accent-coral)'};">${readiness}%</div></div>
                         </div>
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
@@ -653,8 +667,8 @@
             } catch (error) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:red;">Gagal memuat soal.</td></tr>'; }
         }
 
-        // === CBT LOGIC (DIAGNOSTIC & TKA) ===
-        let questionsData = []; let userAnswers = []; let flaggedQuestions = []; let currentQuestionIndex = 0; let selectedOptions = []; let studentName = ""; let studentClass = ""; let cbtTimerInterval = null; let cbtTimeLeft = 15 * 60; let currentTestMode = "Diagnostik"; 
+        // === CBT LOGIC ===
+        let questionsData = []; let userAnswers = []; let flaggedQuestions = []; let currentQuestionIndex = 0; let selectedOptions = []; let studentName = ""; let studentSchool = ""; let cbtTimerInterval = null; let cbtTimeLeft = 15 * 60; let currentTestMode = "Diagnostik"; 
 
         function formatTime(seconds) { const m = Math.floor(seconds / 60).toString().padStart(2, '0'); const s = (seconds % 60).toString().padStart(2, '0'); return `⏱ ${m}:${s}`; }
         
@@ -670,8 +684,7 @@
         }
 
         async function openDiagnostic(el = null) {
-            currentTestMode = "Diagnostik";
-            cbtTimeLeft = 15 * 60;
+            currentTestMode = "Diagnostik"; cbtTimeLeft = 15 * 60;
             diagScreen.style.display = 'flex';
             document.getElementById('diag-welcome').style.display = 'flex';
             document.getElementById('diag-quiz').style.display = 'none';
@@ -679,7 +692,6 @@
             document.getElementById('diag-loading').style.display = 'flex'; 
             document.getElementById('diag-result').style.display = 'none';
             
-            // Reset Vibe to Diagnostic
             document.getElementById('diagWelcomeIcon').innerText = "🚀";
             document.getElementById('diagTitle').innerText = "Yuk, Cek Kemampuanmu!";
             document.getElementById('diagDesc').innerText = "Ini bukan ujian untuk menentukan peringkat. Ini petualangan untuk mencari tahu di mana kekuatanmu.";
@@ -696,13 +708,13 @@
 
             document.getElementById('diag-loading').style.display = 'none';
             document.getElementById('studentName').value = '';
+            document.getElementById('studentSchool').value = ''; // Kosongkan input sekolah
             navItems.forEach(nav => nav.classList.remove('active'));
             if (el) el.classList.add('active');
         }
 
         async function openTKAModal() {
-            currentTestMode = "TKA";
-            cbtTimeLeft = 60 * 60; // 60 Menit untuk TKA
+            currentTestMode = "TKA"; cbtTimeLeft = 60 * 60; // 60 Menit untuk TKA
             diagScreen.style.display = 'flex';
             document.getElementById('diag-welcome').style.display = 'flex';
             document.getElementById('diag-quiz').style.display = 'none';
@@ -710,7 +722,6 @@
             document.getElementById('diag-loading').style.display = 'flex'; 
             document.getElementById('diag-result').style.display = 'none';
             
-            // Set Vibe to TKA
             document.getElementById('diagWelcomeIcon').innerText = "🚀";
             document.getElementById('diagTitle').innerText = "Simulasi TKA - Uji Nyali!";
             document.getElementById('diagDesc').innerHTML = "Ujian ini terdiri dari <strong>30 Soal HOTS</strong> dengan waktu <strong>60 Menit</strong>. Siapkan mental dan fokusmu. Kerjakan dengan jujur!";
@@ -727,20 +738,17 @@
 
             document.getElementById('diag-loading').style.display = 'none';
             document.getElementById('studentName').value = '';
+            document.getElementById('studentSchool').value = '';
             navItems.forEach(nav => nav.classList.remove('active'));
         }
 
-        function closeDiagnostic() { 
-            if(cbtTimerInterval) clearInterval(cbtTimerInterval); 
-            diagScreen.style.display = 'none'; 
-            switchView('view-siswa'); 
-            renderDashboardCharts(); 
-        }
-
+        function closeDiagnostic() { if(cbtTimerInterval) clearInterval(cbtTimerInterval); diagScreen.style.display = 'none'; switchView('view-siswa'); renderDashboardCharts(); }
+        
         function startQuiz() {
             studentName = document.getElementById('studentName').value.trim(); 
-            studentClass = document.getElementById('studentClass').value;
+            studentSchool = document.getElementById('studentSchool').value.trim();
             if (!studentName) { alert("Tolong isi Nama Lengkap!"); return; } 
+            if (!studentSchool) { alert("Tolong isi Asal Sekolah!"); return; } 
             if (questionsData.length === 0) { alert("Soal belum tersedia."); return; }
             
             document.getElementById('pageTitle').innerText = `Halo, ${studentName.split(' ')[0]}! 👋`; 
@@ -758,10 +766,8 @@
             document.getElementById('questionText').innerText = q.question;
             document.getElementById('btnPrev').style.display = currentQuestionIndex === 0 ? 'none' : 'flex'; 
             document.getElementById('btnNext').innerText = (currentQuestionIndex === questionsData.length - 1) ? "Selesai & Review" : "Selanjutnya";
-            
             const btnFlag = document.getElementById('btnFlag');
             if(flaggedQuestions.includes(currentQuestionIndex)) { btnFlag.style.background = 'var(--accent-yellow)'; btnFlag.style.color = 'white'; btnFlag.style.borderColor = 'var(--accent-yellow)'; btnFlag.innerHTML = '🚩 Hapus Tanda Ragu-ragu'; } else { btnFlag.style.background = 'transparent'; btnFlag.style.color = 'var(--text-main)'; btnFlag.style.borderColor = 'var(--border-color)'; btnFlag.innerHTML = '🚩 Tandai Ragu-ragu'; }
-            
             const optionsList = document.getElementById('optionsList'); optionsList.innerHTML = '';
             q.options.forEach((opt, index) => { const btn = document.createElement('button'); btn.className = `option-btn ${q.type === 'PGK' ? 'multi' : ''}`; if(selectedOptions.includes(index)) btn.classList.add('selected'); btn.innerHTML = `<div class="option-indicator"></div><span>${opt}</span>`; btn.onclick = () => handleOptionClick(index, q.type, btn); optionsList.appendChild(btn); });
         }
@@ -770,7 +776,6 @@
             if (type === 'PG') { selectedOptions = [index]; Array.from(document.getElementById('optionsList').children).forEach(child => child.classList.remove('selected')); btnElement.classList.add('selected'); } else { if (selectedOptions.includes(index)) { selectedOptions = selectedOptions.filter(i => i !== index); btnElement.classList.remove('selected'); } else { selectedOptions.push(index); btnElement.classList.add('selected'); } }
             userAnswers[currentQuestionIndex] = [...selectedOptions];
         }
-
         function toggleFlag() { if(flaggedQuestions.includes(currentQuestionIndex)) { flaggedQuestions = flaggedQuestions.filter(i => i !== currentQuestionIndex); } else { flaggedQuestions.push(currentQuestionIndex); } renderQuestion(); }
         function prevQuestion() { if (currentQuestionIndex > 0) { currentQuestionIndex--; renderQuestion(); } }
         function nextQuestion() { if (currentQuestionIndex < questionsData.length - 1) { currentQuestionIndex++; renderQuestion(); } else { showReviewScreen(); } }
@@ -806,14 +811,13 @@
             if(cbtTimerInterval) clearInterval(cbtTimerInterval); document.getElementById('diag-review').style.display = 'none'; document.getElementById('diag-loading').style.display = 'flex';
             const scores = calculateScores(); const mistakes = getWrongQuestions();
             
-            // Simpan ke LocalStorage untuk dashboard
             localStorage.setItem('math_ready_scores', JSON.stringify(scores)); 
             localStorage.setItem('math_ready_mistakes', JSON.stringify(mistakes)); 
             localStorage.setItem('student_name', studentName);
             
-            // Kirim ke database dengan Jenis Tes yang sesuai
+            // Kirim data dengan nama sekolah
             const dataToSend = { 
-                nama: studentName, kelas: studentClass, 
+                nama: studentName, sekolah: studentSchool, 
                 bilangan: scores.bilangan, geometri: scores.geometri, 
                 skorData: scores.data, penalaran: scores.penalaran, 
                 readiness: scores.readiness, jenisTes: currentTestMode 

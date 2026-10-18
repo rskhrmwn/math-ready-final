@@ -89,6 +89,7 @@
         .greeting p { color: var(--text-muted); font-size: 0.9rem; }
         .topbar-actions { display: flex; gap: 12px; align-items: center; }
         .badge-pill { background: var(--bg-surface); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 50px; font-weight: 700; font-size: 0.85rem; box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 8px; color: var(--text-main); }
+        .badge-pill span { color: var(--text-muted); font-weight: 600; }
         .card { background: var(--bg-surface); border-radius: var(--radius-card); padding: 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); margin-bottom: 20px; }
         .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
         .grid-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
@@ -250,7 +251,6 @@
 </head>
 <body class="landing-mode">
 
-    <!-- LANDING PAGE -->
     <div id="view-landing" class="view active" style="display: block;">
         <div class="landing-container">
             <nav class="landing-nav">
@@ -305,21 +305,14 @@
         </div>
     </div>
 
-    <!-- MODAL DETAIL SISWA -->
     <div id="studentDetailModal">
         <div class="detail-box">
-            <div class="detail-header">
-                <h2 id="detailStudentName">Nama Siswa</h2>
-                <button class="close-btn" onclick="closeDetailModal()">✕</button>
-            </div>
+            <div class="detail-header"><h2 id="detailStudentName">Nama Siswa</h2><button class="close-btn" onclick="closeDetailModal()">✕</button></div>
             <div id="detailStudentSchool" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">Asal Sekolah</div>
-            <div class="history-list" id="historyList">
-                <!-- Riwayat Nilai diisi JS -->
-            </div>
+            <div class="history-list" id="historyList"></div>
         </div>
     </div>
 
-    <!-- MODAL LAINNYA -->
     <div id="materiModal">
         <div class="materi-box">
             <div class="materi-header"><h2 id="materiTitle">Materi Pembelajaran</h2><button class="close-btn" onclick="closeMateriModal()">✕</button></div>
@@ -331,10 +324,7 @@
             <h2>🔒 Area Terbatas</h2>
             <p>Silakan masukkan PIN Guru/Admin untuk mengakses halaman ini.</p>
             <input type="password" id="pinInput" class="pin-input" placeholder="••••••" maxlength="6">
-            <div class="pin-btns">
-                <button class="btn btn-outline" style="color: var(--text-main); border-color: var(--border-color);" onclick="closePinModal()">Batal</button>
-                <button class="btn btn-yellow" onclick="verifyPin()">Masuk</button>
-            </div>
+            <div class="pin-btns"><button class="btn btn-outline" style="color: var(--text-main); border-color: var(--border-color);" onclick="closePinModal()">Batal</button><button class="btn btn-yellow" onclick="verifyPin()">Masuk</button></div>
         </div>
     </div>
     <div id="questionGridModal">
@@ -371,7 +361,6 @@
         <button class="btn-print-cert" onclick="printCertificate()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg> Cetak / Simpan PDF</button>
     </div>
 
-    <!-- SIDEBAR DASHBOARD -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand" onclick="returnToLanding()"><span class="brand-icon">M</span><span class="brand-text">MATH READY SD</span></div>
         <ul class="nav-menu">
@@ -399,8 +388,10 @@
                     <p id="pageSubtitle">Selamat datang di Math Ready SD</p>
                 </div>
             </div>
+            <!-- XP & STREAK (SUDAH DINAMIS) -->
             <div class="topbar-actions">
-                <div class="badge-pill">📅 <span id="realtimeDate" style="color: var(--text-main);">Memuat tanggal...</span></div>
+                <div class="badge-pill">🔥 Streak <span id="streakDisplay">1 Hari</span></div>
+                <div class="badge-pill">⭐ XP <span id="xpDisplay">0</span></div>
             </div>
         </header>
 
@@ -441,14 +432,12 @@
             </div>
         </div>
 
-        <!-- VIEW GURU (DENGAN FITUR SEARCH & DETAIL) -->
         <div id="view-guru" class="view">
             <div class="grid-layout">
                 <div class="col-left">
                     <div class="card"><div class="card-title">Ketuntasan (Rata-rata)</div><div style="height: 250px;"><canvas id="teacherChart"></canvas></div></div>
                     <div class="card">
                         <div class="card-title">Daftar Nilai Siswa</div>
-                        <!-- SEARCH BAR -->
                         <input type="text" id="searchGuru" class="search-bar" placeholder="🔍 Cari nama siswa atau sekolah..." onkeyup="filterTable()">
                         <div class="table-responsive">
                             <table id="tableGuru">
@@ -626,15 +615,8 @@
             window.scrollTo(0, 0);
         }
 
-        function updateRealtimeDate() {
-            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-            const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-            const now = new Date();
-            document.getElementById('realtimeDate').innerText = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
-        }
-
         function checkLoginStatus() { if (sessionStorage.getItem('isAuthorized') === 'true') { logoutBtn.style.display = 'flex'; } else { logoutBtn.style.display = 'none'; } }
-        checkLoginStatus(); updateRealtimeDate(); 
+        checkLoginStatus(); 
 
         function switchView(viewId, el = null) {
             if (document.body.classList.contains('landing-mode')) document.body.classList.remove('landing-mode');
@@ -695,7 +677,7 @@
 
         // === TARIK DATA GURU & FITUR SEARCH ===
         let teacherChartInstance = null;
-        let allGuruData = []; // Menyimpan semua data untuk filter pencarian
+        let allGuruData = []; 
 
         async function fetchGuruData() {
             const tbody = document.getElementById('tableGuruBody'); tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">Memuat data...</td></tr>';
@@ -705,12 +687,12 @@
                 if(data.length === 0) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">Belum ada data.</td></tr>'; document.getElementById('totalSiswa').innerText = '0'; renderTeacherChart([0,0,0,0]); return; }
                 
                 data.reverse(); 
-                allGuruData = data; // Simpan ke variabel global
+                allGuruData = data; 
                 document.getElementById('totalSiswa').innerText = data.length;
-                document.getElementById('searchGuru').value = ''; // Reset pencarian
+                document.getElementById('searchGuru').value = ''; 
                 
-                renderGuruTable(allGuruData); // Render ke tabel
-                calculateAverages(allGuruData); // Hitung rata-rata
+                renderGuruTable(allGuruData); 
+                calculateAverages(allGuruData); 
                 
             } catch (error) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:red;">Gagal memuat data.</td></tr>'; }
         }
@@ -724,7 +706,6 @@
                 const status = readiness >= 70 ? '<span class="tag tag-green">Tuntas</span>' : '<span class="tag tag-red">Remedial</span>';
                 const jenisTes = row[8] || 'Diagnostik';
                 
-                // Tambahkan onclick untuk melihat detail
                 tr.onclick = () => showStudentDetail(row[1]);
                 tr.innerHTML = `<td><strong>${row[1]}</strong></td><td>${row[2]}</td><td><span class="tag ${jenisTes === 'TKA' ? 'tag-red' : 'tag-green'}">${jenisTes}</span></td><td>${row[3]}</td><td>${row[4]}</td><td>${row[6]}</td><td><strong>${readiness}</strong></td><td>${status}</td>`;
                 tbody.appendChild(tr);
@@ -738,7 +719,7 @@
                 (row[2] && row[2].toLowerCase().includes(searchVal))
             );
             renderGuruTable(filteredData);
-            calculateAverages(filteredData); // Rata-rata mengikuti hasil filter
+            calculateAverages(filteredData); 
         }
 
         function calculateAverages(data) {
@@ -760,56 +741,33 @@
         // === FITUR DETAIL SISWA (KLIK NAMA) ===
         async function showStudentDetail(nama) {
             document.getElementById('detailStudentName').innerText = nama;
-            
-            // Cari semua data siswa ini dari database
             const studentRecords = allGuruData.filter(row => row[1] === nama);
-            
-            // Ambil sekolah dari record pertama
-            if(studentRecords.length > 0) {
-                document.getElementById('detailStudentSchool').innerText = `Asal Sekolah: ${studentRecords[0][2]}`;
-            }
-
-            const historyList = document.getElementById('historyList');
-            historyList.innerHTML = '';
-
+            if(studentRecords.length > 0) { document.getElementById('detailStudentSchool').innerText = `Asal Sekolah: ${studentRecords[0][2]}`; }
+            const historyList = document.getElementById('historyList'); historyList.innerHTML = '';
             studentRecords.forEach(row => {
-                // row: [Waktu, Nama, Sekolah, Bilangan, Geometri, Data, Penalaran, Readiness, JenisTes]
                 const div = document.createElement('div'); div.className = 'history-item';
                 div.innerHTML = `
                     <h4>Tes ${row[8] || 'Diagnostik'} <span style="font-size:0.8rem; font-weight:400; color:var(--text-muted);">(${row[0]})</span></h4>
                     <div class="history-scores">
                         <span style="color:var(--primary);">Skor: ${row[7]}%</span>
+                        <span style="color:var(--accent-yellow); font-weight:700;">XP: ${row[9] || 0}</span>
                         <span style="color:var(--text-muted); font-size:0.8rem;">Bil: ${row[3]} | Geo: ${row[4]} | Data: ${row[5]} | Pen: ${row[6]}</span>
-                    </div>
-                `;
+                    </div>`;
                 historyList.appendChild(div);
             });
-
             document.getElementById('studentDetailModal').style.display = 'flex';
         }
-
         function closeDetailModal() { document.getElementById('studentDetailModal').style.display = 'none'; }
 
         // === FITUR CETAK GURU ===
         function printGuruTable() {
             const printContent = document.getElementById('view-guru').innerHTML;
             const originalContent = document.body.innerHTML;
-            
-            // Sederhanakan tampilan untuk print
-            document.body.innerHTML = `
-                <div style="padding: 20px;">
-                    <h1 style="font-family: sans-serif; text-align: center; margin-bottom: 20px;">Laporan Nilai Math Ready SD</h1>
-                    <p style="text-align: center; margin-bottom: 20px;">Dicetak pada: ${new Date().toLocaleString('id-ID')}</p>
-                    ${printContent}
-                </div>
-            `;
-            
-            // Sembunyikan elemen yang tidak perlu dicetak
+            document.body.innerHTML = `<div style="padding: 20px;"><h1 style="font-family: sans-serif; text-align: center; margin-bottom: 20px;">Laporan Nilai Math Ready SD</h1><p style="text-align: center; margin-bottom: 20px;">Dicetak pada: ${new Date().toLocaleString('id-ID')}</p>${printContent}</div>`;
             document.querySelectorAll('.search-bar, button, .sidebar, .topbar, canvas').forEach(el => el.style.display = 'none');
-            
             window.print();
             document.body.innerHTML = originalContent;
-            window.location.reload(); // Reload agar javascript berjalan normal kembali
+            window.location.reload(); 
         }
 
         // === PORTAL ORANG TUA ===
@@ -853,7 +811,7 @@
             } catch (error) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:red;">Gagal memuat soal.</td></tr>'; }
         }
 
-        // === CBT LOGIC ===
+        // === CBT LOGIC & GAMIFIKASI ===
         let questionsData = []; let userAnswers = []; let flaggedQuestions = []; let currentQuestionIndex = 0; let selectedOptions = []; let studentName = ""; let studentSchool = ""; let cbtTimerInterval = null; let cbtTimeLeft = 15 * 60; let currentTestMode = "Diagnostik"; 
 
         function formatTime(seconds) { const m = Math.floor(seconds / 60).toString().padStart(2, '0'); const s = (seconds % 60).toString().padStart(2, '0'); return `⏱ ${m}:${s}`; }
@@ -993,19 +951,49 @@
             return mistakes;
         }
         
+        // --- FUNGSI UTAMA PENYIMPANAN DATA & XP ---
         async function submitQuiz() {
-            if(cbtTimerInterval) clearInterval(cbtTimerInterval); document.getElementById('diag-review').style.display = 'none'; document.getElementById('diag-loading').style.display = 'flex';
-            const scores = calculateScores(); const mistakes = getWrongQuestions();
+            if(cbtTimerInterval) clearInterval(cbtTimerInterval); 
+            document.getElementById('diag-review').style.display = 'none'; 
+            document.getElementById('diag-loading').style.display = 'flex';
             
+            const scores = calculateScores(); 
+            const mistakes = getWrongQuestions();
+            
+            // HITUNG XP: Misal 100% = 1000 XP
+            const xpDidapat = Math.round(scores.readiness * 10);
+            
+            // HITUNG STREAK (Ambil data dari LocalStorage atau default 0)
+            let currentStreak = parseInt(localStorage.getItem('math_ready_streak')) || 0;
+            let lastPlayDate = localStorage.getItem('math_ready_last_date');
+            let today = new Date().toDateString();
+            
+            if (lastPlayDate !== today) {
+                // Jika main hari ini berbeda dengan terakhir main, cek apakah berurutan (kemarin)
+                const yesterday = new Date(Date.now() - 86400000).toDateString();
+                if (lastPlayDate === yesterday) {
+                    currentStreak++; // Lanjut streak
+                } else {
+                    currentStreak = 1; // Reset streak jika bolong sehari
+                }
+                localStorage.setItem('math_ready_streak', currentStreak);
+                localStorage.setItem('math_ready_last_date', today);
+            }
+            
+            // Simpan ke localStorage untuk Dashboard
             localStorage.setItem('math_ready_scores', JSON.stringify(scores)); 
             localStorage.setItem('math_ready_mistakes', JSON.stringify(mistakes)); 
             localStorage.setItem('student_name', studentName);
+            localStorage.setItem('math_ready_xp', (parseInt(localStorage.getItem('math_ready_xp')) || 0) + xpDidapat); // Tambah XP total
             
+            // Kirim ke Google Sheets
             const dataToSend = { 
                 nama: studentName, sekolah: studentSchool, 
                 bilangan: scores.bilangan, geometri: scores.geometri, 
                 skorData: scores.data, penalaran: scores.penalaran, 
-                readiness: scores.readiness, jenisTes: currentTestMode 
+                readiness: scores.readiness, jenisTes: currentTestMode,
+                xp: xpDidapat,
+                streak: currentStreak
             };
             
             try { await fetch(URL_APPS_SCRIPT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dataToSend) }); } catch (error) {}
@@ -1017,13 +1005,60 @@
         function closeCertificate() { document.getElementById('certificateModal').style.display = 'none'; }
         function printCertificate() { window.print(); }
         
-        function renderDashboardCharts() {
-            let data = { bilangan: 0, geometri: 0, data: 0, penalaran: 0, readiness: 0 }; const savedData = localStorage.getItem('math_ready_scores'); if (savedData) { const parsed = JSON.parse(savedData); data = { bilangan: parsed.bilangan, geometri: parsed.geometri, data: parsed.data || 0, penalaran: parsed.penalaran, readiness: parsed.readiness }; }
-            document.getElementById('readinessScore').innerText = data.readiness + "%"; const btnCert = document.getElementById('btnCertificate'); if (data.readiness >= 80) { btnCert.style.display = 'block'; } else { btnCert.style.display = 'none'; }
-            const isDark = html.getAttribute('data-theme') === 'dark'; const trackColor = isDark ? '#334155' : '#E2E8F0';
+        // --- RENDER DASHBOARD & XP/STREAK ---
+        async function renderDashboardCharts() {
+            // Tampilkan XP & Streak dari LocalStorage (Untuk sesi berjalan)
+            let xp = localStorage.getItem('math_ready_xp') || 0;
+            let streak = localStorage.getItem('math_ready_streak') || 0;
+            let savedName = localStorage.getItem('student_name');
+
+            // Jika ada nama siswa, tarik history dari server untuk memastikan XP/Streak akurat (mencegah manipulasi localStorage)
+            if (savedName) {
+                try {
+                    const response = await fetch(URL_APPS_SCRIPT);
+                    const allData = await response.json();
+                    const studentData = allData.filter(row => row[1] === savedName);
+                    
+                    if (studentData.length > 0) {
+                        let totalXP = 0;
+                        let uniqueDates = new Set();
+                        
+                        studentData.forEach(row => {
+                            totalXP += parseInt(row[9]) || 0;
+                            // Ambil tanggal saja (misal "Mon Oct 27 2026" dari string date)
+                            let d = new Date(row[0]).toDateString();
+                            uniqueDates.add(d);
+                        });
+                        
+                        xp = totalXP;
+                        // Streak sederhana: jumlah hari unik mereka bermain
+                        streak = uniqueDates.size; 
+                    }
+                } catch(e) { console.log("Gagal tarik data XP dari server"); }
+            }
+
+            document.getElementById('xpDisplay').innerText = xp;
+            document.getElementById('streakDisplay').innerText = `${streak} Hari`;
+
+            let data = { bilangan: 0, geometri: 0, data: 0, penalaran: 0, readiness: 0 }; 
+            const savedData = localStorage.getItem('math_ready_scores'); 
+            if (savedData) { const parsed = JSON.parse(savedData); data = { bilangan: parsed.bilangan, geometri: parsed.geometri, data: parsed.data || 0, penalaran: parsed.penalaran, readiness: parsed.readiness }; }
+            
+            document.getElementById('readinessScore').innerText = data.readiness + "%"; 
+            const btnCert = document.getElementById('btnCertificate'); if (data.readiness >= 80) { btnCert.style.display = 'block'; } else { btnCert.style.display = 'none'; }
+            
+            const isDark = html.getAttribute('data-theme') === 'dark'; 
+            const trackColor = isDark ? '#334155' : '#E2E8F0';
             const statsData = [ { id: 'chart1', label: 'Bilangan', value: data.bilangan, color: '#F59E0B', status: data.bilangan >= 70 ? 'Dikuasai' : 'Berkembang', statusClass: data.bilangan >= 70 ? 'status-green' : 'status-yellow' }, { id: 'chart2', label: 'Geometri & Pengukuran', value: data.geometri, color: '#F59E0B', status: data.geometri >= 70 ? 'Dikuasai' : 'Berkembang', statusClass: data.geometri >= 70 ? 'status-green' : 'status-yellow' }, { id: 'chart3', label: 'Data', value: data.data, color: '#F59E0B', status: data.data >= 70 ? 'Dikuasai' : 'Berkembang', statusClass: data.data >= 70 ? 'status-green' : 'status-yellow' }, { id: 'chart4', label: 'Reasoning', value: data.penalaran, color: '#F43F5E', status: data.penalaran >= 70 ? 'Dikuasai' : 'Perlu Dukungan', statusClass: data.penalaran >= 70 ? 'status-green' : 'status-red' } ];
+            
             const gridContainer = document.getElementById('statsGrid'); gridContainer.innerHTML = '';
-            statsData.forEach(stat => { const div = document.createElement('div'); div.className = 'stat-item'; div.innerHTML = `<div class="chart-container-small"><canvas id="${stat.id}"></canvas><div class="chart-value">${stat.value}</div></div><div class="stat-label">${stat.label}</div><div class="stat-status ${stat.statusClass}">${stat.status}</div>`; gridContainer.appendChild(div); const ctx = document.getElementById(stat.id).getContext('2d'); new Chart(ctx, { type: 'doughnut', data: { datasets: [{ data: [stat.value, 100 - stat.value], backgroundColor: [stat.color, trackColor], borderWidth: 0, cutout: '80%' }] }, options: { responsive: true, maintainAspectRatio: false, animation: { duration: 1500 }, plugins: { legend: { display: false }, tooltip: { enabled: false } } } }); });
+            statsData.forEach(stat => { 
+                const div = document.createElement('div'); div.className = 'stat-item'; 
+                div.innerHTML = `<div class="chart-container-small"><canvas id="${stat.id}"></canvas><div class="chart-value">${stat.value}</div></div><div class="stat-label">${stat.label}</div><div class="stat-status ${stat.statusClass}">${stat.status}</div>`; 
+                gridContainer.appendChild(div); 
+                const ctx = document.getElementById(stat.id).getContext('2d'); 
+                new Chart(ctx, { type: 'doughnut', data: { datasets: [{ data: [stat.value, 100 - stat.value], backgroundColor: [stat.color, trackColor], borderWidth: 0, cutout: '80%' }] }, options: { responsive: true, maintainAspectRatio: false, animation: { duration: 1500 }, plugins: { legend: { display: false }, tooltip: { enabled: false } } } }); 
+            });
             renderMistakes(); 
         }
         

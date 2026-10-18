@@ -27,7 +27,7 @@
         .sidebar-brand { padding: 24px 20px; display: flex; align-items: center; gap: 12px; font-family: var(--font-heading); font-weight: 800; color: white; font-size: 1.1rem; white-space: nowrap; overflow: hidden; }
         .sidebar.collapsed .brand-text { display: none; }
         .brand-icon { background: var(--primary); color: white; padding: 6px 10px; border-radius: 8px; font-size: 1.2rem; }
-        .nav-menu { list-style: none; padding: 12px; display: flex; flex-direction: column; gap: 4px; flex-grow: 1; }
+        .nav-menu { list-style: none; padding: 12px; display: flex; flex-direction: column; gap: 4px; flex-grow: 1; overflow-y: auto; }
         .nav-item { display: flex; align-items: center; gap: 16px; padding: 12px 16px; border-radius: 8px; color: var(--sidebar-text); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: all 0.2s; white-space: nowrap; overflow: hidden; cursor: pointer; }
         .nav-item:hover, .nav-item.active { background: var(--sidebar-active); color: white; }
         .nav-item svg { min-width: 20px; }
@@ -136,38 +136,28 @@
         .input-group input, .input-group select { width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-surface); font-family: var(--font-body); font-size: 1rem; color: var(--text-main); outline: none; }
         .input-group input:focus, .input-group select:focus { border-color: var(--primary); }
 
-        /* === CERTIFICATE STYLES === */
+        /* CERTIFICATE STYLES */
         #certificateModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); z-index: 3000; overflow-y: auto; padding: 20px; }
         .cert-wrapper { background: white; width: 100%; max-width: 900px; margin: 20px auto; position: relative; border-radius: 8px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); padding: 40px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-        
-        /* Bingkai Sertifikat */
         .cert-border-outer { border: 8px solid #1E3A8A; padding: 8px; width: 100%; height: 100%; }
         .cert-border-inner { border: 2px solid #F59E0B; padding: 40px 20px; width: 100%; position: relative; background: #F8FAFC; }
-        
         .cert-title { font-family: var(--font-serif); font-size: 3rem; color: #1E3A8A; margin-bottom: 8px; letter-spacing: 2px; }
         .cert-subtitle { font-family: var(--font-heading); font-size: 1rem; color: #64748B; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 32px; }
-        
         .cert-text { font-family: var(--font-body); font-size: 1.1rem; color: #334155; margin-bottom: 8px; }
         .cert-name { font-family: var(--font-serif); font-size: 2.5rem; font-weight: 800; color: #0F172A; margin-bottom: 16px; border-bottom: 2px solid #E2E8F0; display: inline-block; padding-bottom: 8px; padding-left: 20px; padding-right: 20px;}
         .cert-desc { font-family: var(--font-body); font-size: 1rem; color: #475569; max-width: 600px; margin: 0 auto 32px; line-height: 1.6; }
-        
         .cert-score-box { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; background: #1E3A8A; color: white; width: 120px; height: 120px; border-radius: 50%; margin-bottom: 32px; border: 6px solid #F59E0B; }
         .cert-score { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 800; line-height: 1; }
         .cert-score-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
-
         .cert-footer { display: flex; justify-content: space-between; width: 100%; margin-top: 20px; align-items: flex-end; }
         .cert-signature { text-align: center; width: 250px; }
         .cert-sig-line { border-bottom: 1px solid #0F172A; height: 60px; margin-bottom: 8px; display: flex; align-items: flex-end; justify-content: center; }
         .cert-sig-name { font-family: var(--font-heading); font-weight: 800; font-size: 1.1rem; color: #0F172A; margin-bottom: 4px; }
         .cert-sig-title { font-family: var(--font-body); font-size: 0.85rem; color: #64748B; }
-        
         .cert-date { text-align: center; width: 250px; font-family: var(--font-body); font-size: 0.9rem; color: #64748B; }
-        
         .btn-print-cert { position: fixed; bottom: 30px; right: 30px; z-index: 3001; background: var(--accent-yellow); color: #1E293B; padding: 16px 32px; font-size: 1.1rem; border-radius: 50px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); border: none; cursor: pointer; font-weight: 800; display: flex; align-items: center; gap: 8px; transition: transform 0.2s; }
         .btn-print-cert:hover { transform: scale(1.05); background: #D97706; color: white; }
         .btn-close-cert { position: fixed; top: 20px; right: 20px; z-index: 3001; background: var(--accent-coral); color: white; width: 44px; height: 44px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-size: 1.2rem; }
-        
-        /* CSS Khusus Print */
         @media print {
             body * { visibility: hidden; }
             #certificateModal { display: block !important; position: absolute; top: 0; left: 0; background: transparent; padding: 0; overflow: visible; }
@@ -232,9 +222,7 @@
                             <strong>MATH READY SD</strong>
                         </div>
                         <div class="cert-signature">
-                            <div class="cert-sig-line">
-                                <!-- Optional: Bisa ditaruh gambar ttd di sini -->
-                            </div>
+                            <div class="cert-sig-line"></div>
                             <div class="cert-sig-name">Riski Hermawan, S.Pd</div>
                             <div class="cert-sig-title">Wali Kelas 6A — SD Negeri Sapuro 05</div>
                         </div>
@@ -256,7 +244,9 @@
             <li><a href="#" class="nav-item" onclick="switchView('view-guru', this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> <span class="nav-text">Guru</span></a></li>
             <li><a href="#" class="nav-item" onclick="switchView('view-orangtua', this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> <span class="nav-text">Orang Tua</span></a></li>
             <li><a href="#" class="nav-item" onclick="switchView('view-admin', this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg> <span class="nav-text">Admin</span></a></li>
-            <li><a href="#" class="nav-item" onclick="switchView('view-tentang', this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg> <span class="nav-text">Tentang</span></a></li>
+            <!-- MENU PANDUAN BARU -->
+            <li><a href="#" class="nav-item" onclick="switchView('view-panduan', this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> <span class="nav-text">Panduan</span></a></li>
+            <li><a href="#" class="nav-item" onclick="switchView('view-tentang', this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> <span class="nav-text">Tentang</span></a></li>
         </ul>
         <div class="sidebar-bottom">
             <a href="#" class="nav-item logout-btn" id="logoutBtn" onclick="logout()">
@@ -305,11 +295,7 @@
                         <div class="card-title">Skor Kesiapan</div>
                         <div style="font-size:2.5rem; font-weight:800; font-family:var(--font-heading); margin-bottom:4px;" id="readinessScore">0%</div>
                         <div style="font-size:0.85rem; color:var(--text-muted); line-height:1.4; margin-bottom: 12px;">Indikator internal, <strong>bukan nilai resmi TKA.</strong></div>
-                        
-                        <!-- TOMBOL SERTIFIKAT (Tersembunyi jika skor < 80) -->
-                        <button id="btnCertificate" class="btn btn-yellow" style="width: 100%; display: none; padding: 12px; font-size: 0.95rem;" onclick="showCertificate()">
-                            🏆 Cetak Sertifikat
-                        </button>
+                        <button id="btnCertificate" class="btn btn-yellow" style="width: 100%; display: none; padding: 12px; font-size: 0.95rem;" onclick="showCertificate()">🏆 Cetak Sertifikat</button>
                     </div>
                     <div class="card">
                         <div class="card-title">📕 Buku Kesalahanku</div>
@@ -367,6 +353,34 @@
                     </div>
                 </div>
                 <div class="col-right"><div class="card"><div class="card-title">Petunjuk Admin</div><p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Untuk menambah soal, silakan buka Google Sheets Bapak dan tambahkan baris baru di tab <b>BankSoal</b>.</p></div></div>
+            </div>
+        </div>
+
+        <!-- VIEW PANDUAN (BARU) -->
+        <div id="view-panduan" class="view">
+            <div class="grid-layout">
+                <div class="col-left">
+                    <div class="card">
+                        <div class="card-title">📖 Panduan Siswa</div>
+                        <div style="font-size: 0.95rem; line-height: 1.6; color: var(--text-main);">
+                            <p style="margin-bottom: 12px;"><strong>1. Buka Website:</strong> Scan QR Code di samping atau ketik link di browser HP.</p>
+                            <p style="margin-bottom: 12px;"><strong>2. Mulai Tes:</strong> Klik menu "Diagnostic" di pojok kiri atas, lalu isi Nama Lengkap dan Kelas.</p>
+                            <p style="margin-bottom: 12px;"><strong>3. Kerjakan Soal:</strong> Ada timer hitung mundur. Gunakan tombol "Daftar Soal" untuk melihat nomor yang belum dijawab.</p>
+                            <p style="margin-bottom: 12px;"><strong>4. Ragu-ragu:</strong> Klik tombol "Tandai Ragu-ragu" jika ingin mengecek kembali soal tersebut nanti.</p>
+                            <p style="margin-bottom: 12px;"><strong>5. Selesai:</strong> Klik "Kumpulkan Jawaban", nilai akan muncul otomatis di Dashboard.</p>
+                            <p><strong>6. Sertifikat:</strong> Jika skor Kesiapanmu 80% atau lebih, tombol "Cetak Sertifikat" akan muncul!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-right">
+                    <div class="card" style="text-align: center;">
+                        <div class="card-title" style="justify-content: center;">Scan untuk Mulai</div>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Arahkan kamera HP ke QR Code ini:</p>
+                        <!-- QR Code otomatis mengarah ke link GitHub Bapak -->
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://rskhrmwn.github.io/math-ready-final/" alt="QR Code" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 16px; width: 100%; max-width: 250px;">
+                        <p style="font-size: 0.75rem; color: var(--text-muted); word-break: break-all;">https://rskhrmwn.github.io/math-ready-final/</p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -459,6 +473,7 @@
             'view-guru': { title: 'Dashboard Guru', subtitle: 'Data nilai real-time dari Google Sheets' },
             'view-orangtua': { title: 'Portal Orang Tua', subtitle: 'Pantau hasil belajar anak Anda' },
             'view-admin': { title: 'Panel Admin', subtitle: 'Kelola konten & bank soal' },
+            'view-panduan': { title: 'Panduan Penggunaan', subtitle: 'Cara menggunakan platform bagi siswa & guru' },
             'view-tentang': { title: 'Tentang Platform', subtitle: 'Informasi & Profil Pengembang' }
         };
 
@@ -523,31 +538,22 @@
             teacherChartInstance = new Chart(ctx, { type: 'bar', data: { labels: ['Bilangan', 'Geometri', 'Data', 'Penalaran'], datasets: [{ label: 'Rata-rata Kelas (%)', data: chartData, backgroundColor: ['#0EA5E9', '#10B981', '#F59E0B', '#F43F5E'], borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, animation: { duration: 1000, easing: 'easeOutQuart' }, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100, grid: { color: isDark ? '#334155' : '#E2E8F0' }, ticks: { color: isDark ? '#F8FAFC' : '#0F172A' } }, x: { ticks: { color: isDark ? '#F8FAFC' : '#0F172A' } } } } });
         }
 
-        // === PORTAL ORANG TUA (DINAMIS) ===
+        // === PORTAL ORANG TUA ===
         async function fetchParentData() {
             const searchName = document.getElementById('parentSearchName').value.trim().toLowerCase();
             if (!searchName) { alert('Tolong masukkan nama anak Anda terlebih dahulu.'); return; }
-            const resultDiv = document.getElementById('parentResult');
-            resultDiv.style.display = 'block';
-            resultDiv.innerHTML = '<div class="card" style="text-align:center; color:var(--text-muted);">Mencari data...</div>';
+            const resultDiv = document.getElementById('parentResult'); resultDiv.style.display = 'block'; resultDiv.innerHTML = '<div class="card" style="text-align:center; color:var(--text-muted);">Mencari data...</div>';
             try {
-                const response = await fetch(URL_APPS_SCRIPT);
-                const data = await response.json();
-                const reversedData = data.reverse();
-                const studentData = reversedData.find(row => row[1].toLowerCase().includes(searchName));
-                if (!studentData) {
-                    resultDiv.innerHTML = '<div class="card" style="text-align:center; padding: 32px;"><div style="font-size: 3rem; margin-bottom: 16px;">🔍</div><h3 style="color:var(--accent-coral); margin-bottom: 8px;">Data Tidak Ditemukan</h3><p style="color:var(--text-muted); font-size:0.9rem;">Pastikan nama anak sudah benar dan sudah mengerjakan tes di menu Diagnostic.</p></div>';
-                    return;
-                }
+                const response = await fetch(URL_APPS_SCRIPT); const data = await response.json();
+                const reversedData = data.reverse(); const studentData = reversedData.find(row => row[1].toLowerCase().includes(searchName));
+                if (!studentData) { resultDiv.innerHTML = '<div class="card" style="text-align:center; padding: 32px;"><div style="font-size: 3rem; margin-bottom: 16px;">🔍</div><h3 style="color:var(--accent-coral); margin-bottom: 8px;">Data Tidak Ditemukan</h3><p style="color:var(--text-muted); font-size:0.9rem;">Pastikan nama anak sudah benar dan sudah mengerjakan tes di menu Diagnostic.</p></div>'; return; }
                 const [time, name, kelas, bil, geo, dataScore, pen, readiness] = studentData;
                 let strengths = [], weaknesses = [];
                 if (bil >= 70) strengths.push('Bilangan'); else weaknesses.push('Bilangan');
                 if (geo >= 70) strengths.push('Geometri'); else weaknesses.push('Geometri');
                 if (dataScore >= 70) strengths.push('Data'); else weaknesses.push('Data');
                 if (pen >= 70) strengths.push('Penalaran'); else weaknesses.push('Penalaran');
-                let suggestion = "";
-                if (weaknesses.length === 0) suggestion = "Luar biasa! Anak Anda sudah sangat menguasai semua materi. Pertahankan dengan latihan rutin dan tantangan yang lebih kompleks.";
-                else suggestion = `Ajak anak untuk lebih banyak berlatih soal <strong>${weaknesses[0]}</strong>. Gunakan benda-benda nyata di rumah (seperti kue, buah, atau mainan) untuk membantu visualisasi konsep matematikanya.`;
+                let suggestion = weaknesses.length === 0 ? "Luar biasa! Anak Anda sudah sangat menguasai semua materi." : `Ajak anak untuk lebih banyak berlatih soal <strong>${weaknesses[0]}</strong>. Gunakan benda-benda nyata di rumah untuk membantu visualisasi.`;
                 resultDiv.innerHTML = `
                     <div class="card" style="border-left: 4px solid ${readiness >= 70 ? 'var(--accent-mint)' : 'var(--accent-coral)'};">
                         <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;">
@@ -559,12 +565,11 @@
                             <div style="background:rgba(244,63,94,0.1); padding:12px; border-radius:8px;"><h4 style="font-size:0.85rem; margin-bottom:8px; color:var(--accent-coral);">🎯 Perlu Diperkuat:</h4><div>${weaknesses.length > 0 ? weaknesses.map(w => `<span class="tag tag-red" style="margin-right:4px; margin-bottom:4px; display:inline-block;">${w}</span>`).join('') : '<span style="font-size:0.8rem; color:var(--text-muted);">Tidak ada.</span>'}</div></div>
                         </div>
                         <div style="background:rgba(14,165,233,0.1); padding:16px; border-radius:8px; border-left:4px solid var(--primary);"><h4 style="font-size:0.9rem; margin-bottom:6px; color:var(--primary);">💡 Saran Belajar di Rumah:</h4><p style="font-size:0.85rem; line-height:1.5; color:var(--text-main);">${suggestion}</p></div>
-                    </div>
-                `;
-            } catch (error) { resultDiv.innerHTML = '<div class="card" style="text-align:center; color:var(--accent-coral);">Terjadi kesalahan koneksi saat mengambil data.</div>'; }
+                    </div>`;
+            } catch (error) { resultDiv.innerHTML = '<div class="card" style="text-align:center; color:var(--accent-coral);">Terjadi kesalahan koneksi.</div>'; }
         }
 
-        // === TARIK DATA SOAL (ADMIN) ===
+        // === ADMIN ===
         async function fetchAdminData() {
             const tbody = document.getElementById('tableSoalBody'); tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Memuat soal...</td></tr>';
             try {
@@ -574,237 +579,96 @@
             } catch (error) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:red;">Gagal memuat soal.</td></tr>'; }
         }
 
-        // === LOGIKA CBT ===
-        let questionsData = [];
-        let userAnswers = []; 
-        let flaggedQuestions = []; 
-        let currentQuestionIndex = 0;
-        let selectedOptions = [];
-        let studentName = "";
-        let studentClass = "";
-        let cbtTimerInterval = null;
-        let cbtTimeLeft = 15 * 60; 
-
-        function formatTime(seconds) {
-            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
-            const s = (seconds % 60).toString().padStart(2, '0');
-            return `⏱ ${m}:${s}`;
-        }
-
+        // === CBT LOGIC ===
+        let questionsData = []; let userAnswers = []; let flaggedQuestions = []; let currentQuestionIndex = 0; let selectedOptions = []; let studentName = ""; let studentClass = ""; let cbtTimerInterval = null; let cbtTimeLeft = 15 * 60; 
+        function formatTime(seconds) { const m = Math.floor(seconds / 60).toString().padStart(2, '0'); const s = (seconds % 60).toString().padStart(2, '0'); return `⏱ ${m}:${s}`; }
         function startCbtTimer() {
-            cbtTimeLeft = 15 * 60; 
-            document.getElementById('cbtTimer').innerText = formatTime(cbtTimeLeft);
-            document.getElementById('cbtTimer').style.color = 'var(--accent-coral)';
-            document.getElementById('cbtTimer').style.background = 'rgba(244,63,94,0.1)';
+            cbtTimeLeft = 15 * 60; document.getElementById('cbtTimer').innerText = formatTime(cbtTimeLeft);
+            document.getElementById('cbtTimer').style.color = 'var(--accent-coral)'; document.getElementById('cbtTimer').style.background = 'rgba(244,63,94,0.1)';
             if(cbtTimerInterval) clearInterval(cbtTimerInterval);
             cbtTimerInterval = setInterval(() => {
-                cbtTimeLeft--;
-                document.getElementById('cbtTimer').innerText = formatTime(cbtTimeLeft);
+                cbtTimeLeft--; document.getElementById('cbtTimer').innerText = formatTime(cbtTimeLeft);
                 if (cbtTimeLeft <= 300) { document.getElementById('cbtTimer').style.color = 'white'; document.getElementById('cbtTimer').style.background = 'var(--accent-coral)'; }
-                if (cbtTimeLeft <= 0) { clearInterval(cbtTimerInterval); alert("Waktu Habis! Jawaban akan otomatis dikumpulkan."); submitQuiz(); }
+                if (cbtTimeLeft <= 0) { clearInterval(cbtTimerInterval); alert("Waktu Habis!"); submitQuiz(); }
             }, 1000);
         }
-
         async function openDiagnostic(el = null) {
-            diagScreen.style.display = 'flex';
-            document.getElementById('diag-welcome').style.display = 'flex';
-            document.getElementById('diag-quiz').style.display = 'none';
-            document.getElementById('diag-review').style.display = 'none';
-            document.getElementById('diag-loading').style.display = 'flex'; 
-            document.getElementById('diag-result').style.display = 'none';
-            try {
-                const response = await fetch(URL_APPS_SCRIPT + "?action=getQuestions");
-                const data = await response.json();
-                questionsData = data.map(row => { return { id: row[0], domain: row[1], type: row[2], question: row[3], options: [row[4], row[5], row[6], row[7]], correctAnswer: row[8].toString().split(',').map(Number) }; });
-            } catch (e) { alert("Gagal memuat soal."); questionsData = []; }
-            document.getElementById('diag-loading').style.display = 'none';
-            document.getElementById('studentName').value = '';
-            navItems.forEach(nav => nav.classList.remove('active'));
-            if (el) el.classList.add('active');
+            diagScreen.style.display = 'flex'; document.getElementById('diag-welcome').style.display = 'flex'; document.getElementById('diag-quiz').style.display = 'none'; document.getElementById('diag-review').style.display = 'none'; document.getElementById('diag-loading').style.display = 'flex'; document.getElementById('diag-result').style.display = 'none';
+            try { const response = await fetch(URL_APPS_SCRIPT + "?action=getQuestions"); const data = await response.json(); questionsData = data.map(row => { return { id: row[0], domain: row[1], type: row[2], question: row[3], options: [row[4], row[5], row[6], row[7]], correctAnswer: row[8].toString().split(',').map(Number) }; }); } catch (e) { alert("Gagal memuat soal."); questionsData = []; }
+            document.getElementById('diag-loading').style.display = 'none'; document.getElementById('studentName').value = ''; navItems.forEach(nav => nav.classList.remove('active')); if (el) el.classList.add('active');
         }
-
         function closeDiagnostic() { if(cbtTimerInterval) clearInterval(cbtTimerInterval); diagScreen.style.display = 'none'; switchView('view-siswa'); renderDashboardCharts(); }
-
         function startQuiz() {
-            studentName = document.getElementById('studentName').value.trim();
-            studentClass = document.getElementById('studentClass').value;
-            if (!studentName) { alert("Tolong isi Nama Lengkap terlebih dahulu ya!"); return; }
-            if (questionsData.length === 0) { alert("Soal belum tersedia di database."); return; }
-            document.getElementById('pageTitle').innerText = `Halo, ${studentName.split(' ')[0]}! 👋`;
-            document.getElementById('diag-welcome').style.display = 'none';
-            document.getElementById('diag-quiz').style.display = 'flex';
-            currentQuestionIndex = 0; userAnswers = []; flaggedQuestions = []; 
-            startCbtTimer();
-            renderQuestion();
+            studentName = document.getElementById('studentName').value.trim(); studentClass = document.getElementById('studentClass').value;
+            if (!studentName) { alert("Tolong isi Nama Lengkap!"); return; } if (questionsData.length === 0) { alert("Soal belum tersedia."); return; }
+            document.getElementById('pageTitle').innerText = `Halo, ${studentName.split(' ')[0]}! 👋`; document.getElementById('diag-welcome').style.display = 'none'; document.getElementById('diag-quiz').style.display = 'flex'; currentQuestionIndex = 0; userAnswers = []; flaggedQuestions = []; startCbtTimer(); renderQuestion();
         }
-
         function renderQuestion() {
-            const q = questionsData[currentQuestionIndex];
-            selectedOptions = userAnswers[currentQuestionIndex] ? [...userAnswers[currentQuestionIndex]] : [];
-            document.getElementById('progressText').innerText = `Soal ${currentQuestionIndex + 1} / ${questionsData.length}`;
-            document.getElementById('questionTopic').innerText = q.domain;
-            document.getElementById('questionText').innerText = q.question;
-            document.getElementById('btnPrev').style.display = currentQuestionIndex === 0 ? 'none' : 'flex';
-            document.getElementById('btnNext').innerText = (currentQuestionIndex === questionsData.length - 1) ? "Selesai & Review" : "Selanjutnya";
+            const q = questionsData[currentQuestionIndex]; selectedOptions = userAnswers[currentQuestionIndex] ? [...userAnswers[currentQuestionIndex]] : [];
+            document.getElementById('progressText').innerText = `Soal ${currentQuestionIndex + 1} / ${questionsData.length}`; document.getElementById('questionTopic').innerText = q.domain; document.getElementById('questionText').innerText = q.question;
+            document.getElementById('btnPrev').style.display = currentQuestionIndex === 0 ? 'none' : 'flex'; document.getElementById('btnNext').innerText = (currentQuestionIndex === questionsData.length - 1) ? "Selesai & Review" : "Selanjutnya";
             const btnFlag = document.getElementById('btnFlag');
-            if(flaggedQuestions.includes(currentQuestionIndex)) { btnFlag.style.background = 'var(--accent-yellow)'; btnFlag.style.color = 'white'; btnFlag.style.borderColor = 'var(--accent-yellow)'; btnFlag.innerHTML = '🚩 Hapus Tanda Ragu-ragu'; } 
-            else { btnFlag.style.background = 'transparent'; btnFlag.style.color = 'var(--text-main)'; btnFlag.style.borderColor = 'var(--border-color)'; btnFlag.innerHTML = '🚩 Tandai Ragu-ragu'; }
+            if(flaggedQuestions.includes(currentQuestionIndex)) { btnFlag.style.background = 'var(--accent-yellow)'; btnFlag.style.color = 'white'; btnFlag.style.borderColor = 'var(--accent-yellow)'; btnFlag.innerHTML = '🚩 Hapus Tanda Ragu-ragu'; } else { btnFlag.style.background = 'transparent'; btnFlag.style.color = 'var(--text-main)'; btnFlag.style.borderColor = 'var(--border-color)'; btnFlag.innerHTML = '🚩 Tandai Ragu-ragu'; }
             const optionsList = document.getElementById('optionsList'); optionsList.innerHTML = '';
-            q.options.forEach((opt, index) => {
-                const btn = document.createElement('button'); btn.className = `option-btn ${q.type === 'PGK' ? 'multi' : ''}`;
-                if(selectedOptions.includes(index)) btn.classList.add('selected');
-                btn.innerHTML = `<div class="option-indicator"></div><span>${opt}</span>`;
-                btn.onclick = () => handleOptionClick(index, q.type, btn);
-                optionsList.appendChild(btn);
-            });
+            q.options.forEach((opt, index) => { const btn = document.createElement('button'); btn.className = `option-btn ${q.type === 'PGK' ? 'multi' : ''}`; if(selectedOptions.includes(index)) btn.classList.add('selected'); btn.innerHTML = `<div class="option-indicator"></div><span>${opt}</span>`; btn.onclick = () => handleOptionClick(index, q.type, btn); optionsList.appendChild(btn); });
         }
-
         function handleOptionClick(index, type, btnElement) {
-            if (type === 'PG') { selectedOptions = [index]; Array.from(document.getElementById('optionsList').children).forEach(child => child.classList.remove('selected')); btnElement.classList.add('selected'); } 
-            else { if (selectedOptions.includes(index)) { selectedOptions = selectedOptions.filter(i => i !== index); btnElement.classList.remove('selected'); } else { selectedOptions.push(index); btnElement.classList.add('selected'); } }
+            if (type === 'PG') { selectedOptions = [index]; Array.from(document.getElementById('optionsList').children).forEach(child => child.classList.remove('selected')); btnElement.classList.add('selected'); } else { if (selectedOptions.includes(index)) { selectedOptions = selectedOptions.filter(i => i !== index); btnElement.classList.remove('selected'); } else { selectedOptions.push(index); btnElement.classList.add('selected'); } }
             userAnswers[currentQuestionIndex] = [...selectedOptions];
         }
-
         function toggleFlag() { if(flaggedQuestions.includes(currentQuestionIndex)) { flaggedQuestions = flaggedQuestions.filter(i => i !== currentQuestionIndex); } else { flaggedQuestions.push(currentQuestionIndex); } renderQuestion(); }
         function prevQuestion() { if (currentQuestionIndex > 0) { currentQuestionIndex--; renderQuestion(); } }
         function nextQuestion() { if (currentQuestionIndex < questionsData.length - 1) { currentQuestionIndex++; renderQuestion(); } else { showReviewScreen(); } }
-
         function openQuestionGrid() {
             const grid = document.getElementById('gridNumbers'); grid.innerHTML = '';
-            questionsData.forEach((_, i) => {
-                const div = document.createElement('div'); div.className = 'grid-num';
-                if (i === currentQuestionIndex) div.classList.add('active');
-                if (userAnswers[i] && userAnswers[i].length > 0) div.classList.add('answered');
-                if (flaggedQuestions.includes(i)) div.classList.add('flagged');
-                div.innerText = i + 1; div.onclick = () => { currentQuestionIndex = i; renderQuestion(); closeQuestionGrid(); };
-                grid.appendChild(div);
-            });
+            questionsData.forEach((_, i) => { const div = document.createElement('div'); div.className = 'grid-num'; if (i === currentQuestionIndex) div.classList.add('active'); if (userAnswers[i] && userAnswers[i].length > 0) div.classList.add('answered'); if (flaggedQuestions.includes(i)) div.classList.add('flagged'); div.innerText = i + 1; div.onclick = () => { currentQuestionIndex = i; renderQuestion(); closeQuestionGrid(); }; grid.appendChild(div); });
             document.getElementById('questionGridModal').style.display = 'flex';
         }
         function closeQuestionGrid() { document.getElementById('questionGridModal').style.display = 'none'; }
-
-        function showReviewScreen() {
-            document.getElementById('diag-quiz').style.display = 'none';
-            document.getElementById('diag-review').style.display = 'flex';
-            let answeredCount = userAnswers.filter(a => a && a.length > 0).length;
-            document.getElementById('reviewTotal').innerText = questionsData.length;
-            document.getElementById('reviewAnswered').innerText = answeredCount;
-            document.getElementById('reviewFlagged').innerText = flaggedQuestions.length;
-        }
+        function showReviewScreen() { document.getElementById('diag-quiz').style.display = 'none'; document.getElementById('diag-review').style.display = 'flex'; let answeredCount = userAnswers.filter(a => a && a.length > 0).length; document.getElementById('reviewTotal').innerText = questionsData.length; document.getElementById('reviewAnswered').innerText = answeredCount; document.getElementById('reviewFlagged').innerText = flaggedQuestions.length; }
         function backToQuiz() { document.getElementById('diag-review').style.display = 'none'; document.getElementById('diag-quiz').style.display = 'flex'; }
-
         function calculateScores() {
-            let domainStats = { "Bilangan": { correct: 0, total: 0 }, "Geometri & Pengukuran": { correct: 0, total: 0 }, "Data": { correct: 0, total: 0 }, "Penalaran": { correct: 0, total: 0 } };
-            let totalCorrect = 0;
-            questionsData.forEach((q, index) => {
-                let domain = q.domain; if (!domainStats[domain]) domainStats[domain] = { correct: 0, total: 0 };
-                domainStats[domain].total += 1;
-                let ua = userAnswers[index] || []; let ca = q.correctAnswer || [];
-                ua.sort((a,b) => a-b); ca.sort((a,b) => a-b);
-                if (ua.length === ca.length && ua.every((val, i) => val === ca[i])) { domainStats[domain].correct += 1; totalCorrect += 1; }
-            });
+            let domainStats = { "Bilangan": { correct: 0, total: 0 }, "Geometri & Pengukuran": { correct: 0, total: 0 }, "Data": { correct: 0, total: 0 }, "Penalaran": { correct: 0, total: 0 } }; let totalCorrect = 0;
+            questionsData.forEach((q, index) => { let domain = q.domain; if (!domainStats[domain]) domainStats[domain] = { correct: 0, total: 0 }; domainStats[domain].total += 1; let ua = userAnswers[index] || []; let ca = q.correctAnswer || []; ua.sort((a,b) => a-b); ca.sort((a,b) => a-b); if (ua.length === ca.length && ua.every((val, i) => val === ca[i])) { domainStats[domain].correct += 1; totalCorrect += 1; } });
             let scores = { bilangan: 0, geometri: 0, data: 0, penalaran: 0, readiness: 0 };
             if (domainStats["Bilangan"].total > 0) scores.bilangan = Math.round((domainStats["Bilangan"].correct / domainStats["Bilangan"].total) * 100);
             if (domainStats["Geometri & Pengukuran"].total > 0) scores.geometri = Math.round((domainStats["Geometri & Pengukuran"].correct / domainStats["Geometri & Pengukuran"].total) * 100);
             if (domainStats["Data"].total > 0) scores.data = Math.round((domainStats["Data"].correct / domainStats["Data"].total) * 100);
             if (domainStats["Penalaran"].total > 0) scores.penalaran = Math.round((domainStats["Penalaran"].correct / domainStats["Penalaran"].total) * 100);
-            scores.readiness = Math.round((totalCorrect / questionsData.length) * 100);
-            return scores;
+            scores.readiness = Math.round((totalCorrect / questionsData.length) * 100); return scores;
         }
-
         function getWrongQuestions() {
             let mistakes = [];
-            questionsData.forEach((q, index) => {
-                let ua = userAnswers[index] || []; let ca = q.correctAnswer || [];
-                ua.sort((a,b) => a-b); ca.sort((a,b) => a-b);
-                if (!(ua.length === ca.length && ua.every((val, i) => val === ca[i]))) {
-                    let studentAnswerText = ua.map(idx => q.options[idx]).join(', ') || "Tidak dijawab";
-                    let correctAnswerText = ca.map(idx => q.options[idx]).join(', ');
-                    mistakes.push({ domain: q.domain, question: q.question, studentAnswer: studentAnswerText, correctAnswer: correctAnswerText });
-                }
-            });
+            questionsData.forEach((q, index) => { let ua = userAnswers[index] || []; let ca = q.correctAnswer || []; ua.sort((a,b) => a-b); ca.sort((a,b) => a-b); if (!(ua.length === ca.length && ua.every((val, i) => val === ca[i]))) { let studentAnswerText = ua.map(idx => q.options[idx]).join(', ') || "Tidak dijawab"; let correctAnswerText = ca.map(idx => q.options[idx]).join(', '); mistakes.push({ domain: q.domain, question: q.question, studentAnswer: studentAnswerText, correctAnswer: correctAnswerText }); } });
             return mistakes;
         }
-
         async function submitQuiz() {
-            if(cbtTimerInterval) clearInterval(cbtTimerInterval);
-            document.getElementById('diag-review').style.display = 'none'; document.getElementById('diag-loading').style.display = 'flex';
+            if(cbtTimerInterval) clearInterval(cbtTimerInterval); document.getElementById('diag-review').style.display = 'none'; document.getElementById('diag-loading').style.display = 'flex';
             const scores = calculateScores(); const mistakes = getWrongQuestions();
-            localStorage.setItem('math_ready_scores', JSON.stringify(scores));
-            localStorage.setItem('math_ready_mistakes', JSON.stringify(mistakes));
-            localStorage.setItem('student_name', studentName);
+            localStorage.setItem('math_ready_scores', JSON.stringify(scores)); localStorage.setItem('math_ready_mistakes', JSON.stringify(mistakes)); localStorage.setItem('student_name', studentName);
             const dataToSend = { nama: studentName, kelas: studentClass, bilangan: scores.bilangan, geometri: scores.geometri, skorData: scores.data, penalaran: scores.penalaran, readiness: scores.readiness };
             try { await fetch(URL_APPS_SCRIPT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dataToSend) }); } catch (error) {}
             setTimeout(() => { document.getElementById('diag-loading').style.display = 'none'; document.getElementById('diag-result').style.display = 'flex'; }, 1500);
         }
-
-        // === FUNGSI SERTIFIKAT ===
-        function showCertificate() {
-            const savedName = localStorage.getItem('student_name') || "Siswa Hebat";
-            const savedData = JSON.parse(localStorage.getItem('math_ready_scores'));
-            const readiness = savedData ? savedData.readiness : 0;
-            
-            document.getElementById('certStudentName').innerText = savedName;
-            document.getElementById('certScore').innerText = readiness + "%";
-            
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            const today = new Date().toLocaleDateString('id-ID', options);
-            document.getElementById('certDate').innerText = today;
-            
-            document.getElementById('certificateModal').style.display = 'block';
-        }
-
+        function showCertificate() { const savedName = localStorage.getItem('student_name') || "Siswa Hebat"; const savedData = JSON.parse(localStorage.getItem('math_ready_scores')); const readiness = savedData ? savedData.readiness : 0; document.getElementById('certStudentName').innerText = savedName; document.getElementById('certScore').innerText = readiness + "%"; const options = { year: 'numeric', month: 'long', day: 'numeric' }; document.getElementById('certDate').innerText = new Date().toLocaleDateString('id-ID', options); document.getElementById('certificateModal').style.display = 'block'; }
         function closeCertificate() { document.getElementById('certificateModal').style.display = 'none'; }
         function printCertificate() { window.print(); }
-
-        // === CHART DASHBOARD SISWA ===
         function renderDashboardCharts() {
-            let data = { bilangan: 0, geometri: 0, data: 0, penalaran: 0, readiness: 0 };
-            const savedData = localStorage.getItem('math_ready_scores');
-            if (savedData) { const parsed = JSON.parse(savedData); data = { bilangan: parsed.bilangan, geometri: parsed.geometri, data: parsed.data || 0, penalaran: parsed.penalaran, readiness: parsed.readiness }; }
-            
-            document.getElementById('readinessScore').innerText = data.readiness + "%";
-            
-            // Logika Menampilkan Tombol Sertifikat (Jika skor >= 80)
-            const btnCert = document.getElementById('btnCertificate');
-            if (data.readiness >= 80) {
-                btnCert.style.display = 'block';
-            } else {
-                btnCert.style.display = 'none';
-            }
-
+            let data = { bilangan: 0, geometri: 0, data: 0, penalaran: 0, readiness: 0 }; const savedData = localStorage.getItem('math_ready_scores'); if (savedData) { const parsed = JSON.parse(savedData); data = { bilangan: parsed.bilangan, geometri: parsed.geometri, data: parsed.data || 0, penalaran: parsed.penalaran, readiness: parsed.readiness }; }
+            document.getElementById('readinessScore').innerText = data.readiness + "%"; const btnCert = document.getElementById('btnCertificate'); if (data.readiness >= 80) { btnCert.style.display = 'block'; } else { btnCert.style.display = 'none'; }
             const isDark = html.getAttribute('data-theme') === 'dark'; const trackColor = isDark ? '#334155' : '#E2E8F0';
-            const statsData = [
-                { id: 'chart1', label: 'Bilangan', value: data.bilangan, color: '#F59E0B', status: data.bilangan >= 70 ? 'Dikuasai' : 'Berkembang', statusClass: data.bilangan >= 70 ? 'status-green' : 'status-yellow' },
-                { id: 'chart2', label: 'Geometri & Pengukuran', value: data.geometri, color: '#F59E0B', status: data.geometri >= 70 ? 'Dikuasai' : 'Berkembang', statusClass: data.geometri >= 70 ? 'status-green' : 'status-yellow' },
-                { id: 'chart3', label: 'Data', value: data.data, color: '#F59E0B', status: data.data >= 70 ? 'Dikuasai' : 'Berkembang', statusClass: data.data >= 70 ? 'status-green' : 'status-yellow' },
-                { id: 'chart4', label: 'Reasoning', value: data.penalaran, color: '#F43F5E', status: data.penalaran >= 70 ? 'Dikuasai' : 'Perlu Dukungan', statusClass: data.penalaran >= 70 ? 'status-green' : 'status-red' }
-            ];
+            const statsData = [ { id: 'chart1', label: 'Bilangan', value: data.bilangan, color: '#F59E0B', status: data.bilangan >= 70 ? 'Dikuasai' : 'Berkembang', statusClass: data.bilangan >= 70 ? 'status-green' : 'status-yellow' }, { id: 'chart2', label: 'Geometri & Pengukuran', value: data.geometri, color: '#F59E0B', status: data.geometri >= 70 ? 'Dikuasai' : 'Berkembang', statusClass: data.geometri >= 70 ? 'status-green' : 'status-yellow' }, { id: 'chart3', label: 'Data', value: data.data, color: '#F59E0B', status: data.data >= 70 ? 'Dikuasai' : 'Berkembang', statusClass: data.data >= 70 ? 'status-green' : 'status-yellow' }, { id: 'chart4', label: 'Reasoning', value: data.penalaran, color: '#F43F5E', status: data.penalaran >= 70 ? 'Dikuasai' : 'Perlu Dukungan', statusClass: data.penalaran >= 70 ? 'status-green' : 'status-red' } ];
             const gridContainer = document.getElementById('statsGrid'); gridContainer.innerHTML = '';
-            statsData.forEach(stat => {
-                const div = document.createElement('div'); div.className = 'stat-item';
-                div.innerHTML = `<div class="chart-container-small"><canvas id="${stat.id}"></canvas><div class="chart-value">${stat.value}</div></div><div class="stat-label">${stat.label}</div><div class="stat-status ${stat.statusClass}">${stat.status}</div>`;
-                gridContainer.appendChild(div);
-                const ctx = document.getElementById(stat.id).getContext('2d');
-                new Chart(ctx, { type: 'doughnut', data: { datasets: [{ data: [stat.value, 100 - stat.value], backgroundColor: [stat.color, trackColor], borderWidth: 0, cutout: '80%' }] }, options: { responsive: true, maintainAspectRatio: false, animation: { duration: 1500 }, plugins: { legend: { display: false }, tooltip: { enabled: false } } } });
-            });
+            statsData.forEach(stat => { const div = document.createElement('div'); div.className = 'stat-item'; div.innerHTML = `<div class="chart-container-small"><canvas id="${stat.id}"></canvas><div class="chart-value">${stat.value}</div></div><div class="stat-label">${stat.label}</div><div class="stat-status ${stat.statusClass}">${stat.status}</div>`; gridContainer.appendChild(div); const ctx = document.getElementById(stat.id).getContext('2d'); new Chart(ctx, { type: 'doughnut', data: { datasets: [{ data: [stat.value, 100 - stat.value], backgroundColor: [stat.color, trackColor], borderWidth: 0, cutout: '80%' }] }, options: { responsive: true, maintainAspectRatio: false, animation: { duration: 1500 }, plugins: { legend: { display: false }, tooltip: { enabled: false } } } }); });
             renderMistakes(); 
         }
-
         function renderMistakes() {
-            const container = document.getElementById('mistakeList');
-            const savedMistakes = localStorage.getItem('math_ready_mistakes');
+            const container = document.getElementById('mistakeList'); const savedMistakes = localStorage.getItem('math_ready_mistakes');
             if (!savedMistakes) { container.innerHTML = '<p style="font-size:0.85rem; color:var(--text-muted); text-align:center; padding: 20px 0;">Belum ada data kesalahan. Ayo kerjakan tes!</p>'; return; }
             const mistakes = JSON.parse(savedMistakes);
             if (mistakes.length === 0) { container.innerHTML = '<div style="text-align:center; padding: 20px 0;"><div style="font-size: 2.5rem; margin-bottom: 8px;">🌟</div><p style="font-size:0.9rem; color:var(--accent-mint); font-weight:700;">Luar biasa! Semua jawabanmu benar.</p></div>'; return; }
-            container.innerHTML = '';
-            mistakes.forEach(m => {
-                const div = document.createElement('div'); div.className = 'mistake-box';
-                div.innerHTML = `<h4>${m.domain}</h4><p style="font-weight: 700; margin-bottom: 8px; color: var(--text-main); font-size: 0.85rem;">${m.question}</p><p style="color: var(--accent-coral); margin-bottom: 4px; font-weight: 600;">❌ Jawabanmu: ${m.studentAnswer}</p><p style="color: var(--accent-mint); font-weight: 600;">✅ Kunci: ${m.correctAnswer}</p>`;
-                container.appendChild(div);
-            });
+            container.innerHTML = ''; mistakes.forEach(m => { const div = document.createElement('div'); div.className = 'mistake-box'; div.innerHTML = `<h4>${m.domain}</h4><p style="font-weight: 700; margin-bottom: 8px; color: var(--text-main); font-size: 0.85rem;">${m.question}</p><p style="color: var(--accent-coral); margin-bottom: 4px; font-weight: 600;">❌ Jawabanmu: ${m.studentAnswer}</p><p style="color: var(--accent-mint); font-weight: 600;">✅ Kunci: ${m.correctAnswer}</p>`; container.appendChild(div); });
         }
-
         document.addEventListener('DOMContentLoaded', renderDashboardCharts);
     </script>
 </body>

@@ -57,6 +57,7 @@
         .btn { padding: 10px 20px; border-radius: var(--radius-btn); font-weight: 700; font-family: var(--font-heading); font-size: 0.9rem; cursor: pointer; transition: all 0.2s; border: none; display: inline-flex; align-items: center; justify-content: center; }
         .btn-yellow { background: var(--accent-yellow); color: #1E293B; } .btn-yellow:hover { background: #D97706; color: white; }
         .btn-outline { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); } .btn-outline:hover { background: rgba(255,255,255,0.2); }
+        .btn-coral { background: var(--accent-coral); color: white; } .btn-coral:hover { background: #E11D48; }
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
         .stat-item { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; }
         .chart-container-small { width: 90px; height: 90px; position: relative; margin-bottom: 12px; }
@@ -83,6 +84,17 @@
         .mistake-box h4 { color: #B91C1C; font-size: 0.9rem; margin-bottom: 4px; } [data-theme="dark"] .mistake-box h4 { color: #F87171; }
         .mistake-box p { font-size: 0.8rem; color: #7F1D1D; } [data-theme="dark"] .mistake-box p { color: #FCA5A5; }
         .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-main); }
+        
+        #pinModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
+        .pin-box { background: var(--bg-surface); padding: 32px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; max-width: 350px; width: 90%; animation: fadeIn 0.3s ease; }
+        .pin-box h2 { font-size: 1.5rem; margin-bottom: 8px; color: var(--text-main); }
+        .pin-box p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; }
+        .pin-input { width: 100%; padding: 16px; font-size: 1.5rem; text-align: center; letter-spacing: 8px; border: 2px solid var(--border-color); border-radius: 8px; background: var(--bg-base); color: var(--text-main); margin-bottom: 16px; outline: none; }
+        .pin-input:focus { border-color: var(--primary); }
+        .pin-btns { display: flex; gap: 12px; }
+        .pin-btns .btn { flex: 1; padding: 14px; font-size: 1rem; }
+        .logout-btn { display: none; color: var(--accent-coral) !important; font-weight: 700; }
+
         @media (max-width: 1024px) { .grid-layout { grid-template-columns: 1fr; } }
         @media (max-width: 768px) {
             .sidebar { transform: translateX(-100%); } .sidebar.mobile-open { transform: translateX(0); }
@@ -90,23 +102,31 @@
             .topbar { flex-direction: column; gap: 16px; } .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .journey-timeline { flex-wrap: wrap; gap: 16px; } .journey-line { display: none; } .journey-step { width: 45%; }
         }
-        #diagnosticScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-base); z-index: 999; overflow-y: auto; padding: 24px; }
-        .diag-container { max-width: 600px; margin: 0 auto; min-height: 100%; display: flex; flex-direction: column; }
-        .diag-welcome { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; text-align: center; }
+
+        /* CBT Styles */
+        #diagnosticScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-base); z-index: 999; overflow-y: auto; flex-direction: column; }
+        .cbt-header { background: var(--bg-surface); padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 10; }
+        .cbt-timer { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; color: var(--accent-coral); display: flex; align-items: center; gap: 8px; background: rgba(244,63,94,0.1); padding: 8px 16px; border-radius: 8px; }
+        .cbt-body { flex-grow: 1; padding: 24px; max-width: 800px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; }
+        .cbt-footer { background: var(--bg-surface); padding: 16px 24px; display: flex; justify-content: space-between; border-top: 1px solid var(--border-color); position: sticky; bottom: 0; z-index: 10; }
+        .diag-welcome { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; text-align: center; padding: 24px; }
         .diag-welcome-icon { font-size: 5rem; margin-bottom: 24px; animation: float 3s ease-in-out infinite; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        .diag-quiz { display: none; flex-direction: column; height: 100%; }
-        .diag-progress-container { background: var(--border-color); border-radius: 10px; height: 8px; overflow: hidden; margin-bottom: 12px; }
-        .diag-progress-bar { height: 100%; background: var(--primary); width: 0%; transition: width 0.4s; }
         .diag-question-card { background: var(--bg-surface); border-radius: var(--radius-card); padding: 28px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); margin-bottom: 24px; flex-grow: 1; }
-        .diag-options-list { display: flex; flex-direction: column; gap: 12px; }
-        .option-btn { display: flex; align-items: center; gap: 16px; padding: 16px; background: var(--bg-base); border: 2px solid var(--border-color); border-radius: var(--radius-btn); cursor: pointer; transition: all 0.2s; font-family: var(--font-body); font-size: 1rem; color: var(--text-main); text-align: left; width: 100%; }
+        .option-btn { display: flex; align-items: center; gap: 16px; padding: 16px; background: var(--bg-base); border: 2px solid var(--border-color); border-radius: var(--radius-btn); cursor: pointer; transition: all 0.2s; font-family: var(--font-body); font-size: 1rem; color: var(--text-main); text-align: left; width: 100%; margin-bottom: 12px; }
         .option-btn:hover { border-color: var(--primary); } .option-btn.selected { border-color: var(--primary); background: rgba(14, 165, 233, 0.05); }
         .option-indicator { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--border-color); display: flex; justify-content: center; align-items: center; flex-shrink: 0; }
         .option-btn.selected .option-indicator { border-color: var(--primary); background: var(--primary); }
         .option-btn.selected .option-indicator::after { content: ''; width: 8px; height: 8px; background: white; border-radius: 50%; }
         .option-btn.multi .option-indicator { border-radius: 6px; }
         .option-btn.multi.selected .option-indicator::after { content: '✓'; color: white; font-size: 14px; font-weight: bold; background: none; }
+        #questionGridModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
+        .grid-box { background: var(--bg-surface); padding: 24px; border-radius: 16px; width: 90%; max-width: 400px; text-align: center; }
+        .grid-numbers { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 20px 0; }
+        .grid-num { padding: 12px; border-radius: 8px; border: 2px solid var(--border-color); background: var(--bg-base); font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        .grid-num.active { border-color: var(--primary); color: var(--primary); }
+        .grid-num.answered { background: var(--primary); color: white; border-color: var(--primary); }
+        .grid-num.flagged { background: var(--accent-yellow); color: white; border-color: var(--accent-yellow); }
         .diag-loading { display: none; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; text-align: center; }
         .loader-dot { width: 12px; height: 12px; background: var(--primary); border-radius: 50%; animation: bounce 0.6s infinite alternate; display: inline-block; margin: 0 4px; }
         @keyframes bounce { to { transform: translateY(-10px); opacity: 0.5; } }
@@ -119,6 +139,32 @@
 </head>
 <body>
 
+    <div id="pinModal">
+        <div class="pin-box">
+            <h2>🔒 Area Terbatas</h2>
+            <p>Silakan masukkan PIN Guru/Admin untuk mengakses halaman ini.</p>
+            <input type="password" id="pinInput" class="pin-input" placeholder="••••••" maxlength="6">
+            <div class="pin-btns">
+                <button class="btn btn-outline" style="color: var(--text-main); border-color: var(--border-color);" onclick="closePinModal()">Batal</button>
+                <button class="btn btn-yellow" onclick="verifyPin()">Masuk</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="questionGridModal">
+        <div class="grid-box">
+            <h2 style="font-size: 1.2rem; margin-bottom: 8px;">Daftar Soal</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Klik nomor untuk melompat ke soal.</p>
+            <div class="grid-numbers" id="gridNumbers"></div>
+            <div style="display: flex; gap: 16px; justify-content: center; font-size: 0.8rem; margin-bottom: 20px;">
+                <div style="display: flex; align-items: center; gap: 4px;"><div style="width: 12px; height: 12px; background: var(--primary); border-radius: 4px;"></div> Dijawab</div>
+                <div style="display: flex; align-items: center; gap: 4px;"><div style="width: 12px; height: 12px; background: var(--accent-yellow); border-radius: 4px;"></div> Ragu-ragu</div>
+                <div style="display: flex; align-items: center; gap: 4px;"><div style="width: 12px; height: 12px; background: var(--bg-base); border: 1px solid var(--border-color); border-radius: 4px;"></div> Kosong</div>
+            </div>
+            <button class="btn btn-yellow" style="width: 100%;" onclick="closeQuestionGrid()">Tutup</button>
+        </div>
+    </div>
+
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand"><span class="brand-icon">M</span><span class="brand-text">MATH READY SD</span></div>
         <ul class="nav-menu">
@@ -130,6 +176,10 @@
             <li><a href="#" class="nav-item" onclick="switchView('view-tentang', this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg> <span class="nav-text">Tentang</span></a></li>
         </ul>
         <div class="sidebar-bottom">
+            <a href="#" class="nav-item logout-btn" id="logoutBtn" onclick="logout()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                <span class="nav-text">Keluar (Guru)</span>
+            </a>
             <a href="#" class="nav-item" id="themeToggle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><span class="nav-text">Mode gelap</span></a>
             <a href="#" class="nav-item" id="collapseBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/></svg><span class="nav-text">Lipat menu</span></a>
         </div>
@@ -150,6 +200,7 @@
             </div>
         </header>
 
+        <!-- VIEW SISWA -->
         <div id="view-siswa" class="view active">
             <div class="grid-layout">
                 <div class="col-left">
@@ -168,15 +219,19 @@
                 <div class="col-right">
                     <div class="card"><div class="card-title">Misi Hari Ini</div><div style="display:flex; flex-direction:column; gap:12px;"><div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; font-weight:600;"><span style="background:var(--accent-mint); color:white; width:24px; height:24px; border-radius:6px; display:flex; justify-content:center; align-items:center;">✓</span> 1 Micro Lesson</div><div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; font-weight:600;"><span style="background:var(--accent-mint); color:white; width:24px; height:24px; border-radius:6px; display:flex; justify-content:center; align-items:center;">✓</span> 5 Soal latihan</div><div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; font-weight:600;"><span style="background:var(--accent-yellow); color:white; width:24px; height:24px; border-radius:6px; display:flex; justify-content:center; align-items:center;">!</span> 1 Tantangan</div></div></div>
                     <div class="card"><div class="card-title">Skor Kesiapan</div><div style="font-size:2.5rem; font-weight:800; font-family:var(--font-heading); margin-bottom:4px;" id="readinessScore">0%</div><div style="font-size:0.85rem; color:var(--text-muted); line-height:1.4;">Indikator internal, <strong>bukan nilai resmi TKA.</strong></div></div>
-                    <div class="card"><div class="card-title">📕 Buku Kesalahanku</div><div class="mistake-box"><h4>Pecahan senilai</h4><p>Kamu masih tertukar antara pembilang dan penyebut.</p></div></div>
+                    <div class="card">
+                        <div class="card-title">📕 Buku Kesalahanku</div>
+                        <div id="mistakeList"><p style="font-size:0.85rem; color:var(--text-muted);">Belum ada data kesalahan. Ayo kerjakan tes!</p></div>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- VIEW GURU -->
         <div id="view-guru" class="view">
             <div class="grid-layout">
                 <div class="col-left">
-                    <div class="card"><div class="card-title">Ketuntasan Kelas</div><div style="height: 250px;"><canvas id="teacherChart"></canvas></div></div>
+                    <div class="card"><div class="card-title">Ketuntasan Kelas (Rata-rata)</div><div style="height: 250px;"><canvas id="teacherChart"></canvas></div></div>
                     <div class="card">
                         <div class="card-title">Daftar Nilai Siswa (Data Asli)</div>
                         <div class="table-responsive">
@@ -190,13 +245,30 @@
             </div>
         </div>
 
+        <!-- VIEW ORANG TUA (DINAMIS) -->
         <div id="view-orangtua" class="view">
-            <div class="grid-layout">
-                <div class="col-left"><div class="card"><div class="card-title">Ringkasan Minggu Ini</div><div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;"><div style="background:var(--bg-base); padding:16px; border-radius:8px;"><div style="font-size:1.5rem; font-weight:800; color:var(--primary);">4 Hari</div><div style="font-size:0.85rem; color:var(--text-muted);">Aktif Belajar</div></div><div style="background:var(--bg-base); padding:16px; border-radius:8px;"><div style="font-size:1.5rem; font-weight:800; color:var(--accent-mint);">87 Menit</div><div style="font-size:0.85rem; color:var(--text-muted);">Total Waktu</div></div></div></div></div>
-                <div class="col-right"><div class="card"><div class="card-title">Saran di Rumah</div><p style="font-size:0.95rem; line-height:1.6;">"Ajak anak memotong kue atau pizza di rumah dan tanyakan konsep pecahan (misal: 1/2 sama dengan 2/4)."</p></div></div>
+            <div class="grid-layout" style="grid-template-columns: 1fr; max-width: 600px; margin: 0 auto;">
+                
+                <!-- Pencarian -->
+                <div class="card">
+                    <div class="card-title" style="font-size: 1.2rem;">👨‍👩‍👦 Portal Orang Tua</div>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Silakan masukkan nama lengkap anak Anda sesuai yang terdaftar saat tes untuk melihat hasil dan rekomendasi belajar.</p>
+                    <div class="input-group">
+                        <label>Nama Siswa</label>
+                        <input type="text" id="parentSearchName" placeholder="Ketik nama anak Anda di sini...">
+                    </div>
+                    <button class="btn btn-yellow" style="width: 100%; padding: 14px; font-size: 1rem;" onclick="fetchParentData()">Cari Data Anak</button>
+                </div>
+
+                <!-- Hasil Pencarian -->
+                <div id="parentResult" style="display: none;">
+                    <!-- Diisi oleh JavaScript -->
+                </div>
+
             </div>
         </div>
 
+        <!-- VIEW ADMIN -->
         <div id="view-admin" class="view">
             <div class="grid-layout">
                 <div class="col-left">
@@ -213,6 +285,7 @@
             </div>
         </div>
 
+        <!-- VIEW TENTANG -->
         <div id="view-tentang" class="view">
             <div class="grid-layout" style="grid-template-columns: 1fr;">
                 <div class="card" style="text-align:center; padding:40px;">
@@ -225,33 +298,66 @@
         </div>
     </main>
 
+    <!-- OVERLAY DIAGNOSTIC CBT -->
     <div id="diagnosticScreen">
-        <div class="diag-container">
-            <div id="diag-welcome" class="diag-welcome">
-                <div class="diag-welcome-icon">🚀</div>
-                <h1 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 12px;">Yuk, Cek Kemampuanmu!</h1>
-                <p style="color: var(--text-muted); margin-bottom: 24px;">Ini bukan ujian untuk menentukan peringkat. Ini petualangan untuk mencari tahu di mana kekuatanmu.</p>
-                <div style="width: 100%; max-width: 300px; margin: 0 auto 24px;">
-                    <div class="input-group"><label>Nama Lengkap</label><input type="text" id="studentName" placeholder="Contoh: Ahmad Fauzi"></div>
-                    <div class="input-group"><label>Kelas</label><select id="studentClass"><option value="6A">Kelas 6A</option><option value="6B">Kelas 6B</option><option value="5A">Kelas 5A</option><option value="4A">Kelas 4A</option></select></div>
-                </div>
-                <button class="btn btn-yellow" style="width: 100%; font-size: 1.1rem; padding: 16px;" onclick="startQuiz()">Mulai Petualangan</button>
-                <button class="btn" style="width: 100%; background: transparent; color: var(--text-muted); margin-top: 12px;" onclick="closeDiagnostic()">Nanti saja</button>
+        <div id="diag-welcome" class="diag-welcome">
+            <div class="diag-welcome-icon">🚀</div>
+            <h1 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 12px;">Yuk, Cek Kemampuanmu!</h1>
+            <p style="color: var(--text-muted); margin-bottom: 24px;">Ini bukan ujian untuk menentukan peringkat. Ini petualangan untuk mencari tahu di mana kekuatanmu.</p>
+            <div style="width: 100%; max-width: 300px; margin: 0 auto 24px;">
+                <div class="input-group"><label>Nama Lengkap</label><input type="text" id="studentName" placeholder="Contoh: Ahmad Fauzi"></div>
+                <div class="input-group"><label>Kelas</label><select id="studentClass"><option value="6A">Kelas 6A</option><option value="6B">Kelas 6B</option><option value="5A">Kelas 5A</option><option value="4A">Kelas 4A</option></select></div>
             </div>
-
-            <div id="diag-quiz" class="diag-quiz">
-                <div style="margin-bottom: 24px;"><div class="diag-progress-container"><div class="diag-progress-bar" id="progressBar"></div></div><div id="progressText" style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-align: right;">Soal 1</div></div>
-                <div class="diag-question-card"><div id="questionTopic" style="display: inline-block; background: rgba(14, 165, 233, 0.1); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 16px;">Domain</div><div id="questionText" style="font-size: 1.1rem; font-weight: 600; line-height: 1.6; margin-bottom: 24px;">Memuat soal...</div><div id="optionsList" class="diag-options-list"></div></div>
-                <button class="btn btn-yellow" id="btnNext" style="width: 100%; font-size: 1.1rem; padding: 16px; opacity: 0.5; cursor: not-allowed;" onclick="nextQuestion()" disabled>Lanjut</button>
-            </div>
-
-            <div id="diag-loading" class="diag-loading"><div><span class="loader-dot"></span><span class="loader-dot" style="animation-delay:0.2s;"></span><span class="loader-dot" style="animation-delay:0.4s;"></span></div><h2 style="font-family: var(--font-heading); margin-top: 20px;">Mengirim data ke Guru...</h2></div>
-            <div id="diag-result" class="diag-result"><div style="font-size: 4rem; margin-bottom: 16px;">🎉</div><h2 style="font-family: var(--font-heading);">Hebat! Kamu Sudah Selesai.</h2><p style="color: var(--text-muted); margin-bottom: 24px;">Hasil tes ini sudah dikirim ke Guru dan masuk ke Dashboard-mu!</p><button class="btn btn-yellow" style="width: 100%; font-size: 1.1rem; padding: 16px;" onclick="closeDiagnostic()">Lihat Dashboard</button></div>
+            <button class="btn btn-yellow" style="width: 100%; font-size: 1.1rem; padding: 16px;" onclick="startQuiz()">Mulai Petualangan</button>
+            <button class="btn" style="width: 100%; background: transparent; color: var(--text-muted); margin-top: 12px;" onclick="closeDiagnostic()">Nanti saja</button>
         </div>
+
+        <div id="diag-quiz" style="display: none; flex-direction: column; height: 100%;">
+            <div class="cbt-header">
+                <div style="font-weight: 800; font-family: var(--font-heading); color: var(--primary); display: flex; align-items: center; gap: 8px;"><span style="font-size: 1.2rem;">📝</span> Simulasi TKA</div>
+                <div class="cbt-timer" id="cbtTimer">⏱ 15:00</div>
+            </div>
+            <div class="cbt-body">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <div id="questionTopic" style="display: inline-block; background: rgba(14, 165, 233, 0.1); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700;">Domain</div>
+                    <div id="progressText" style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">Soal 1 / 10</div>
+                </div>
+                <div class="diag-question-card">
+                    <div id="questionText" style="font-size: 1.1rem; font-weight: 600; line-height: 1.6; margin-bottom: 24px;">Memuat soal...</div>
+                    <div id="optionsList" class="diag-options-list"></div>
+                </div>
+                <div style="text-align: center; margin-bottom: 24px;">
+                    <button class="btn btn-outline" id="btnFlag" style="color: var(--text-main); border-color: var(--border-color); width: 100%;" onclick="toggleFlag()">🚩 Tandai Ragu-ragu</button>
+                </div>
+            </div>
+            <div class="cbt-footer">
+                <button class="btn btn-outline" id="btnPrev" style="color: var(--text-main); border-color: var(--border-color); display: none;" onclick="prevQuestion()">Sebelumnya</button>
+                <button class="btn btn-yellow" id="btnNavGrid" style="color: var(--text-main); background: var(--border-color);" onclick="openQuestionGrid()">Daftar Soal</button>
+                <button class="btn btn-yellow" id="btnNext" onclick="nextQuestion()">Selanjutnya</button>
+            </div>
+        </div>
+
+        <div id="diag-review" class="diag-welcome" style="display: none;">
+            <div style="font-size: 4rem; margin-bottom: 16px;">📋</div>
+            <h2 style="font-family: var(--font-heading);">Waktu Hampir Habis atau Selesai?</h2>
+            <p style="color: var(--text-muted); margin-bottom: 24px;">Pastikan Bapak/Ibu/Siswa sudah memeriksa semua jawaban. Jawaban yang kosong tidak akan mendapat poin.</p>
+            <div style="background: var(--bg-surface); padding: 24px; border-radius: 16px; width: 100%; border: 1px solid var(--border-color); margin-bottom: 24px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem;"><span>Total Soal:</span> <strong id="reviewTotal">10</strong></div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem;"><span>Sudah Dijawab:</span> <strong id="reviewAnswered" style="color: var(--accent-mint);">10</strong></div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.95rem;"><span>Ragu-ragu:</span> <strong id="reviewFlagged" style="color: var(--accent-yellow);">0</strong></div>
+            </div>
+            <button class="btn btn-yellow" style="width: 100%; font-size: 1.1rem; padding: 16px; margin-bottom: 12px;" onclick="submitQuiz()">Kumpulkan Jawaban & Kirim Data</button>
+            <button class="btn btn-outline" style="width: 100%; color: var(--text-main); border-color: var(--border-color);" onclick="backToQuiz()">Kembali ke Soal</button>
+        </div>
+
+        <div id="diag-loading" class="diag-loading"><div><span class="loader-dot"></span><span class="loader-dot" style="animation-delay:0.2s;"></span><span class="loader-dot" style="animation-delay:0.4s;"></span></div><h2 style="font-family: var(--font-heading); margin-top: 20px;">Mengirim data ke Guru...</h2></div>
+        <div id="diag-result" class="diag-result"><div style="font-size: 4rem; margin-bottom: 16px;">🎉</div><h2 style="font-family: var(--font-heading);">Hebat! Kamu Sudah Selesai.</h2><p style="color: var(--text-muted); margin-bottom: 24px;">Hasil tes ini sudah dikirim ke Guru dan masuk ke Dashboard-mu!</p><button class="btn btn-yellow" style="width: 100%; font-size: 1.1rem; padding: 16px;" onclick="closeDiagnostic()">Lihat Dashboard</button></div>
     </div>
 
     <script>
         const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbx_u6hsHuXa6e9pCPY4NxOxPmZE4auH0Ll7GjQu3iWNECDuDFp5vLwXnahR01DjJF7Q/exec";
+        const PIN_RAHASIA = "123456"; 
+        let targetViewAfterPin = "";
 
         const html = document.documentElement;
         const sidebar = document.getElementById('sidebar');
@@ -259,147 +365,248 @@
         const navItems = document.querySelectorAll('.nav-menu .nav-item');
         const pageTitle = document.getElementById('pageTitle');
         const pageSubtitle = document.getElementById('pageSubtitle');
+        const pinModal = document.getElementById('pinModal');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const diagScreen = document.getElementById('diagnosticScreen');
         
         const pageConfig = {
             'view-siswa': { title: 'Halo, Siswa! 👋', subtitle: 'Selamat datang di Math Ready SD' },
             'view-guru': { title: 'Dashboard Guru', subtitle: 'Data nilai real-time dari Google Sheets' },
-            'view-orangtua': { title: 'Portal Orang Tua', subtitle: 'Ringkasan belajar anak' },
+            'view-orangtua': { title: 'Portal Orang Tua', subtitle: 'Pantau hasil belajar anak Anda' },
             'view-admin': { title: 'Panel Admin', subtitle: 'Kelola konten & bank soal' },
             'view-tentang': { title: 'Tentang Platform', subtitle: 'Informasi & Profil Pengembang' }
         };
 
+        function checkLoginStatus() { if (sessionStorage.getItem('isAuthorized') === 'true') { logoutBtn.style.display = 'flex'; } else { logoutBtn.style.display = 'none'; } }
+        checkLoginStatus();
+
         function switchView(viewId, el = null) {
+            if ((viewId === 'view-guru' || viewId === 'view-admin') && sessionStorage.getItem('isAuthorized') !== 'true') {
+                targetViewAfterPin = viewId; pinModal.style.display = 'flex'; document.getElementById('pinInput').value = ''; document.getElementById('pinInput').focus(); return; 
+            }
             views.forEach(v => v.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
             navItems.forEach(nav => nav.classList.remove('active'));
             if (el) el.classList.add('active');
-            else {
-                const activeNav = Array.from(navItems).find(n => n.getAttribute('onclick')?.includes(viewId));
-                if (activeNav) activeNav.classList.add('active');
-            }
-            if (pageConfig[viewId]) {
-                pageTitle.innerText = pageConfig[viewId].title;
-                pageSubtitle.innerText = pageConfig[viewId].subtitle;
-            }
+            else { const activeNav = Array.from(navItems).find(n => n.getAttribute('onclick')?.includes(viewId)); if (activeNav) activeNav.classList.add('active'); }
+            if (pageConfig[viewId]) { pageTitle.innerText = pageConfig[viewId].title; pageSubtitle.innerText = pageConfig[viewId].subtitle; }
             if (window.innerWidth <= 768) sidebar.classList.remove('mobile-open');
-            if (viewId === 'view-guru') { renderTeacherChart(); fetchGuruData(); }
+            if (viewId === 'view-guru') { fetchGuruData(); }
             if (viewId === 'view-admin') fetchAdminData();
         }
+
+        function verifyPin() {
+            if (document.getElementById('pinInput').value === PIN_RAHASIA) {
+                sessionStorage.setItem('isAuthorized', 'true'); logoutBtn.style.display = 'flex'; closePinModal(); switchView(targetViewAfterPin);
+            } else { alert("PIN Salah! Akses ditolak."); document.getElementById('pinInput').value = ''; document.getElementById('pinInput').focus(); }
+        }
+        function closePinModal() { pinModal.style.display = 'none'; }
+        function logout() { sessionStorage.removeItem('isAuthorized'); logoutBtn.style.display = 'none'; switchView('view-siswa'); alert("Anda telah keluar."); }
 
         document.getElementById('collapseBtn').addEventListener('click', (e) => { e.preventDefault(); sidebar.classList.toggle('collapsed'); });
         document.getElementById('mobileMenuBtn').addEventListener('click', () => sidebar.classList.toggle('mobile-open'));
         document.getElementById('themeToggle').addEventListener('click', (e) => {
             e.preventDefault();
-            if (html.getAttribute('data-theme') === 'dark') { html.setAttribute('data-theme', 'light'); localStorage.setItem('theme', 'light'); } 
-            else { html.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); }
-            renderDashboardCharts(); if(document.getElementById('view-guru').classList.contains('active')) renderTeacherChart();
+            if (html.getAttribute('data-theme') === 'dark') { html.setAttribute('data-theme', 'light'); localStorage.setItem('theme', 'light'); } else { html.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); }
+            renderDashboardCharts(); if(document.getElementById('view-guru').classList.contains('active')) fetchGuruData(); 
         });
         if (localStorage.getItem('theme') === 'dark') html.setAttribute('data-theme', 'dark');
 
         // === TARIK DATA GURU ===
+        let teacherChartInstance = null;
         async function fetchGuruData() {
-            const tbody = document.getElementById('tableGuruBody');
-            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Memuat data...</td></tr>';
+            const tbody = document.getElementById('tableGuruBody'); tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Memuat data...</td></tr>';
             try {
-                const response = await fetch(URL_APPS_SCRIPT);
-                const data = await response.json();
-                tbody.innerHTML = '';
-                if(data.length === 0) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Belum ada data.</td></tr>'; return; }
-                data.reverse();
-                document.getElementById('totalSiswa').innerText = data.length;
+                const response = await fetch(URL_APPS_SCRIPT); const data = await response.json(); tbody.innerHTML = '';
+                if(data.length === 0) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Belum ada data.</td></tr>'; document.getElementById('totalSiswa').innerText = '0'; renderTeacherChart([0,0,0,0]); return; }
+                data.reverse(); document.getElementById('totalSiswa').innerText = data.length;
+                let tB=0, tG=0, tD=0, tP=0;
                 data.forEach(row => {
-                    const tr = document.createElement('tr');
-                    const readiness = parseInt(row[7]) || 0;
+                    const tr = document.createElement('tr'); const readiness = parseInt(row[7]) || 0;
                     const status = readiness >= 70 ? '<span class="tag tag-green">Tuntas</span>' : '<span class="tag tag-red">Remedial</span>';
                     tr.innerHTML = `<td><strong>${row[1]}</strong></td><td>${row[2]}</td><td>${row[3]}</td><td>${row[4]}</td><td>${row[6]}</td><td><strong>${readiness}</strong></td><td>${status}</td>`;
                     tbody.appendChild(tr);
+                    tB += parseInt(row[3]) || 0; tG += parseInt(row[4]) || 0; tD += parseInt(row[5]) || 0; tP += parseInt(row[6]) || 0;
                 });
+                renderTeacherChart([Math.round(tB/data.length), Math.round(tG/data.length), Math.round(tD/data.length), Math.round(tP/data.length)]);
             } catch (error) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:red;">Gagal memuat data.</td></tr>'; }
+        }
+        function renderTeacherChart(chartData = [0,0,0,0]) {
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            if (teacherChartInstance) teacherChartInstance.destroy();
+            const ctx = document.getElementById('teacherChart').getContext('2d');
+            teacherChartInstance = new Chart(ctx, { type: 'bar', data: { labels: ['Bilangan', 'Geometri', 'Data', 'Penalaran'], datasets: [{ label: 'Rata-rata Kelas (%)', data: chartData, backgroundColor: ['#0EA5E9', '#10B981', '#F59E0B', '#F43F5E'], borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, animation: { duration: 1000, easing: 'easeOutQuart' }, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100, grid: { color: isDark ? '#334155' : '#E2E8F0' }, ticks: { color: isDark ? '#F8FAFC' : '#0F172A' } }, x: { ticks: { color: isDark ? '#F8FAFC' : '#0F172A' } } } } });
+        }
+
+        // === PORTAL ORANG TUA (DINAMIS) ===
+        async function fetchParentData() {
+            const searchName = document.getElementById('parentSearchName').value.trim().toLowerCase();
+            if (!searchName) { alert('Tolong masukkan nama anak Anda terlebih dahulu.'); return; }
+
+            const resultDiv = document.getElementById('parentResult');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="card" style="text-align:center; color:var(--text-muted);">Mencari data...</div>';
+
+            try {
+                const response = await fetch(URL_APPS_SCRIPT);
+                const data = await response.json();
+
+                // Data dari Sheets: [Waktu, Nama, Kelas, Bilangan, Geometri, Data, Penalaran, Readiness]
+                // Balik urutan agar data terbaru ada di atas
+                const reversedData = data.reverse();
+                
+                // Cari siswa (menggunakan includes agar tidak harus mengetik nama lengkap persis)
+                const studentData = reversedData.find(row => row[1].toLowerCase().includes(searchName));
+
+                if (!studentData) {
+                    resultDiv.innerHTML = '<div class="card" style="text-align:center; padding: 32px;"><div style="font-size: 3rem; margin-bottom: 16px;">🔍</div><h3 style="color:var(--accent-coral); margin-bottom: 8px;">Data Tidak Ditemukan</h3><p style="color:var(--text-muted); font-size:0.9rem;">Pastikan nama anak sudah benar dan sudah mengerjakan tes di menu Diagnostic.</p></div>';
+                    return;
+                }
+
+                const [time, name, kelas, bil, geo, dataScore, pen, readiness] = studentData;
+
+                // Logika Kekuatan & Kelemahan
+                let strengths = [];
+                let weaknesses = [];
+                if (bil >= 70) strengths.push('Bilangan'); else weaknesses.push('Bilangan');
+                if (geo >= 70) strengths.push('Geometri'); else weaknesses.push('Geometri');
+                if (dataScore >= 70) strengths.push('Data'); else weaknesses.push('Data');
+                if (pen >= 70) strengths.push('Penalaran'); else weaknesses.push('Penalaran');
+
+                // Saran Belajar
+                let suggestion = "";
+                if (weaknesses.length === 0) {
+                    suggestion = "Luar biasa! Anak Anda sudah sangat menguasai semua materi. Pertahankan dengan latihan rutin dan tantangan yang lebih kompleks.";
+                } else {
+                    suggestion = `Ajak anak untuk lebih banyak berlatih soal <strong>${weaknesses[0]}</strong>. Gunakan benda-benda nyata di rumah (seperti kue, buah, atau mainan) untuk membantu visualisasi konsep matematikanya.`;
+                }
+
+                // Tampilkan Hasil
+                resultDiv.innerHTML = `
+                    <div class="card" style="border-left: 4px solid ${readiness >= 70 ? 'var(--accent-mint)' : 'var(--accent-coral)'};">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;">
+                            <div>
+                                <h3 style="font-size:1.2rem; margin-bottom:4px;">${name}</h3>
+                                <p style="font-size:0.85rem; color:var(--text-muted);">Kelas ${kelas} • Tes terakhir: ${time}</p>
+                            </div>
+                            <div style="text-align:center; background:var(--bg-base); padding:8px 16px; border-radius:12px;">
+                                <div style="font-size:0.7rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Readiness</div>
+                                <div style="font-size:1.5rem; font-weight:800; color:${readiness >= 70 ? 'var(--accent-mint)' : 'var(--accent-coral)'};">${readiness}%</div>
+                            </div>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
+                            <div style="background:rgba(16,185,129,0.1); padding:12px; border-radius:8px;">
+                                <h4 style="font-size:0.85rem; margin-bottom:8px; color:var(--accent-mint);">💪 Kekuatan:</h4>
+                                <div>${strengths.length > 0 ? strengths.map(s => `<span class="tag tag-green" style="margin-right:4px; margin-bottom:4px; display:inline-block;">${s}</span>`).join('') : '<span style="font-size:0.8rem; color:var(--text-muted);">Belum ada.</span>'}</div>
+                            </div>
+                            <div style="background:rgba(244,63,94,0.1); padding:12px; border-radius:8px;">
+                                <h4 style="font-size:0.85rem; margin-bottom:8px; color:var(--accent-coral);">🎯 Perlu Diperkuat:</h4>
+                                <div>${weaknesses.length > 0 ? weaknesses.map(w => `<span class="tag tag-red" style="margin-right:4px; margin-bottom:4px; display:inline-block;">${w}</span>`).join('') : '<span style="font-size:0.8rem; color:var(--text-muted);">Tidak ada.</span>'}</div>
+                            </div>
+                        </div>
+
+                        <div style="background:rgba(14,165,233,0.1); padding:16px; border-radius:8px; border-left:4px solid var(--primary);">
+                            <h4 style="font-size:0.9rem; margin-bottom:6px; color:var(--primary);">💡 Saran Belajar di Rumah:</h4>
+                            <p style="font-size:0.85rem; line-height:1.5; color:var(--text-main);">${suggestion}</p>
+                        </div>
+                    </div>
+                `;
+
+            } catch (error) {
+                resultDiv.innerHTML = '<div class="card" style="text-align:center; color:var(--accent-coral);">Terjadi kesalahan koneksi saat mengambil data.</div>';
+            }
         }
 
         // === TARIK DATA SOAL (ADMIN) ===
         async function fetchAdminData() {
-            const tbody = document.getElementById('tableSoalBody');
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Memuat soal...</td></tr>';
+            const tbody = document.getElementById('tableSoalBody'); tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Memuat soal...</td></tr>';
             try {
-                const response = await fetch(URL_APPS_SCRIPT + "?action=getQuestions");
-                const data = await response.json();
-                tbody.innerHTML = '';
+                const response = await fetch(URL_APPS_SCRIPT + "?action=getQuestions"); const data = await response.json(); tbody.innerHTML = '';
                 if(data.length === 0) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Belum ada soal.</td></tr>'; return; }
-                data.forEach(row => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `<td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td><td>${row[3]}</td><td>${row[8]}</td>`;
-                    tbody.appendChild(tr);
-                });
+                data.forEach(row => { const tr = document.createElement('tr'); tr.innerHTML = `<td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td><td>${row[3]}</td><td>${row[8]}</td>`; tbody.appendChild(tr); });
             } catch (error) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:red;">Gagal memuat soal.</td></tr>'; }
         }
 
-        // === LOGIKA DIAGNOSTIC & PENILAIAN OTOMATIS ===
+        // === LOGIKA CBT (COMPUTER BASED TEST) ===
         let questionsData = [];
         let userAnswers = []; 
+        let flaggedQuestions = []; 
         let currentQuestionIndex = 0;
         let selectedOptions = [];
         let studentName = "";
         let studentClass = "";
-        const diagScreen = document.getElementById('diagnosticScreen');
+        let cbtTimerInterval = null;
+        let cbtTimeLeft = 15 * 60; 
+
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            return `⏱ ${m}:${s}`;
+        }
+
+        function startCbtTimer() {
+            cbtTimeLeft = 15 * 60; 
+            document.getElementById('cbtTimer').innerText = formatTime(cbtTimeLeft);
+            document.getElementById('cbtTimer').style.color = 'var(--accent-coral)';
+            document.getElementById('cbtTimer').style.background = 'rgba(244,63,94,0.1)';
+            if(cbtTimerInterval) clearInterval(cbtTimerInterval);
+            cbtTimerInterval = setInterval(() => {
+                cbtTimeLeft--;
+                document.getElementById('cbtTimer').innerText = formatTime(cbtTimeLeft);
+                if (cbtTimeLeft <= 300) { document.getElementById('cbtTimer').style.color = 'white'; document.getElementById('cbtTimer').style.background = 'var(--accent-coral)'; }
+                if (cbtTimeLeft <= 0) { clearInterval(cbtTimerInterval); alert("Waktu Habis! Jawaban akan otomatis dikumpulkan."); submitQuiz(); }
+            }, 1000);
+        }
 
         async function openDiagnostic(el = null) {
-            diagScreen.style.display = 'block';
+            diagScreen.style.display = 'flex';
             document.getElementById('diag-welcome').style.display = 'flex';
             document.getElementById('diag-quiz').style.display = 'none';
+            document.getElementById('diag-review').style.display = 'none';
             document.getElementById('diag-loading').style.display = 'flex'; 
             document.getElementById('diag-result').style.display = 'none';
-            
             try {
                 const response = await fetch(URL_APPS_SCRIPT + "?action=getQuestions");
                 const data = await response.json();
-                questionsData = data.map(row => {
-                    return {
-                        id: row[0], domain: row[1], type: row[2], question: row[3],
-                        options: [row[4], row[5], row[6], row[7]],
-                        correctAnswer: row[8].toString().split(',').map(Number)
-                    };
-                });
+                questionsData = data.map(row => { return { id: row[0], domain: row[1], type: row[2], question: row[3], options: [row[4], row[5], row[6], row[7]], correctAnswer: row[8].toString().split(',').map(Number) }; });
             } catch (e) { alert("Gagal memuat soal."); questionsData = []; }
-
             document.getElementById('diag-loading').style.display = 'none';
             document.getElementById('studentName').value = '';
             navItems.forEach(nav => nav.classList.remove('active'));
             if (el) el.classList.add('active');
         }
 
-        function closeDiagnostic() { diagScreen.style.display = 'none'; switchView('view-siswa'); renderDashboardCharts(); }
+        function closeDiagnostic() { if(cbtTimerInterval) clearInterval(cbtTimerInterval); diagScreen.style.display = 'none'; switchView('view-siswa'); renderDashboardCharts(); }
 
         function startQuiz() {
             studentName = document.getElementById('studentName').value.trim();
             studentClass = document.getElementById('studentClass').value;
             if (!studentName) { alert("Tolong isi Nama Lengkap terlebih dahulu ya!"); return; }
             if (questionsData.length === 0) { alert("Soal belum tersedia di database."); return; }
-            
             document.getElementById('pageTitle').innerText = `Halo, ${studentName.split(' ')[0]}! 👋`;
             document.getElementById('diag-welcome').style.display = 'none';
             document.getElementById('diag-quiz').style.display = 'flex';
-            currentQuestionIndex = 0;
-            userAnswers = []; // Reset jawaban
+            currentQuestionIndex = 0; userAnswers = []; flaggedQuestions = []; 
+            startCbtTimer();
             renderQuestion();
         }
 
         function renderQuestion() {
             const q = questionsData[currentQuestionIndex];
-            selectedOptions = [];
-            document.getElementById('progressBar').style.width = `${((currentQuestionIndex) / questionsData.length) * 100}%`;
-            document.getElementById('progressText').innerText = `Soal ${currentQuestionIndex + 1} dari ${questionsData.length}`;
+            selectedOptions = userAnswers[currentQuestionIndex] ? [...userAnswers[currentQuestionIndex]] : [];
+            document.getElementById('progressText').innerText = `Soal ${currentQuestionIndex + 1} / ${questionsData.length}`;
             document.getElementById('questionTopic').innerText = q.domain;
             document.getElementById('questionText').innerText = q.question;
-            const btnNext = document.getElementById('btnNext');
-            btnNext.disabled = true; btnNext.style.opacity = '0.5'; btnNext.style.cursor = 'not-allowed';
-            btnNext.innerText = (currentQuestionIndex === questionsData.length - 1) ? "Selesai & Kirim Data" : "Lanjut";
-            
-            const optionsList = document.getElementById('optionsList');
-            optionsList.innerHTML = '';
+            document.getElementById('btnPrev').style.display = currentQuestionIndex === 0 ? 'none' : 'flex';
+            document.getElementById('btnNext').innerText = (currentQuestionIndex === questionsData.length - 1) ? "Selesai & Review" : "Selanjutnya";
+            const btnFlag = document.getElementById('btnFlag');
+            if(flaggedQuestions.includes(currentQuestionIndex)) { btnFlag.style.background = 'var(--accent-yellow)'; btnFlag.style.color = 'white'; btnFlag.style.borderColor = 'var(--accent-yellow)'; btnFlag.innerHTML = '🚩 Hapus Tanda Ragu-ragu'; } 
+            else { btnFlag.style.background = 'transparent'; btnFlag.style.color = 'var(--text-main)'; btnFlag.style.borderColor = 'var(--border-color)'; btnFlag.innerHTML = '🚩 Tandai Ragu-ragu'; }
+            const optionsList = document.getElementById('optionsList'); optionsList.innerHTML = '';
             q.options.forEach((opt, index) => {
-                const btn = document.createElement('button');
-                btn.className = `option-btn ${q.type === 'PGK' ? 'multi' : ''}`;
+                const btn = document.createElement('button'); btn.className = `option-btn ${q.type === 'PGK' ? 'multi' : ''}`;
+                if(selectedOptions.includes(index)) btn.classList.add('selected');
                 btn.innerHTML = `<div class="option-indicator"></div><span>${opt}</span>`;
                 btn.onclick = () => handleOptionClick(index, q.type, btn);
                 optionsList.appendChild(btn);
@@ -407,107 +614,98 @@
         }
 
         function handleOptionClick(index, type, btnElement) {
-            if (type === 'PG') {
-                selectedOptions = [index];
-                Array.from(document.getElementById('optionsList').children).forEach(child => child.classList.remove('selected'));
-                btnElement.classList.add('selected');
-            } else {
-                if (selectedOptions.includes(index)) { selectedOptions = selectedOptions.filter(i => i !== index); btnElement.classList.remove('selected'); } 
-                else { selectedOptions.push(index); btnElement.classList.add('selected'); }
-            }
-            const btnNext = document.getElementById('btnNext');
-            btnNext.disabled = selectedOptions.length === 0;
-            btnNext.style.opacity = selectedOptions.length === 0 ? '0.5' : '1';
-            btnNext.style.cursor = selectedOptions.length === 0 ? 'not-allowed' : 'pointer';
+            if (type === 'PG') { selectedOptions = [index]; Array.from(document.getElementById('optionsList').children).forEach(child => child.classList.remove('selected')); btnElement.classList.add('selected'); } 
+            else { if (selectedOptions.includes(index)) { selectedOptions = selectedOptions.filter(i => i !== index); btnElement.classList.remove('selected'); } else { selectedOptions.push(index); btnElement.classList.add('selected'); } }
+            userAnswers[currentQuestionIndex] = [...selectedOptions];
         }
 
-        // --- FUNGSI PENILAIAN OTOMATIS ---
-        function calculateScores() {
-            let domainStats = {
-                "Bilangan": { correct: 0, total: 0 },
-                "Geometri & Pengukuran": { correct: 0, total: 0 },
-                "Data": { correct: 0, total: 0 },
-                "Penalaran": { correct: 0, total: 0 }
-            };
-            let totalCorrect = 0;
+        function toggleFlag() { if(flaggedQuestions.includes(currentQuestionIndex)) { flaggedQuestions = flaggedQuestions.filter(i => i !== currentQuestionIndex); } else { flaggedQuestions.push(currentQuestionIndex); } renderQuestion(); }
+        function prevQuestion() { if (currentQuestionIndex > 0) { currentQuestionIndex--; renderQuestion(); } }
+        function nextQuestion() { if (currentQuestionIndex < questionsData.length - 1) { currentQuestionIndex++; renderQuestion(); } else { showReviewScreen(); } }
 
-            questionsData.forEach((q, index) => {
-                let domain = q.domain;
-                // Pastikan domain ada di daftar
-                if (!domainStats[domain]) domainStats[domain] = { correct: 0, total: 0 };
-                
-                domainStats[domain].total += 1;
-
-                let ua = userAnswers[index] || [];
-                let ca = q.correctAnswer || [];
-
-                // Urutkan array agar perbandingan (untuk soal PGK) tidak error
-                ua.sort((a,b) => a-b);
-                ca.sort((a,b) => a-b);
-
-                let isCorrect = ua.length === ca.length && ua.every((val, i) => val === ca[i]);
-
-                if (isCorrect) {
-                    domainStats[domain].correct += 1;
-                    totalCorrect += 1;
-                }
+        function openQuestionGrid() {
+            const grid = document.getElementById('gridNumbers'); grid.innerHTML = '';
+            questionsData.forEach((_, i) => {
+                const div = document.createElement('div'); div.className = 'grid-num';
+                if (i === currentQuestionIndex) div.classList.add('active');
+                if (userAnswers[i] && userAnswers[i].length > 0) div.classList.add('answered');
+                if (flaggedQuestions.includes(i)) div.classList.add('flagged');
+                div.innerText = i + 1; div.onclick = () => { currentQuestionIndex = i; renderQuestion(); closeQuestionGrid(); };
+                grid.appendChild(div);
             });
+            document.getElementById('questionGridModal').style.display = 'flex';
+        }
+        function closeQuestionGrid() { document.getElementById('questionGridModal').style.display = 'none'; }
 
+        function showReviewScreen() {
+            document.getElementById('diag-quiz').style.display = 'none';
+            document.getElementById('diag-review').style.display = 'flex';
+            let answeredCount = userAnswers.filter(a => a && a.length > 0).length;
+            document.getElementById('reviewTotal').innerText = questionsData.length;
+            document.getElementById('reviewAnswered').innerText = answeredCount;
+            document.getElementById('reviewFlagged').innerText = flaggedQuestions.length;
+        }
+        function backToQuiz() { document.getElementById('diag-review').style.display = 'none'; document.getElementById('diag-quiz').style.display = 'flex'; }
+
+        function calculateScores() {
+            let domainStats = { "Bilangan": { correct: 0, total: 0 }, "Geometri & Pengukuran": { correct: 0, total: 0 }, "Data": { correct: 0, total: 0 }, "Penalaran": { correct: 0, total: 0 } };
+            let totalCorrect = 0;
+            questionsData.forEach((q, index) => {
+                let domain = q.domain; if (!domainStats[domain]) domainStats[domain] = { correct: 0, total: 0 };
+                domainStats[domain].total += 1;
+                let ua = userAnswers[index] || []; let ca = q.correctAnswer || [];
+                ua.sort((a,b) => a-b); ca.sort((a,b) => a-b);
+                if (ua.length === ca.length && ua.every((val, i) => val === ca[i])) { domainStats[domain].correct += 1; totalCorrect += 1; }
+            });
             let scores = { bilangan: 0, geometri: 0, data: 0, penalaran: 0, readiness: 0 };
-
-            // Hitung persentase per domain
             if (domainStats["Bilangan"].total > 0) scores.bilangan = Math.round((domainStats["Bilangan"].correct / domainStats["Bilangan"].total) * 100);
             if (domainStats["Geometri & Pengukuran"].total > 0) scores.geometri = Math.round((domainStats["Geometri & Pengukuran"].correct / domainStats["Geometri & Pengukuran"].total) * 100);
             if (domainStats["Data"].total > 0) scores.data = Math.round((domainStats["Data"].correct / domainStats["Data"].total) * 100);
             if (domainStats["Penalaran"].total > 0) scores.penalaran = Math.round((domainStats["Penalaran"].correct / domainStats["Penalaran"].total) * 100);
-
-            // Hitung Readiness (Total Keseluruhan)
             scores.readiness = Math.round((totalCorrect / questionsData.length) * 100);
-
             return scores;
         }
 
-        async function nextQuestion() {
-            // Simpan jawaban user
-            userAnswers[currentQuestionIndex] = [...selectedOptions];
-
-            if (currentQuestionIndex < questionsData.length - 1) {
-                currentQuestionIndex++; renderQuestion();
-            } else {
-                document.getElementById('progressBar').style.width = '100%';
-                document.getElementById('diag-quiz').style.display = 'none';
-                document.getElementById('diag-loading').style.display = 'flex';
-                
-                // Hitung skor asli
-                const scores = calculateScores();
-                
-                localStorage.setItem('math_ready_scores', JSON.stringify(scores));
-                localStorage.setItem('student_name', studentName);
-
-                const dataToSend = { nama: studentName, kelas: studentClass, bilangan: scores.bilangan, geometri: scores.geometri, skorData: scores.data, penalaran: scores.penalaran, readiness: scores.readiness };
-
-                try { await fetch(URL_APPS_SCRIPT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dataToSend) }); } catch (error) {}
-
-                setTimeout(() => { document.getElementById('diag-loading').style.display = 'none'; document.getElementById('diag-result').style.display = 'flex'; }, 1500);
-            }
+        function getWrongQuestions() {
+            let mistakes = [];
+            questionsData.forEach((q, index) => {
+                let ua = userAnswers[index] || []; let ca = q.correctAnswer || [];
+                ua.sort((a,b) => a-b); ca.sort((a,b) => a-b);
+                if (!(ua.length === ca.length && ua.every((val, i) => val === ca[i]))) {
+                    let studentAnswerText = ua.map(idx => q.options[idx]).join(', ') || "Tidak dijawab";
+                    let correctAnswerText = ca.map(idx => q.options[idx]).join(', ');
+                    mistakes.push({ domain: q.domain, question: q.question, studentAnswer: studentAnswerText, correctAnswer: correctAnswerText });
+                }
+            });
+            return mistakes;
         }
 
-        // === CHART ===
+        async function submitQuiz() {
+            if(cbtTimerInterval) clearInterval(cbtTimerInterval);
+            document.getElementById('diag-review').style.display = 'none'; document.getElementById('diag-loading').style.display = 'flex';
+            const scores = calculateScores(); const mistakes = getWrongQuestions();
+            localStorage.setItem('math_ready_scores', JSON.stringify(scores));
+            localStorage.setItem('math_ready_mistakes', JSON.stringify(mistakes));
+            localStorage.setItem('student_name', studentName);
+            const dataToSend = { nama: studentName, kelas: studentClass, bilangan: scores.bilangan, geometri: scores.geometri, skorData: scores.data, penalaran: scores.penalaran, readiness: scores.readiness };
+            try { await fetch(URL_APPS_SCRIPT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dataToSend) }); } catch (error) {}
+            setTimeout(() => { document.getElementById('diag-loading').style.display = 'none'; document.getElementById('diag-result').style.display = 'flex'; }, 1500);
+        }
+
+        // === CHART DASHBOARD SISWA & BUKU KESALAHAN ===
         function renderDashboardCharts() {
             let data = { bilangan: 0, geometri: 0, data: 0, penalaran: 0, readiness: 0 };
             const savedData = localStorage.getItem('math_ready_scores');
             if (savedData) { const parsed = JSON.parse(savedData); data = { bilangan: parsed.bilangan, geometri: parsed.geometri, data: parsed.data || 0, penalaran: parsed.penalaran, readiness: parsed.readiness }; }
             document.getElementById('readinessScore').innerText = data.readiness + "%";
-            const isDark = html.getAttribute('data-theme') === 'dark';
-            const trackColor = isDark ? '#334155' : '#E2E8F0';
+            const isDark = html.getAttribute('data-theme') === 'dark'; const trackColor = isDark ? '#334155' : '#E2E8F0';
             const statsData = [
                 { id: 'chart1', label: 'Bilangan', value: data.bilangan, color: '#F59E0B', status: data.bilangan >= 70 ? 'Dikuasai' : 'Berkembang', statusClass: data.bilangan >= 70 ? 'status-green' : 'status-yellow' },
                 { id: 'chart2', label: 'Geometri & Pengukuran', value: data.geometri, color: '#F59E0B', status: data.geometri >= 70 ? 'Dikuasai' : 'Berkembang', statusClass: data.geometri >= 70 ? 'status-green' : 'status-yellow' },
                 { id: 'chart3', label: 'Data', value: data.data, color: '#F59E0B', status: data.data >= 70 ? 'Dikuasai' : 'Berkembang', statusClass: data.data >= 70 ? 'status-green' : 'status-yellow' },
                 { id: 'chart4', label: 'Reasoning', value: data.penalaran, color: '#F43F5E', status: data.penalaran >= 70 ? 'Dikuasai' : 'Perlu Dukungan', statusClass: data.penalaran >= 70 ? 'status-green' : 'status-red' }
             ];
-            const gridContainer = document.getElementById('statsGrid');
-            gridContainer.innerHTML = '';
+            const gridContainer = document.getElementById('statsGrid'); gridContainer.innerHTML = '';
             statsData.forEach(stat => {
                 const div = document.createElement('div'); div.className = 'stat-item';
                 div.innerHTML = `<div class="chart-container-small"><canvas id="${stat.id}"></canvas><div class="chart-value">${stat.value}</div></div><div class="stat-label">${stat.label}</div><div class="stat-status ${stat.statusClass}">${stat.status}</div>`;
@@ -515,16 +713,24 @@
                 const ctx = document.getElementById(stat.id).getContext('2d');
                 new Chart(ctx, { type: 'doughnut', data: { datasets: [{ data: [stat.value, 100 - stat.value], backgroundColor: [stat.color, trackColor], borderWidth: 0, cutout: '80%' }] }, options: { responsive: true, maintainAspectRatio: false, animation: { duration: 1500 }, plugins: { legend: { display: false }, tooltip: { enabled: false } } } });
             });
+            renderMistakes(); 
         }
-        document.addEventListener('DOMContentLoaded', renderDashboardCharts);
 
-        let teacherChartInstance = null;
-        function renderTeacherChart() {
-            const isDark = html.getAttribute('data-theme') === 'dark';
-            if (teacherChartInstance) teacherChartInstance.destroy();
-            const ctx = document.getElementById('teacherChart').getContext('2d');
-            teacherChartInstance = new Chart(ctx, { type: 'bar', data: { labels: ['Bilangan', 'Geometri', 'Data', 'Penalaran'], datasets: [{ label: 'Rata-rata Kelas (%)', data: [81, 73, 88, 64], backgroundColor: ['#0EA5E9', '#10B981', '#F59E0B', '#F43F5E'], borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100, grid: { color: isDark ? '#334155' : '#E2E8F0' }, ticks: { color: isDark ? '#F8FAFC' : '#0F172A' } }, x: { ticks: { color: isDark ? '#F8FAFC' : '#0F172A' } } } } });
+        function renderMistakes() {
+            const container = document.getElementById('mistakeList');
+            const savedMistakes = localStorage.getItem('math_ready_mistakes');
+            if (!savedMistakes) { container.innerHTML = '<p style="font-size:0.85rem; color:var(--text-muted); text-align:center; padding: 20px 0;">Belum ada data kesalahan. Ayo kerjakan tes!</p>'; return; }
+            const mistakes = JSON.parse(savedMistakes);
+            if (mistakes.length === 0) { container.innerHTML = '<div style="text-align:center; padding: 20px 0;"><div style="font-size: 2.5rem; margin-bottom: 8px;">🌟</div><p style="font-size:0.9rem; color:var(--accent-mint); font-weight:700;">Luar biasa! Semua jawabanmu benar.</p></div>'; return; }
+            container.innerHTML = '';
+            mistakes.forEach(m => {
+                const div = document.createElement('div'); div.className = 'mistake-box';
+                div.innerHTML = `<h4>${m.domain}</h4><p style="font-weight: 700; margin-bottom: 8px; color: var(--text-main); font-size: 0.85rem;">${m.question}</p><p style="color: var(--accent-coral); margin-bottom: 4px; font-weight: 600;">❌ Jawabanmu: ${m.studentAnswer}</p><p style="color: var(--accent-mint); font-weight: 600;">✅ Kunci: ${m.correctAnswer}</p>`;
+                container.appendChild(div);
+            });
         }
+
+        document.addEventListener('DOMContentLoaded', renderDashboardCharts);
     </script>
 </body>
 </html>

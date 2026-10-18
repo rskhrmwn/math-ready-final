@@ -858,7 +858,7 @@
             document.getElementById('diagTitle').innerText = "Yuk, Cek Kemampuanmu!";
             document.getElementById('diagDesc').innerText = "Ini bukan ujian untuk menentukan peringkat. Ini petualangan untuk mencari tahu di mana kekuatanmu.";
             document.getElementById('btnStartQuiz').innerText = "Mulai Petualangan";
-            document.getElementById('btnDiagResult').innerText = "Lihat Rekomendasi Materi"; // Ubah teks tombol result
+            document.getElementById('btnDiagResult').innerText = "Lihat Rekomendasi Materi"; 
             document.getElementById('cbtHeader').style.background = 'var(--bg-surface)';
             document.getElementById('cbtTitle').innerText = "Diagnostic Assessment";
             document.getElementById('cbtTitle').style.color = 'var(--primary)';
@@ -889,7 +889,7 @@
             document.getElementById('diagTitle').innerText = "Simulasi TKA - Uji Nyali!";
             document.getElementById('diagDesc').innerHTML = "Ujian ini terdiri dari <strong>30 Soal HOTS</strong> dengan waktu <strong>60 Menit</strong>. Siapkan mental dan fokusmu. Kerjakan dengan jujur!";
             document.getElementById('btnStartQuiz').innerText = "Mulai Simulasi TKA";
-            document.getElementById('btnDiagResult').innerText = "Lihat Hasil & Sertifikat"; // Ubah teks tombol result
+            document.getElementById('btnDiagResult').innerText = "Lihat Hasil & Sertifikat"; 
             document.getElementById('cbtHeader').style.background = 'linear-gradient(135deg, #F43F5E, #F59E0B)';
             document.getElementById('cbtTitle').innerText = "SIMULASI TKA";
             document.getElementById('cbtTitle').style.color = 'white';
@@ -912,13 +912,11 @@
             switchView('view-siswa'); 
             renderDashboardCharts(); 
             
-            // JIKA BARU SAJA SELESAI DIAGNOSTIK, ARAHKAN KE MATERI
             if (currentTestMode === 'Diagnostik') {
                 setTimeout(() => {
                     const journeyCard = document.getElementById('journey-card');
                     if (journeyCard) {
                         journeyCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        // Beri highlight sementara
                         journeyCard.style.boxShadow = '0 0 0 4px var(--accent-yellow)';
                         setTimeout(() => { journeyCard.style.boxShadow = 'var(--shadow-sm)'; }, 2000);
                     }
@@ -942,11 +940,15 @@
             renderQuestion();
         }
 
+        // --- PERUBAHAN ADA DI SINI (innerHTML) ---
         function renderQuestion() {
             const q = questionsData[currentQuestionIndex]; selectedOptions = userAnswers[currentQuestionIndex] ? [...userAnswers[currentQuestionIndex]] : [];
             document.getElementById('progressText').innerText = `Soal ${currentQuestionIndex + 1} / ${questionsData.length}`; 
             document.getElementById('questionTopic').innerText = q.domain; 
-            document.getElementById('questionText').innerText = q.question;
+            
+            // Menggunakan innerHTML agar tag <img> bisa terbaca
+            document.getElementById('questionText').innerHTML = q.question;
+            
             document.getElementById('btnPrev').style.display = currentQuestionIndex === 0 ? 'none' : 'flex'; 
             document.getElementById('btnNext').innerText = (currentQuestionIndex === questionsData.length - 1) ? "Selesai & Review" : "Selanjutnya";
             const btnFlag = document.getElementById('btnFlag');
@@ -1099,11 +1101,11 @@
                     certNote.style.display = 'none';
                 } else {
                     btnCert.style.display = 'none';
-                    certNote.style.display = 'block'; // Tampilkan pesan
+                    certNote.style.display = 'block';
                 }
             } else {
                 btnCert.style.display = 'none';
-                certNote.style.display = 'block'; // Tampilkan pesan
+                certNote.style.display = 'block';
             }
             
             const isDark = html.getAttribute('data-theme') === 'dark'; 

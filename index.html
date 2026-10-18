@@ -74,18 +74,20 @@
         .tag { padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
         .tag-green { background: rgba(16, 185, 129, 0.15); color: #047857; } .tag-red { background: rgba(244, 63, 94, 0.15); color: #BE123C; }
         .journey-timeline { display: flex; align-items: center; justify-content: space-between; position: relative; margin-top: 10px; }
-        .journey-step { display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 2; width: 25%; }
-        .journey-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--bg-base); border: 2px solid var(--border-color); display: flex; justify-content: center; align-items: center; font-size: 1.2rem; }
+        .journey-step { display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 2; width: 25%; cursor: pointer; transition: transform 0.2s; }
+        .journey-step:hover { transform: scale(1.1); }
+        .journey-icon { width: 50px; height: 50px; border-radius: 50%; background: var(--bg-base); border: 2px solid var(--border-color); display: flex; justify-content: center; align-items: center; font-size: 1.5rem; transition: all 0.2s; }
+        .journey-step:hover .journey-icon { border-color: var(--primary); box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3); }
         .journey-step.active .journey-icon { border-color: var(--primary); background: rgba(14, 165, 233, 0.1); } .journey-step.completed .journey-icon { background: var(--accent-mint); color: white; border-color: var(--accent-mint); }
-        .journey-text { text-align: center; font-size: 0.75rem; font-weight: 700; }
-        .journey-line { position: absolute; top: 20px; left: 12%; right: 12%; height: 2px; background: var(--border-color); z-index: 1; }
+        .journey-text { text-align: center; font-size: 0.85rem; font-weight: 700; }
+        .journey-line { position: absolute; top: 25px; left: 12%; right: 12%; height: 2px; background: var(--border-color); z-index: 1; }
         .mistake-box { background: #FEF2F2; border: 1px solid #FECACA; border-radius: 8px; padding: 12px; margin-bottom: 12px; }
         [data-theme="dark"] .mistake-box { background: rgba(244,63,94,0.1); border-color: rgba(244,63,94,0.3); }
         .mistake-box h4 { color: #B91C1C; font-size: 0.9rem; margin-bottom: 4px; } [data-theme="dark"] .mistake-box h4 { color: #F87171; }
         .mistake-box p { font-size: 0.8rem; color: #7F1D1D; } [data-theme="dark"] .mistake-box p { color: #FCA5A5; }
         .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-main); }
         
-        #pinModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
+        #pinModal, #questionGridModal, #certificateModal, #materiModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(4px); overflow-y: auto; padding: 20px;}
         .pin-box { background: var(--bg-surface); padding: 32px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; max-width: 350px; width: 90%; animation: fadeIn 0.3s ease; }
         .pin-box h2 { font-size: 1.5rem; margin-bottom: 8px; color: var(--text-main); }
         .pin-box p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; }
@@ -120,7 +122,6 @@
         .option-btn.selected .option-indicator::after { content: ''; width: 8px; height: 8px; background: white; border-radius: 50%; }
         .option-btn.multi .option-indicator { border-radius: 6px; }
         .option-btn.multi.selected .option-indicator::after { content: '✓'; color: white; font-size: 14px; font-weight: bold; background: none; }
-        #questionGridModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
         .grid-box { background: var(--bg-surface); padding: 24px; border-radius: 16px; width: 90%; max-width: 400px; text-align: center; }
         .grid-numbers { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 20px 0; }
         .grid-num { padding: 12px; border-radius: 8px; border: 2px solid var(--border-color); background: var(--bg-base); font-weight: 700; cursor: pointer; transition: all 0.2s; }
@@ -137,7 +138,6 @@
         .input-group input:focus, .input-group select:focus { border-color: var(--primary); }
 
         /* CERTIFICATE STYLES */
-        #certificateModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); z-index: 3000; overflow-y: auto; padding: 20px; }
         .cert-wrapper { background: white; width: 100%; max-width: 900px; margin: 20px auto; position: relative; border-radius: 8px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); padding: 40px; display: flex; flex-direction: column; align-items: center; text-align: center; }
         .cert-border-outer { border: 8px solid #1E3A8A; padding: 8px; width: 100%; height: 100%; }
         .cert-border-inner { border: 2px solid #F59E0B; padding: 40px 20px; width: 100%; position: relative; background: #F8FAFC; }
@@ -166,6 +166,15 @@
             .btn-print-cert, .btn-close-cert { display: none !important; }
             @page { size: landscape; margin: 0; }
         }
+
+        /* MATERI MODAL STYLES */
+        .materi-box { background: var(--bg-surface); padding: 24px; border-radius: 16px; width: 95%; max-width: 600px; text-align: left; max-height: 85vh; overflow-y: auto; }
+        .materi-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; }
+        .materi-card { background: var(--bg-base); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+        .materi-card h4 { color: var(--primary); margin-bottom: 8px; font-size: 1.1rem; }
+        .materi-desc { font-size: 0.9rem; line-height: 1.5; margin-bottom: 12px; color: var(--text-main); }
+        .materi-contoh { background: rgba(14, 165, 233, 0.1); padding: 12px; border-radius: 8px; border-left: 4px solid var(--primary); font-size: 0.85rem; margin-bottom: 8px;}
+        .materi-pembahasan { background: rgba(16, 185, 129, 0.1); padding: 12px; border-radius: 8px; border-left: 4px solid var(--accent-mint); font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -236,6 +245,19 @@
         </button>
     </div>
 
+    <!-- MODAL MATERI -->
+    <div id="materiModal">
+        <div class="materi-box">
+            <div class="materi-header">
+                <h3 id="materiTitle" style="font-size: 1.2rem; color: var(--primary);">Materi Kelas</h3>
+                <button class="btn" style="background:var(--bg-base); color:var(--text-main); padding: 6px 12px;" onclick="closeMateriModal()">✕ Tutup</button>
+            </div>
+            <div id="materiContent">
+                <!-- Diisi oleh JS -->
+            </div>
+        </div>
+    </div>
+
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand"><span class="brand-icon">M</span><span class="brand-text">MATH READY SD</span></div>
         <ul class="nav-menu">
@@ -244,7 +266,6 @@
             <li><a href="#" class="nav-item" onclick="switchView('view-guru', this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> <span class="nav-text">Guru</span></a></li>
             <li><a href="#" class="nav-item" onclick="switchView('view-orangtua', this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> <span class="nav-text">Orang Tua</span></a></li>
             <li><a href="#" class="nav-item" onclick="switchView('view-admin', this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg> <span class="nav-text">Admin</span></a></li>
-            <!-- MENU PANDUAN BARU -->
             <li><a href="#" class="nav-item" onclick="switchView('view-panduan', this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> <span class="nav-text">Panduan</span></a></li>
             <li><a href="#" class="nav-item" onclick="switchView('view-tentang', this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> <span class="nav-text">Tentang</span></a></li>
         </ul>
@@ -287,7 +308,43 @@
                         </div>
                     </div>
                     <div class="card"><div class="card-title">Penguasaanku</div><div class="stats-grid" id="statsGrid"></div></div>
-                    <div class="card"><div class="card-title">Perjalanan Belajar</div><div class="journey-timeline"><div class="journey-line"></div><div class="journey-step completed"><div class="journey-icon">🌱</div><div class="journey-text">Kelas 4</div></div><div class="journey-step completed"><div class="journey-icon">🌿</div><div class="journey-text">Kelas 5</div></div><div class="journey-step active"><div class="journey-icon">🌳</div><div class="journey-text">Kelas 6</div></div><div class="journey-step"><div class="journey-icon">🚀</div><div class="journey-text">TKA</div></div></div></div>
+                    
+                    <!-- PERJALANAN BELAJAR (BISA DIKLIK) -->
+                    <div class="card">
+                        <div class="card-title">Perjalanan Belajar</div>
+                        <div class="journey-timeline">
+                            <div class="journey-line"></div>
+                            
+                            <!-- IKON KELAS 4 -->
+                            <div class="journey-step" onclick="openMateri('Kelas 4')">
+                                <div class="journey-icon">🌱</div>
+                                <div class="journey-text">Kelas 4</div>
+                                <div style="font-size:0.65rem; color:var(--text-muted);">Fondasi</div>
+                            </div>
+                            
+                            <!-- IKON KELAS 5 -->
+                            <div class="journey-step" onclick="openMateri('Kelas 5')">
+                                <div class="journey-icon">🌿</div>
+                                <div class="journey-text">Kelas 5</div>
+                                <div style="font-size:0.65rem; color:var(--text-muted);">Berkembang</div>
+                            </div>
+                            
+                            <!-- IKON KELAS 6 -->
+                            <div class="journey-step" onclick="openMateri('Kelas 6')">
+                                <div class="journey-icon">🌳</div>
+                                <div class="journey-text">Kelas 6</div>
+                                <div style="font-size:0.65rem; color:var(--text-muted);">Penguasaan</div>
+                            </div>
+                            
+                            <!-- IKON TKA -->
+                            <div class="journey-step" onclick="alert('Simulasi TKA akan segera hadir di Tahap 3!')">
+                                <div class="journey-icon">🚀</div>
+                                <div class="journey-text">TKA</div>
+                                <div style="font-size:0.65rem; color:var(--text-muted);">Siap</div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="col-right">
                     <div class="card"><div class="card-title">Misi Hari Ini</div><div style="display:flex; flex-direction:column; gap:12px;"><div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; font-weight:600;"><span style="background:var(--accent-mint); color:white; width:24px; height:24px; border-radius:6px; display:flex; justify-content:center; align-items:center;">✓</span> 1 Micro Lesson</div><div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; font-weight:600;"><span style="background:var(--accent-mint); color:white; width:24px; height:24px; border-radius:6px; display:flex; justify-content:center; align-items:center;">✓</span> 5 Soal latihan</div><div style="display:flex; align-items:center; gap:12px; font-size:0.9rem; font-weight:600;"><span style="background:var(--accent-yellow); color:white; width:24px; height:24px; border-radius:6px; display:flex; justify-content:center; align-items:center;">!</span> 1 Tantangan</div></div></div>
@@ -356,7 +413,7 @@
             </div>
         </div>
 
-        <!-- VIEW PANDUAN (BARU) -->
+        <!-- VIEW PANDUAN -->
         <div id="view-panduan" class="view">
             <div class="grid-layout">
                 <div class="col-left">
@@ -376,7 +433,6 @@
                     <div class="card" style="text-align: center;">
                         <div class="card-title" style="justify-content: center;">Scan untuk Mulai</div>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Arahkan kamera HP ke QR Code ini:</p>
-                        <!-- QR Code otomatis mengarah ke link GitHub Bapak -->
                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://rskhrmwn.github.io/math-ready-final/" alt="QR Code" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 16px; width: 100%; max-width: 250px;">
                         <p style="font-size: 0.75rem; color: var(--text-muted); word-break: break-all;">https://rskhrmwn.github.io/math-ready-final/</p>
                     </div>
@@ -512,6 +568,49 @@
         });
         if (localStorage.getItem('theme') === 'dark') html.setAttribute('data-theme', 'dark');
 
+        // === LOGIKA MATERI (BARU) ===
+        async function openMateri(kelas) {
+            const modal = document.getElementById('materiModal');
+            const content = document.getElementById('materiContent');
+            const title = document.getElementById('materiTitle');
+            
+            modal.style.display = 'flex';
+            title.innerText = `Materi ${kelas}`;
+            content.innerHTML = '<div style="text-align:center; padding:20px;">Memuat materi...</div>';
+
+            try {
+                const response = await fetch(URL_APPS_SCRIPT + "?action=getMateri");
+                const data = await response.json();
+                
+                // Filter data berdasarkan kelas (indeks 0 adalah Kolom Kelas di Sheets)
+                const filteredData = data.filter(row => row[0] === kelas);
+
+                if (filteredData.length === 0) {
+                    content.innerHTML = '<div style="text-align:center; padding:20px; color:var(--text-muted);">Belum ada materi untuk kelas ini.</div>';
+                    return;
+                }
+
+                content.innerHTML = '';
+                filteredData.forEach(row => {
+                    // row: [Kelas, Topik, Materi Singkat, Contoh Soal, Pembahasan]
+                    const div = document.createElement('div');
+                    div.className = 'materi-card';
+                    div.innerHTML = `
+                        <h4>${row[1]}</h4>
+                        <div class="materi-desc">${row[2]}</div>
+                        <div class="materi-contoh"><strong>Contoh Soal:</strong><br>${row[3]}</div>
+                        <div class="materi-pembahasan"><strong>Pembahasan:</strong><br>${row[4]}</div>
+                    `;
+                    content.appendChild(div);
+                });
+
+            } catch (error) {
+                content.innerHTML = '<div style="text-align:center; padding:20px; color:var(--accent-coral);">Gagal memuat materi.</div>';
+            }
+        }
+
+        function closeMateriModal() { document.getElementById('materiModal').style.display = 'none'; }
+
         // === TARIK DATA GURU ===
         let teacherChartInstance = null;
         async function fetchGuruData() {
@@ -646,7 +745,7 @@
             if(cbtTimerInterval) clearInterval(cbtTimerInterval); document.getElementById('diag-review').style.display = 'none'; document.getElementById('diag-loading').style.display = 'flex';
             const scores = calculateScores(); const mistakes = getWrongQuestions();
             localStorage.setItem('math_ready_scores', JSON.stringify(scores)); localStorage.setItem('math_ready_mistakes', JSON.stringify(mistakes)); localStorage.setItem('student_name', studentName);
-            const dataToSend = { nama: studentName, kelas: studentClass, bilangan: scores.bilangan, geometri: scores.geometri, skorData: scores.data, penalaran: scores.penalaran, readiness: scores.readiness };
+            const dataToSend = { nama: studentName, kelas: studentClass, bilangan: scores.bilangan, geometri: scores.geometri, skorData: scores.data, penalaran: scores.penalaran, readiness: scores.readiness, jenisTes: "Diagnostik" };
             try { await fetch(URL_APPS_SCRIPT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dataToSend) }); } catch (error) {}
             setTimeout(() => { document.getElementById('diag-loading').style.display = 'none'; document.getElementById('diag-result').style.display = 'flex'; }, 1500);
         }

@@ -23,19 +23,14 @@
         body { font-family: var(--font-body); background-color: var(--bg-base); color: var(--text-main); transition: background-color var(--transition-smooth); overflow-x: hidden; height: 100vh; display: flex; }
         h1, h2, h3, h4 { font-family: var(--font-heading); }
         
-        /* === LANDING PAGE STYLES (FULL WIDTH) === */
+        /* === LANDING PAGE STYLES === */
         body.landing-mode { display: block; overflow-y: auto; height: auto; }
         body.landing-mode .sidebar { display: none; }
         body.landing-mode .main-content { margin-left: 0; padding: 0; height: auto; overflow: visible; }
-        
         .landing-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-        
-        /* Navbar */
         .landing-nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; }
         .landing-brand { font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; color: var(--primary); display: flex; align-items: center; gap: 12px; }
         .landing-brand span { background: var(--primary); color: white; padding: 6px 12px; border-radius: 8px; font-size: 1.2rem; }
-        
-        /* Hero Section */
         .hero-section { display: flex; align-items: center; justify-content: space-between; padding: 60px 0; gap: 40px; }
         .hero-text { flex: 1; }
         .hero-text h1 { font-size: 3.5rem; line-height: 1.2; margin-bottom: 24px; color: var(--text-main); font-weight: 800; letter-spacing: -1px; }
@@ -47,7 +42,6 @@
         .btn-hero-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(14, 165, 233, 0.4); background: var(--primary-hover); }
         .btn-hero-outline { background: transparent; color: var(--text-main); border: 2px solid var(--border-color); }
         .btn-hero-outline:hover { border-color: var(--primary); color: var(--primary); }
-        
         .hero-image { flex: 1; position: relative; display: flex; justify-content: center; }
         .hero-mockup { background: var(--bg-surface); padding: 24px; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); border: 1px solid var(--border-color); width: 100%; max-width: 500px; transform: rotate(2deg); transition: transform 0.3s; }
         .hero-mockup:hover { transform: rotate(0deg) scale(1.02); }
@@ -55,8 +49,6 @@
         .mockup-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--border-color); }
         .mockup-body { background: var(--bg-base); border-radius: 12px; padding: 20px; text-align: center; }
         .mockup-score { font-size: 3rem; font-weight: 800; color: var(--accent-mint); margin-bottom: 8px; }
-        
-        /* Features Section */
         .features-section { padding: 80px 0; background: var(--bg-surface); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
         .section-title { text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; }
         .section-subtitle { text-align: center; color: var(--text-muted); font-size: 1.1rem; margin-bottom: 60px; }
@@ -66,19 +58,15 @@
         .feature-icon { width: 60px; height: 60px; border-radius: 16px; background: rgba(14, 165, 233, 0.1); color: var(--primary); display: flex; justify-content: center; align-items: center; font-size: 1.8rem; margin-bottom: 24px; }
         .feature-card h3 { font-size: 1.2rem; margin-bottom: 12px; }
         .feature-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
-        
-        /* Creator Section */
         .creator-section { padding: 80px 0; text-align: center; }
         .creator-card { background: linear-gradient(135deg, #1E3A8A, #0EA5E9); color: white; padding: 60px 40px; border-radius: 32px; display: flex; flex-direction: column; align-items: center; max-width: 800px; margin: 0 auto; box-shadow: 0 20px 40px rgba(14, 165, 233, 0.2); }
         .creator-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; object-position: center 15%; border: 4px solid white; margin-bottom: 24px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
         .creator-card h3 { font-size: 1.8rem; margin-bottom: 8px; }
         .creator-card p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 24px; }
         .creator-quote { font-style: italic; font-size: 1.1rem; background: rgba(255,255,255,0.1); padding: 24px; border-radius: 16px; border-left: 4px solid var(--accent-yellow); text-align: left; max-width: 600px; margin: 0 auto; }
-        
-        /* Footer */
         .landing-footer { padding: 40px 0; text-align: center; color: var(--text-muted); border-top: 1px solid var(--border-color); font-size: 0.9rem; }
         
-        /* === DASHBOARD STYLES (TETAP SEPERTI SEBELUMNYA) === */
+        /* === DASHBOARD STYLES === */
         .sidebar { width: var(--sidebar-width); background-color: var(--sidebar-bg); color: var(--sidebar-text); display: flex; flex-direction: column; transition: width var(--transition-smooth); height: 100vh; z-index: 100; position: fixed; left: 0; top: 0; }
         .sidebar.collapsed { width: var(--sidebar-collapsed); }
         .sidebar-brand { padding: 24px 20px; display: flex; align-items: center; gap: 12px; font-family: var(--font-heading); font-weight: 800; color: white; font-size: 1.1rem; white-space: nowrap; overflow: hidden; cursor: pointer; }
@@ -123,13 +111,18 @@
         .stat-status { font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
         .status-yellow { background: rgba(245, 158, 11, 0.15); color: #B45309; } .status-red { background: rgba(244, 63, 94, 0.15); color: #BE123C; }
         .status-green { background: rgba(16, 185, 129, 0.15); color: #047857; }
+        
+        /* TABEL GURU */
+        .search-bar { width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-base); font-family: var(--font-body); font-size: 0.9rem; color: var(--text-main); margin-bottom: 16px; outline: none; }
+        .search-bar:focus { border-color: var(--primary); }
         .table-responsive { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; }
         th { font-family: var(--font-heading); font-weight: 700; color: var(--text-muted); }
-        tr:hover { background: var(--bg-base); }
+        tr:hover { background: var(--bg-base); cursor: pointer; }
         .tag { padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
         .tag-green { background: rgba(16, 185, 129, 0.15); color: #047857; } .tag-red { background: rgba(244, 63, 94, 0.15); color: #BE123C; }
+        
         .journey-timeline { display: flex; align-items: center; justify-content: space-between; position: relative; margin-top: 10px; }
         .journey-step { display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 2; width: 25%; cursor: pointer; transition: transform 0.2s; }
         .journey-step:hover { transform: translateY(-5px); }
@@ -146,7 +139,17 @@
         .mistake-box p { font-size: 0.8rem; color: #7F1D1D; } [data-theme="dark"] .mistake-box p { color: #FCA5A5; }
         .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-main); }
         
-        /* PIN & MODALS */
+        /* MODAL DETAIL SISWA */
+        #studentDetailModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); z-index: 1500; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
+        .detail-box { background: var(--bg-surface); padding: 24px; border-radius: 16px; width: 90%; max-width: 600px; max-height: 85vh; overflow-y: auto; box-shadow: var(--shadow-md); }
+        .detail-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; }
+        .detail-header h2 { font-size: 1.2rem; color: var(--primary); }
+        .history-list { display: flex; flex-direction: column; gap: 12px; }
+        .history-item { background: var(--bg-base); padding: 16px; border-radius: 8px; border-left: 4px solid var(--primary); }
+        .history-item h4 { font-size: 1rem; margin-bottom: 4px; }
+        .history-item p { font-size: 0.85rem; color: var(--text-muted); }
+        .history-scores { display: flex; gap: 12px; margin-top: 8px; font-weight: 700; font-size: 0.9rem; }
+        
         #pinModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
         .pin-box { background: var(--bg-surface); padding: 32px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; max-width: 350px; width: 90%; animation: fadeIn 0.3s ease; }
         .pin-box h2 { font-size: 1.5rem; margin-bottom: 8px; color: var(--text-main); }
@@ -247,17 +250,13 @@
 </head>
 <body class="landing-mode">
 
-    <!-- LANDING PAGE (DEFAULT AWAL) -->
+    <!-- LANDING PAGE -->
     <div id="view-landing" class="view active" style="display: block;">
         <div class="landing-container">
-            
-            <!-- NAVBAR -->
             <nav class="landing-nav">
                 <div class="landing-brand"><span>M</span> MATH READY SD</div>
                 <button class="btn-hero btn-hero-primary" style="padding: 10px 20px; font-size: 0.9rem;" onclick="enterApp()">Masuk Aplikasi</button>
             </nav>
-
-            <!-- HERO SECTION -->
             <section class="hero-section">
                 <div class="hero-text">
                     <h1>Persiapkan Anak Anda Menghadapi <span>TKA Matematika</span> dengan Percaya Diri.</h1>
@@ -269,11 +268,7 @@
                 </div>
                 <div class="hero-image">
                     <div class="hero-mockup">
-                        <div class="mockup-header">
-                            <div class="mockup-dot" style="background: #F43F5E;"></div>
-                            <div class="mockup-dot" style="background: #F59E0B;"></div>
-                            <div class="mockup-dot" style="background: #10B981;"></div>
-                        </div>
+                        <div class="mockup-header"><div class="mockup-dot" style="background: #F43F5E;"></div><div class="mockup-dot" style="background: #F59E0B;"></div><div class="mockup-dot" style="background: #10B981;"></div></div>
                         <div class="mockup-body">
                             <div style="font-size: 1.5rem; margin-bottom: 8px;">🏆</div>
                             <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px;">Skor Kesiapan TKA</div>
@@ -283,36 +278,16 @@
                     </div>
                 </div>
             </section>
-
-            <!-- FITUR SECTION -->
             <section id="fitur" class="features-section">
                 <h2 class="section-title">Mengapa Memilih Math Ready SD?</h2>
                 <p class="section-subtitle">Bukan sekadar bank soal, ini adalah sistem pembelajaran yang utuh.</p>
                 <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">📝</div>
-                        <h3>Simulasi CBT TKA</h3>
-                        <p>Rasakan suasana ujian TKA yang sesungguhnya dengan timer 60 menit, 30 soal HOTS, dan navigasi daftar soal.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🧠</div>
-                        <h3>Analisis Diagnostik</h3>
-                        <p>Ketahui kelebihan dan kelemahan anak di setiap domain (Bilangan, Geometri, Data, Penalaran) secara instan.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📚</div>
-                        <h3>Materi Terstruktur</h3>
-                        <p>Ringkasan materi padat dan contoh soal dari Kelas 4 hingga 6 yang tersusun rapi dan mudah dipahami.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🏆</div>
-                        <h3>Sertifikat & Gamifikasi</h3>
-                        <p>Berikan apresiasi pada anak! Cetak sertifikat penghargaan jika mereka berhasil mencapai skor di atas 80%.</p>
-                    </div>
+                    <div class="feature-card"><div class="feature-icon">📝</div><h3>Simulasi CBT TKA</h3><p>Rasakan suasana ujian TKA yang sesungguhnya dengan timer 60 menit, 30 soal HOTS, dan navigasi daftar soal.</p></div>
+                    <div class="feature-card"><div class="feature-icon">🧠</div><h3>Analisis Diagnostik</h3><p>Ketahui kelebihan dan kelemahan anak di setiap domain (Bilangan, Geometri, Data, Penalaran) secara instan.</p></div>
+                    <div class="feature-card"><div class="feature-icon">📚</div><h3>Materi Terstruktur</h3><p>Ringkasan materi padat dan contoh soal dari Kelas 4 hingga 6 yang tersusun rapi dan mudah dipahami.</p></div>
+                    <div class="feature-card"><div class="feature-icon">🏆</div><h3>Sertifikat & Gamifikasi</h3><p>Berikan apresiasi pada anak! Cetak sertifikat penghargaan jika mereka berhasil mencapai skor di atas 80%.</p></div>
                 </div>
             </section>
-
-            <!-- CREATOR SECTION -->
             <section class="creator-section">
                 <h2 class="section-title">Dibuat oleh Guru, untuk Siswa</h2>
                 <p class="section-subtitle" style="margin-bottom: 40px;">Platform ini dikembangkan langsung oleh praktisi pendidikan.</p>
@@ -320,13 +295,9 @@
                     <img src="foto-guru.jpg" alt="Riski Hermawan" class="creator-img" onerror="this.src='https://via.placeholder.com/150?text=Foto'">
                     <h3>Riski Hermawan, S.Pd</h3>
                     <p>Wali Kelas 6A — SD Negeri Sapuro 05, Kota Pekalongan</p>
-                    <div class="creator-quote">
-                        "Jangan takut salah, kesalahan adalah awal dari pintar matematika. Platform ini saya buat agar anak-anak Indonesia bisa belajar tanpa tekanan, tapi tetap terukur kesiapannya."
-                    </div>
+                    <div class="creator-quote">"Jangan takut salah, kesalahan adalah awal dari pintar matematika. Platform ini saya buat agar anak-anak Indonesia bisa belajar tanpa tekanan, tapi tetap terukur kesiapannya."</div>
                 </div>
             </section>
-
-            <!-- FOOTER -->
             <footer class="landing-footer">
                 <p>&copy; 2026 MATH READY SD - Learning & TKA Readiness Platform.</p>
                 <p style="margin-top: 8px; font-size: 0.8rem;">Ini adalah platform latihan mandiri dan bukan merupakan situs resmi TKA.</p>
@@ -334,17 +305,27 @@
         </div>
     </div>
 
-    <!-- SEMUA MODAL (PIN, MATERI, CBT, DLL) -->
-    <div id="materiModal">
-        <div class="materi-box">
-            <div class="materi-header">
-                <h2 id="materiTitle">Materi Pembelajaran</h2>
-                <button class="close-btn" onclick="closeMateriModal()">✕</button>
+    <!-- MODAL DETAIL SISWA -->
+    <div id="studentDetailModal">
+        <div class="detail-box">
+            <div class="detail-header">
+                <h2 id="detailStudentName">Nama Siswa</h2>
+                <button class="close-btn" onclick="closeDetailModal()">✕</button>
             </div>
-            <div id="materiList"></div>
+            <div id="detailStudentSchool" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">Asal Sekolah</div>
+            <div class="history-list" id="historyList">
+                <!-- Riwayat Nilai diisi JS -->
+            </div>
         </div>
     </div>
 
+    <!-- MODAL LAINNYA -->
+    <div id="materiModal">
+        <div class="materi-box">
+            <div class="materi-header"><h2 id="materiTitle">Materi Pembelajaran</h2><button class="close-btn" onclick="closeMateriModal()">✕</button></div>
+            <div id="materiList"></div>
+        </div>
+    </div>
     <div id="pinModal">
         <div class="pin-box">
             <h2>🔒 Area Terbatas</h2>
@@ -356,7 +337,6 @@
             </div>
         </div>
     </div>
-
     <div id="questionGridModal">
         <div class="grid-box">
             <h2 style="font-size: 1.2rem; margin-bottom: 8px;">Daftar Soal</h2>
@@ -370,7 +350,6 @@
             <button class="btn btn-yellow" style="width: 100%;" onclick="closeQuestionGrid()">Tutup</button>
         </div>
     </div>
-
     <div id="certificateModal">
         <button class="btn-close-cert" onclick="closeCertificate()">✕</button>
         <div class="cert-wrapper" id="certificateContent">
@@ -381,30 +360,18 @@
                     <div class="cert-text">Diberikan dengan bangga kepada:</div>
                     <div class="cert-name" id="certStudentName">Nama Siswa</div>
                     <div class="cert-desc">Atas dedikasi, ketekunan, dan keberhasilannya dalam menyelesaikan Diagnostic Assessment Matematika pada Platform MATH READY SD dengan predikat sangat baik.</div>
-                    <div class="cert-score-box">
-                        <div class="cert-score" id="certScore">80%</div>
-                        <div class="cert-score-label">Readiness</div>
-                    </div>
+                    <div class="cert-score-box"><div class="cert-score" id="certScore">80%</div><div class="cert-score-label">Readiness</div></div>
                     <div class="cert-footer">
-                        <div class="cert-date">
-                            Pekalongan, <span id="certDate">27 Oktober 2026</span><br><strong>MATH READY SD</strong>
-                        </div>
-                        <div class="cert-signature">
-                            <div class="cert-sig-line"></div>
-                            <div class="cert-sig-name">Riski Hermawan, S.Pd</div>
-                            <div class="cert-sig-title">Wali Kelas 6A — SD Negeri Sapuro 05</div>
-                        </div>
+                        <div class="cert-date">Pekalongan, <span id="certDate">27 Oktober 2026</span><br><strong>MATH READY SD</strong></div>
+                        <div class="cert-signature"><div class="cert-sig-line"></div><div class="cert-sig-name">Riski Hermawan, S.Pd</div><div class="cert-sig-title">Wali Kelas 6A — SD Negeri Sapuro 05</div></div>
                     </div>
                 </div>
             </div>
         </div>
-        <button class="btn-print-cert" onclick="printCertificate()">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-            Cetak / Simpan PDF
-        </button>
+        <button class="btn-print-cert" onclick="printCertificate()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg> Cetak / Simpan PDF</button>
     </div>
 
-    <!-- SIDEBAR DASHBOARD (Tersembunyi di Landing Page) -->
+    <!-- SIDEBAR DASHBOARD -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand" onclick="returnToLanding()"><span class="brand-icon">M</span><span class="brand-text">MATH READY SD</span></div>
         <ul class="nav-menu">
@@ -417,10 +384,7 @@
             <li><a href="#" class="nav-item" onclick="switchView('view-tentang', this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> <span class="nav-text">Tentang</span></a></li>
         </ul>
         <div class="sidebar-bottom">
-            <a href="#" class="nav-item logout-btn" id="logoutBtn" onclick="logout()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-                <span class="nav-text">Keluar (Guru)</span>
-            </a>
+            <a href="#" class="nav-item logout-btn" id="logoutBtn" onclick="logout()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> <span class="nav-text">Keluar (Guru)</span></a>
             <a href="#" class="nav-item" id="themeToggle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><span class="nav-text">Mode gelap</span></a>
             <a href="#" class="nav-item" id="collapseBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/></svg><span class="nav-text">Lipat menu</span></a>
         </div>
@@ -441,7 +405,6 @@
         </header>
 
         <div id="view-siswa" class="view active">
-            <!-- (Konten Dashboard Siswa Sama Seperti Sebelumnya) -->
             <div class="grid-layout">
                 <div class="col-left">
                     <div class="card hero-card">
@@ -454,7 +417,6 @@
                         </div>
                     </div>
                     <div class="card"><div class="card-title">Penguasaanku</div><div class="stats-grid" id="statsGrid"></div></div>
-                    
                     <div class="card">
                         <div class="card-title">Perjalanan Belajar</div>
                         <div class="journey-timeline">
@@ -474,49 +436,48 @@
                         <div style="font-size:0.85rem; color:var(--text-muted); line-height:1.4; margin-bottom: 12px;">Indikator internal, <strong>bukan nilai resmi TKA.</strong></div>
                         <button id="btnCertificate" class="btn btn-yellow" style="width: 100%; display: none; padding: 12px; font-size: 0.95rem;" onclick="showCertificate()">🏆 Cetak Sertifikat</button>
                     </div>
-                    <div class="card">
-                        <div class="card-title">📕 Buku Kesalahanku</div>
-                        <div id="mistakeList"><p style="font-size:0.85rem; color:var(--text-muted);">Belum ada data kesalahan. Ayo kerjakan tes!</p></div>
-                    </div>
+                    <div class="card"><div class="card-title">📕 Buku Kesalahanku</div><div id="mistakeList"><p style="font-size:0.85rem; color:var(--text-muted);">Belum ada data kesalahan. Ayo kerjakan tes!</p></div></div>
                 </div>
             </div>
         </div>
 
-        <!-- VIEW GURU -->
+        <!-- VIEW GURU (DENGAN FITUR SEARCH & DETAIL) -->
         <div id="view-guru" class="view">
             <div class="grid-layout">
                 <div class="col-left">
                     <div class="card"><div class="card-title">Ketuntasan (Rata-rata)</div><div style="height: 250px;"><canvas id="teacherChart"></canvas></div></div>
                     <div class="card">
-                        <div class="card-title">Daftar Nilai Siswa (Data Asli)</div>
+                        <div class="card-title">Daftar Nilai Siswa</div>
+                        <!-- SEARCH BAR -->
+                        <input type="text" id="searchGuru" class="search-bar" placeholder="🔍 Cari nama siswa atau sekolah..." onkeyup="filterTable()">
                         <div class="table-responsive">
-                            <table><thead><tr><th>Nama Siswa</th><th>Asal Sekolah</th><th>Jenis Tes</th><th>Bilangan</th><th>Geometri</th><th>Penalaran</th><th>Skor Akhir</th><th>Status</th></tr></thead>
-                            <tbody id="tableGuruBody"><tr><td colspan="8" style="text-align:center;">Memuat data...</td></tr></tbody></table>
+                            <table id="tableGuru">
+                                <thead><tr><th>Nama Siswa</th><th>Asal Sekolah</th><th>Jenis Tes</th><th>Bilangan</th><th>Geometri</th><th>Penalaran</th><th>Skor Akhir</th><th>Status</th></tr></thead>
+                                <tbody id="tableGuruBody"><tr><td colspan="8" style="text-align:center;">Memuat data...</td></tr></tbody>
+                            </table>
                         </div>
-                        <button class="btn btn-yellow" style="margin-top:16px; width:100%;" onclick="fetchGuruData()">🔄 Refresh Data dari Database</button>
+                        <div style="display:flex; gap:12px; margin-top:16px;">
+                            <button class="btn btn-yellow" style="flex:1;" onclick="fetchGuruData()">🔄 Refresh Data</button>
+                            <button class="btn btn-outline" style="flex:1; color:var(--text-main); border-color:var(--border-color);" onclick="printGuruTable()">🖨️ Cetak Laporan</button>
+                        </div>
                     </div>
                 </div>
                 <div class="col-right"><div class="card"><div class="card-title">Statistik Database</div><div style="display:flex; justify-content:space-between; font-size:0.9rem;"><span>Total Siswa Ujian</span> <strong id="totalSiswa">0</strong></div></div></div>
             </div>
         </div>
 
-        <!-- VIEW ORANG TUA -->
         <div id="view-orangtua" class="view">
             <div class="grid-layout" style="grid-template-columns: 1fr; max-width: 600px; margin: 0 auto;">
                 <div class="card">
                     <div class="card-title" style="font-size: 1.2rem;">👨‍👩‍👦 Portal Orang Tua</div>
                     <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Silakan masukkan nama lengkap anak Anda sesuai yang terdaftar saat tes untuk melihat hasil dan rekomendasi belajar.</p>
-                    <div class="input-group">
-                        <label>Nama Siswa</label>
-                        <input type="text" id="parentSearchName" placeholder="Ketik nama anak Anda di sini...">
-                    </div>
+                    <div class="input-group"><label>Nama Siswa</label><input type="text" id="parentSearchName" placeholder="Ketik nama anak Anda di sini..."></div>
                     <button class="btn btn-yellow" style="width: 100%; padding: 14px; font-size: 1rem;" onclick="fetchParentData()">Cari Data Anak</button>
                 </div>
                 <div id="parentResult" style="display: none;"></div>
             </div>
         </div>
 
-        <!-- VIEW ADMIN -->
         <div id="view-admin" class="view">
             <div class="grid-layout">
                 <div class="col-left">
@@ -533,7 +494,6 @@
             </div>
         </div>
 
-        <!-- VIEW PANDUAN -->
         <div id="view-panduan" class="view">
             <div class="grid-layout">
                 <div class="col-left">
@@ -560,7 +520,6 @@
             </div>
         </div>
 
-        <!-- VIEW TENTANG -->
         <div id="view-tentang" class="view">
             <div class="grid-layout" style="grid-template-columns: 1fr;">
                 <div class="card" style="text-align:center; padding:40px;">
@@ -573,7 +532,6 @@
         </div>
     </main>
 
-    <!-- OVERLAY DIAGNOSTIC CBT -->
     <div id="diagnosticScreen">
         <div id="diag-welcome" class="diag-welcome">
             <div class="diag-welcome-icon" id="diagWelcomeIcon">🚀</div>
@@ -653,11 +611,10 @@
             'view-tentang': { title: 'Tentang Platform', subtitle: 'Informasi & Profil Pengembang' }
         };
 
-        // === FUNGSI MASUK APLIKASI (LANDING -> DASHBOARD) ===
         function enterApp() {
             document.body.classList.remove('landing-mode');
             document.getElementById('view-landing').style.display = 'none';
-            switchView('view-siswa'); // Langsung ke Dashboard Siswa
+            switchView('view-siswa');
             window.scrollTo(0, 0);
         }
 
@@ -677,12 +634,10 @@
         }
 
         function checkLoginStatus() { if (sessionStorage.getItem('isAuthorized') === 'true') { logoutBtn.style.display = 'flex'; } else { logoutBtn.style.display = 'none'; } }
-        checkLoginStatus();
-        updateRealtimeDate(); 
+        checkLoginStatus(); updateRealtimeDate(); 
 
         function switchView(viewId, el = null) {
             if (document.body.classList.contains('landing-mode')) document.body.classList.remove('landing-mode');
-            
             if ((viewId === 'view-guru' || viewId === 'view-admin') && sessionStorage.getItem('isAuthorized') !== 'true') {
                 targetViewAfterPin = viewId; pinModal.style.display = 'flex'; document.getElementById('pinInput').value = ''; document.getElementById('pinInput').focus(); return; 
             }
@@ -738,31 +693,123 @@
         }
         function closeMateriModal() { document.getElementById('materiModal').style.display = 'none'; }
 
-        // === TARIK DATA GURU ===
+        // === TARIK DATA GURU & FITUR SEARCH ===
         let teacherChartInstance = null;
+        let allGuruData = []; // Menyimpan semua data untuk filter pencarian
+
         async function fetchGuruData() {
             const tbody = document.getElementById('tableGuruBody'); tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">Memuat data...</td></tr>';
             try {
-                const response = await fetch(URL_APPS_SCRIPT); const data = await response.json(); tbody.innerHTML = '';
+                const response = await fetch(URL_APPS_SCRIPT); const data = await response.json(); 
+                tbody.innerHTML = '';
                 if(data.length === 0) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">Belum ada data.</td></tr>'; document.getElementById('totalSiswa').innerText = '0'; renderTeacherChart([0,0,0,0]); return; }
-                data.reverse(); document.getElementById('totalSiswa').innerText = data.length;
-                let tB=0, tG=0, tD=0, tP=0;
-                data.forEach(row => {
-                    const tr = document.createElement('tr'); const readiness = parseInt(row[7]) || 0;
-                    const status = readiness >= 70 ? '<span class="tag tag-green">Tuntas</span>' : '<span class="tag tag-red">Remedial</span>';
-                    const jenisTes = row[8] || 'Diagnostik';
-                    tr.innerHTML = `<td><strong>${row[1]}</strong></td><td>${row[2]}</td><td><span class="tag ${jenisTes === 'TKA' ? 'tag-red' : 'tag-green'}">${jenisTes}</span></td><td>${row[3]}</td><td>${row[4]}</td><td>${row[6]}</td><td><strong>${readiness}</strong></td><td>${status}</td>`;
-                    tbody.appendChild(tr);
-                    tB += parseInt(row[3]) || 0; tG += parseInt(row[4]) || 0; tD += parseInt(row[5]) || 0; tP += parseInt(row[6]) || 0;
-                });
-                renderTeacherChart([Math.round(tB/data.length), Math.round(tG/data.length), Math.round(tD/data.length), Math.round(tP/data.length)]);
+                
+                data.reverse(); 
+                allGuruData = data; // Simpan ke variabel global
+                document.getElementById('totalSiswa').innerText = data.length;
+                document.getElementById('searchGuru').value = ''; // Reset pencarian
+                
+                renderGuruTable(allGuruData); // Render ke tabel
+                calculateAverages(allGuruData); // Hitung rata-rata
+                
             } catch (error) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:red;">Gagal memuat data.</td></tr>'; }
         }
+
+        function renderGuruTable(data) {
+            const tbody = document.getElementById('tableGuruBody'); 
+            tbody.innerHTML = '';
+            data.forEach(row => {
+                const tr = document.createElement('tr'); 
+                const readiness = parseInt(row[7]) || 0;
+                const status = readiness >= 70 ? '<span class="tag tag-green">Tuntas</span>' : '<span class="tag tag-red">Remedial</span>';
+                const jenisTes = row[8] || 'Diagnostik';
+                
+                // Tambahkan onclick untuk melihat detail
+                tr.onclick = () => showStudentDetail(row[1]);
+                tr.innerHTML = `<td><strong>${row[1]}</strong></td><td>${row[2]}</td><td><span class="tag ${jenisTes === 'TKA' ? 'tag-red' : 'tag-green'}">${jenisTes}</span></td><td>${row[3]}</td><td>${row[4]}</td><td>${row[6]}</td><td><strong>${readiness}</strong></td><td>${status}</td>`;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterTable() {
+            const searchVal = document.getElementById('searchGuru').value.toLowerCase();
+            const filteredData = allGuruData.filter(row => 
+                row[1].toLowerCase().includes(searchVal) || 
+                (row[2] && row[2].toLowerCase().includes(searchVal))
+            );
+            renderGuruTable(filteredData);
+            calculateAverages(filteredData); // Rata-rata mengikuti hasil filter
+        }
+
+        function calculateAverages(data) {
+            if(data.length === 0) { renderTeacherChart([0,0,0,0]); return; }
+            let tB=0, tG=0, tD=0, tP=0;
+            data.forEach(row => {
+                tB += parseInt(row[3]) || 0; tG += parseInt(row[4]) || 0; tD += parseInt(row[5]) || 0; tP += parseInt(row[6]) || 0;
+            });
+            renderTeacherChart([Math.round(tB/data.length), Math.round(tG/data.length), Math.round(tD/data.length), Math.round(tP/data.length)]);
+        }
+
         function renderTeacherChart(chartData = [0,0,0,0]) {
             const isDark = html.getAttribute('data-theme') === 'dark';
             if (teacherChartInstance) teacherChartInstance.destroy();
             const ctx = document.getElementById('teacherChart').getContext('2d');
             teacherChartInstance = new Chart(ctx, { type: 'bar', data: { labels: ['Bilangan', 'Geometri', 'Data', 'Penalaran'], datasets: [{ label: 'Rata-rata Kelas (%)', data: chartData, backgroundColor: ['#0EA5E9', '#10B981', '#F59E0B', '#F43F5E'], borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, animation: { duration: 1000, easing: 'easeOutQuart' }, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100, grid: { color: isDark ? '#334155' : '#E2E8F0' }, ticks: { color: isDark ? '#F8FAFC' : '#0F172A' } }, x: { ticks: { color: isDark ? '#F8FAFC' : '#0F172A' } } } } });
+        }
+
+        // === FITUR DETAIL SISWA (KLIK NAMA) ===
+        async function showStudentDetail(nama) {
+            document.getElementById('detailStudentName').innerText = nama;
+            
+            // Cari semua data siswa ini dari database
+            const studentRecords = allGuruData.filter(row => row[1] === nama);
+            
+            // Ambil sekolah dari record pertama
+            if(studentRecords.length > 0) {
+                document.getElementById('detailStudentSchool').innerText = `Asal Sekolah: ${studentRecords[0][2]}`;
+            }
+
+            const historyList = document.getElementById('historyList');
+            historyList.innerHTML = '';
+
+            studentRecords.forEach(row => {
+                // row: [Waktu, Nama, Sekolah, Bilangan, Geometri, Data, Penalaran, Readiness, JenisTes]
+                const div = document.createElement('div'); div.className = 'history-item';
+                div.innerHTML = `
+                    <h4>Tes ${row[8] || 'Diagnostik'} <span style="font-size:0.8rem; font-weight:400; color:var(--text-muted);">(${row[0]})</span></h4>
+                    <div class="history-scores">
+                        <span style="color:var(--primary);">Skor: ${row[7]}%</span>
+                        <span style="color:var(--text-muted); font-size:0.8rem;">Bil: ${row[3]} | Geo: ${row[4]} | Data: ${row[5]} | Pen: ${row[6]}</span>
+                    </div>
+                `;
+                historyList.appendChild(div);
+            });
+
+            document.getElementById('studentDetailModal').style.display = 'flex';
+        }
+
+        function closeDetailModal() { document.getElementById('studentDetailModal').style.display = 'none'; }
+
+        // === FITUR CETAK GURU ===
+        function printGuruTable() {
+            const printContent = document.getElementById('view-guru').innerHTML;
+            const originalContent = document.body.innerHTML;
+            
+            // Sederhanakan tampilan untuk print
+            document.body.innerHTML = `
+                <div style="padding: 20px;">
+                    <h1 style="font-family: sans-serif; text-align: center; margin-bottom: 20px;">Laporan Nilai Math Ready SD</h1>
+                    <p style="text-align: center; margin-bottom: 20px;">Dicetak pada: ${new Date().toLocaleString('id-ID')}</p>
+                    ${printContent}
+                </div>
+            `;
+            
+            // Sembunyikan elemen yang tidak perlu dicetak
+            document.querySelectorAll('.search-bar, button, .sidebar, .topbar, canvas').forEach(el => el.style.display = 'none');
+            
+            window.print();
+            document.body.innerHTML = originalContent;
+            window.location.reload(); // Reload agar javascript berjalan normal kembali
         }
 
         // === PORTAL ORANG TUA ===

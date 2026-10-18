@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MATH READY SD - Platform Belajar</title>
+    <title>MATH READY SD - Platform Belajar Matematika & TKA</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Nunito+Sans:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -22,9 +22,66 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: var(--font-body); background-color: var(--bg-base); color: var(--text-main); transition: background-color var(--transition-smooth); overflow-x: hidden; height: 100vh; display: flex; }
         h1, h2, h3, h4 { font-family: var(--font-heading); }
+        
+        /* === LANDING PAGE STYLES (FULL WIDTH) === */
+        body.landing-mode { display: block; overflow-y: auto; height: auto; }
+        body.landing-mode .sidebar { display: none; }
+        body.landing-mode .main-content { margin-left: 0; padding: 0; height: auto; overflow: visible; }
+        
+        .landing-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        
+        /* Navbar */
+        .landing-nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; }
+        .landing-brand { font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; color: var(--primary); display: flex; align-items: center; gap: 12px; }
+        .landing-brand span { background: var(--primary); color: white; padding: 6px 12px; border-radius: 8px; font-size: 1.2rem; }
+        
+        /* Hero Section */
+        .hero-section { display: flex; align-items: center; justify-content: space-between; padding: 60px 0; gap: 40px; }
+        .hero-text { flex: 1; }
+        .hero-text h1 { font-size: 3.5rem; line-height: 1.2; margin-bottom: 24px; color: var(--text-main); font-weight: 800; letter-spacing: -1px; }
+        .hero-text h1 span { color: var(--primary); }
+        .hero-text p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 32px; line-height: 1.6; max-width: 90%; }
+        .hero-btns { display: flex; gap: 16px; }
+        .btn-hero { padding: 16px 32px; font-size: 1.1rem; border-radius: 50px; font-weight: 800; text-decoration: none; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: none; }
+        .btn-hero-primary { background: var(--primary); color: white; box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3); }
+        .btn-hero-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(14, 165, 233, 0.4); background: var(--primary-hover); }
+        .btn-hero-outline { background: transparent; color: var(--text-main); border: 2px solid var(--border-color); }
+        .btn-hero-outline:hover { border-color: var(--primary); color: var(--primary); }
+        
+        .hero-image { flex: 1; position: relative; display: flex; justify-content: center; }
+        .hero-mockup { background: var(--bg-surface); padding: 24px; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); border: 1px solid var(--border-color); width: 100%; max-width: 500px; transform: rotate(2deg); transition: transform 0.3s; }
+        .hero-mockup:hover { transform: rotate(0deg) scale(1.02); }
+        .mockup-header { display: flex; gap: 8px; margin-bottom: 16px; }
+        .mockup-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--border-color); }
+        .mockup-body { background: var(--bg-base); border-radius: 12px; padding: 20px; text-align: center; }
+        .mockup-score { font-size: 3rem; font-weight: 800; color: var(--accent-mint); margin-bottom: 8px; }
+        
+        /* Features Section */
+        .features-section { padding: 80px 0; background: var(--bg-surface); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
+        .section-title { text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; }
+        .section-subtitle { text-align: center; color: var(--text-muted); font-size: 1.1rem; margin-bottom: 60px; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 32px; }
+        .feature-card { background: var(--bg-base); padding: 32px; border-radius: 20px; border: 1px solid var(--border-color); transition: transform 0.3s; }
+        .feature-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .feature-icon { width: 60px; height: 60px; border-radius: 16px; background: rgba(14, 165, 233, 0.1); color: var(--primary); display: flex; justify-content: center; align-items: center; font-size: 1.8rem; margin-bottom: 24px; }
+        .feature-card h3 { font-size: 1.2rem; margin-bottom: 12px; }
+        .feature-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+        
+        /* Creator Section */
+        .creator-section { padding: 80px 0; text-align: center; }
+        .creator-card { background: linear-gradient(135deg, #1E3A8A, #0EA5E9); color: white; padding: 60px 40px; border-radius: 32px; display: flex; flex-direction: column; align-items: center; max-width: 800px; margin: 0 auto; box-shadow: 0 20px 40px rgba(14, 165, 233, 0.2); }
+        .creator-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; object-position: center 15%; border: 4px solid white; margin-bottom: 24px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .creator-card h3 { font-size: 1.8rem; margin-bottom: 8px; }
+        .creator-card p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 24px; }
+        .creator-quote { font-style: italic; font-size: 1.1rem; background: rgba(255,255,255,0.1); padding: 24px; border-radius: 16px; border-left: 4px solid var(--accent-yellow); text-align: left; max-width: 600px; margin: 0 auto; }
+        
+        /* Footer */
+        .landing-footer { padding: 40px 0; text-align: center; color: var(--text-muted); border-top: 1px solid var(--border-color); font-size: 0.9rem; }
+        
+        /* === DASHBOARD STYLES (TETAP SEPERTI SEBELUMNYA) === */
         .sidebar { width: var(--sidebar-width); background-color: var(--sidebar-bg); color: var(--sidebar-text); display: flex; flex-direction: column; transition: width var(--transition-smooth); height: 100vh; z-index: 100; position: fixed; left: 0; top: 0; }
         .sidebar.collapsed { width: var(--sidebar-collapsed); }
-        .sidebar-brand { padding: 24px 20px; display: flex; align-items: center; gap: 12px; font-family: var(--font-heading); font-weight: 800; color: white; font-size: 1.1rem; white-space: nowrap; overflow: hidden; }
+        .sidebar-brand { padding: 24px 20px; display: flex; align-items: center; gap: 12px; font-family: var(--font-heading); font-weight: 800; color: white; font-size: 1.1rem; white-space: nowrap; overflow: hidden; cursor: pointer; }
         .sidebar.collapsed .brand-text { display: none; }
         .brand-icon { background: var(--primary); color: white; padding: 6px 10px; border-radius: 8px; font-size: 1.2rem; }
         .nav-menu { list-style: none; padding: 12px; display: flex; flex-direction: column; gap: 4px; flex-grow: 1; overflow-y: auto; }
@@ -89,6 +146,7 @@
         .mistake-box p { font-size: 0.8rem; color: #7F1D1D; } [data-theme="dark"] .mistake-box p { color: #FCA5A5; }
         .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-main); }
         
+        /* PIN & MODALS */
         #pinModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
         .pin-box { background: var(--bg-surface); padding: 32px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; max-width: 350px; width: 90%; animation: fadeIn 0.3s ease; }
         .pin-box h2 { font-size: 1.5rem; margin-bottom: 8px; color: var(--text-main); }
@@ -99,7 +157,6 @@
         .pin-btns .btn { flex: 1; padding: 14px; font-size: 1rem; }
         .logout-btn { display: none; color: var(--accent-coral) !important; font-weight: 700; }
 
-        /* MODAL MATERI */
         #materiModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.85); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
         .materi-box { background: var(--bg-surface); padding: 24px; border-radius: 16px; width: 90%; max-width: 600px; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.3); animation: slideUp 0.3s ease; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
@@ -112,14 +169,13 @@
         .contoh-box { background: rgba(14, 165, 233, 0.1); padding: 12px; border-radius: 6px; font-size: 0.85rem; margin-bottom: 8px; }
         .pembahasan-box { background: rgba(16, 185, 129, 0.1); padding: 12px; border-radius: 6px; font-size: 0.85rem; }
 
-        @media (max-width: 1024px) { .grid-layout { grid-template-columns: 1fr; } }
-        @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); } .sidebar.mobile-open { transform: translateX(0); }
-            .main-content { margin-left: 0; padding: 16px; } .mobile-menu-btn { display: block; }
-            .topbar { flex-direction: column; gap: 16px; } .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .journey-timeline { flex-wrap: wrap; gap: 16px; } .journey-line { display: none; } .journey-step { width: 45%; }
-            .topbar-actions { width: 100%; justify-content: flex-start; }
-        }
+        #questionGridModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
+        .grid-box { background: var(--bg-surface); padding: 24px; border-radius: 16px; width: 90%; max-width: 400px; text-align: center; }
+        .grid-numbers { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 20px 0; }
+        .grid-num { padding: 12px; border-radius: 8px; border: 2px solid var(--border-color); background: var(--bg-base); font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        .grid-num.active { border-color: var(--primary); color: var(--primary); }
+        .grid-num.answered { background: var(--primary); color: white; border-color: var(--primary); }
+        .grid-num.flagged { background: var(--accent-yellow); color: white; border-color: var(--accent-yellow); }
 
         /* CBT Styles */
         #diagnosticScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-base); z-index: 999; overflow-y: auto; flex-direction: column; }
@@ -138,13 +194,6 @@
         .option-btn.selected .option-indicator::after { content: ''; width: 8px; height: 8px; background: white; border-radius: 50%; }
         .option-btn.multi .option-indicator { border-radius: 6px; }
         .option-btn.multi.selected .option-indicator::after { content: '✓'; color: white; font-size: 14px; font-weight: bold; background: none; }
-        #questionGridModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
-        .grid-box { background: var(--bg-surface); padding: 24px; border-radius: 16px; width: 90%; max-width: 400px; text-align: center; }
-        .grid-numbers { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 20px 0; }
-        .grid-num { padding: 12px; border-radius: 8px; border: 2px solid var(--border-color); background: var(--bg-base); font-weight: 700; cursor: pointer; transition: all 0.2s; }
-        .grid-num.active { border-color: var(--primary); color: var(--primary); }
-        .grid-num.answered { background: var(--primary); color: white; border-color: var(--primary); }
-        .grid-num.flagged { background: var(--accent-yellow); color: white; border-color: var(--accent-yellow); }
         .diag-loading { display: none; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; text-align: center; }
         .loader-dot { width: 12px; height: 12px; background: var(--primary); border-radius: 50%; animation: bounce 0.6s infinite alternate; display: inline-block; margin: 0 4px; }
         @keyframes bounce { to { transform: translateY(-10px); opacity: 0.5; } }
@@ -184,11 +233,108 @@
             .btn-print-cert, .btn-close-cert { display: none !important; }
             @page { size: landscape; margin: 0; }
         }
+
+        @media (max-width: 1024px) { .hero-section { flex-direction: column; text-align: center; padding: 40px 0; } .hero-text p { margin: 0 auto 32px; } .hero-btns { justify-content: center; } .hero-text h1 { font-size: 2.5rem; } .grid-layout { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); } .sidebar.mobile-open { transform: translateX(0); }
+            .main-content { margin-left: 0; padding: 16px; } .mobile-menu-btn { display: block; }
+            .topbar { flex-direction: column; gap: 16px; } .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .journey-timeline { flex-wrap: wrap; gap: 16px; } .journey-line { display: none; } .journey-step { width: 45%; }
+            .topbar-actions { width: 100%; justify-content: flex-start; }
+            .creator-card { padding: 40px 20px; }
+        }
     </style>
 </head>
-<body>
+<body class="landing-mode">
 
-    <!-- MODAL MATERI -->
+    <!-- LANDING PAGE (DEFAULT AWAL) -->
+    <div id="view-landing" class="view active" style="display: block;">
+        <div class="landing-container">
+            
+            <!-- NAVBAR -->
+            <nav class="landing-nav">
+                <div class="landing-brand"><span>M</span> MATH READY SD</div>
+                <button class="btn-hero btn-hero-primary" style="padding: 10px 20px; font-size: 0.9rem;" onclick="enterApp()">Masuk Aplikasi</button>
+            </nav>
+
+            <!-- HERO SECTION -->
+            <section class="hero-section">
+                <div class="hero-text">
+                    <h1>Persiapkan Anak Anda Menghadapi <span>TKA Matematika</span> dengan Percaya Diri.</h1>
+                    <p>Platform belajar mandiri dengan simulasi CBT, analisis kecerdasan, dan materi terstruktur sesuai kisi-kisi resmi. Dibuat khusus untuk siswa SD Kelas 4, 5, dan 6.</p>
+                    <div class="hero-btns">
+                        <button class="btn-hero btn-hero-primary" onclick="enterApp()">Mulai Uji Coba Gratis 🚀</button>
+                        <a href="#fitur" class="btn-hero btn-hero-outline">Lihat Fitur</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-mockup">
+                        <div class="mockup-header">
+                            <div class="mockup-dot" style="background: #F43F5E;"></div>
+                            <div class="mockup-dot" style="background: #F59E0B;"></div>
+                            <div class="mockup-dot" style="background: #10B981;"></div>
+                        </div>
+                        <div class="mockup-body">
+                            <div style="font-size: 1.5rem; margin-bottom: 8px;">🏆</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px;">Skor Kesiapan TKA</div>
+                            <div class="mockup-score">90%</div>
+                            <div class="tag tag-green" style="display: inline-block; margin-top: 8px;">Siap Ujian!</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FITUR SECTION -->
+            <section id="fitur" class="features-section">
+                <h2 class="section-title">Mengapa Memilih Math Ready SD?</h2>
+                <p class="section-subtitle">Bukan sekadar bank soal, ini adalah sistem pembelajaran yang utuh.</p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <h3>Simulasi CBT TKA</h3>
+                        <p>Rasakan suasana ujian TKA yang sesungguhnya dengan timer 60 menit, 30 soal HOTS, dan navigasi daftar soal.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🧠</div>
+                        <h3>Analisis Diagnostik</h3>
+                        <p>Ketahui kelebihan dan kelemahan anak di setiap domain (Bilangan, Geometri, Data, Penalaran) secara instan.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📚</div>
+                        <h3>Materi Terstruktur</h3>
+                        <p>Ringkasan materi padat dan contoh soal dari Kelas 4 hingga 6 yang tersusun rapi dan mudah dipahami.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🏆</div>
+                        <h3>Sertifikat & Gamifikasi</h3>
+                        <p>Berikan apresiasi pada anak! Cetak sertifikat penghargaan jika mereka berhasil mencapai skor di atas 80%.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CREATOR SECTION -->
+            <section class="creator-section">
+                <h2 class="section-title">Dibuat oleh Guru, untuk Siswa</h2>
+                <p class="section-subtitle" style="margin-bottom: 40px;">Platform ini dikembangkan langsung oleh praktisi pendidikan.</p>
+                <div class="creator-card">
+                    <img src="foto-guru.jpg" alt="Riski Hermawan" class="creator-img" onerror="this.src='https://via.placeholder.com/150?text=Foto'">
+                    <h3>Riski Hermawan, S.Pd</h3>
+                    <p>Wali Kelas 6A — SD Negeri Sapuro 05, Kota Pekalongan</p>
+                    <div class="creator-quote">
+                        "Jangan takut salah, kesalahan adalah awal dari pintar matematika. Platform ini saya buat agar anak-anak Indonesia bisa belajar tanpa tekanan, tapi tetap terukur kesiapannya."
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer class="landing-footer">
+                <p>&copy; 2026 MATH READY SD - Learning & TKA Readiness Platform.</p>
+                <p style="margin-top: 8px; font-size: 0.8rem;">Ini adalah platform latihan mandiri dan bukan merupakan situs resmi TKA.</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- SEMUA MODAL (PIN, MATERI, CBT, DLL) -->
     <div id="materiModal">
         <div class="materi-box">
             <div class="materi-header">
@@ -199,7 +345,6 @@
         </div>
     </div>
 
-    <!-- MODAL PIN -->
     <div id="pinModal">
         <div class="pin-box">
             <h2>🔒 Area Terbatas</h2>
@@ -212,7 +357,6 @@
         </div>
     </div>
 
-    <!-- MODAL DAFTAR SOAL -->
     <div id="questionGridModal">
         <div class="grid-box">
             <h2 style="font-size: 1.2rem; margin-bottom: 8px;">Daftar Soal</h2>
@@ -227,7 +371,6 @@
         </div>
     </div>
 
-    <!-- MODAL SERTIFIKAT -->
     <div id="certificateModal">
         <button class="btn-close-cert" onclick="closeCertificate()">✕</button>
         <div class="cert-wrapper" id="certificateContent">
@@ -261,8 +404,9 @@
         </button>
     </div>
 
+    <!-- SIDEBAR DASHBOARD (Tersembunyi di Landing Page) -->
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-brand"><span class="brand-icon">M</span><span class="brand-text">MATH READY SD</span></div>
+        <div class="sidebar-brand" onclick="returnToLanding()"><span class="brand-icon">M</span><span class="brand-text">MATH READY SD</span></div>
         <ul class="nav-menu">
             <li><a href="#" class="nav-item active" onclick="switchView('view-siswa', this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> <span class="nav-text">Siswa</span></a></li>
             <li><a href="#" class="nav-item" onclick="openDiagnostic(this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg> <span class="nav-text">Diagnostic</span></a></li>
@@ -282,7 +426,7 @@
         </div>
     </aside>
 
-    <main class="main-content">
+    <main class="main-content" id="dashboardContent">
         <header class="topbar">
             <div style="display: flex; align-items: center; gap: 16px;">
                 <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
@@ -297,6 +441,7 @@
         </header>
 
         <div id="view-siswa" class="view active">
+            <!-- (Konten Dashboard Siswa Sama Seperti Sebelumnya) -->
             <div class="grid-layout">
                 <div class="col-left">
                     <div class="card hero-card">
@@ -310,32 +455,14 @@
                     </div>
                     <div class="card"><div class="card-title">Penguasaanku</div><div class="stats-grid" id="statsGrid"></div></div>
                     
-                    <!-- PERJALANAN BELAJAR -->
                     <div class="card">
                         <div class="card-title">Perjalanan Belajar</div>
                         <div class="journey-timeline">
                             <div class="journey-line"></div>
-                            <div class="journey-step completed" onclick="openMateri('Kelas 4')">
-                                <div class="journey-icon">🌱</div>
-                                <div class="journey-text">Kelas 4</div>
-                                <div style="font-size:0.65rem;color:var(--text-muted);">Fondasi</div>
-                            </div>
-                            <div class="journey-step completed" onclick="openMateri('Kelas 5')">
-                                <div class="journey-icon">🌿</div>
-                                <div class="journey-text">Kelas 5</div>
-                                <div style="font-size:0.65rem;color:var(--text-muted);">Berkembang</div>
-                            </div>
-                            <div class="journey-step active" onclick="openMateri('Kelas 6')">
-                                <div class="journey-icon">🌳</div>
-                                <div class="journey-text">Kelas 6</div>
-                                <div style="font-size:0.65rem;color:var(--text-muted);">Penguasaan</div>
-                            </div>
-                            <!-- IKON TKA (KLIK UNTUK SIMULASI) -->
-                            <div class="journey-step tka" onclick="openTKAModal()">
-                                <div class="journey-icon">🚀</div>
-                                <div class="journey-text">TKA</div>
-                                <div style="font-size:0.65rem;color:var(--accent-coral); font-weight:800;">Uji Nyali!</div>
-                            </div>
+                            <div class="journey-step completed" onclick="openMateri('Kelas 4')"><div class="journey-icon">🌱</div><div class="journey-text">Kelas 4</div><div style="font-size:0.65rem;color:var(--text-muted);">Fondasi</div></div>
+                            <div class="journey-step completed" onclick="openMateri('Kelas 5')"><div class="journey-icon">🌿</div><div class="journey-text">Kelas 5</div><div style="font-size:0.65rem;color:var(--text-muted);">Berkembang</div></div>
+                            <div class="journey-step active" onclick="openMateri('Kelas 6')"><div class="journey-icon">🌳</div><div class="journey-text">Kelas 6</div><div style="font-size:0.65rem;color:var(--text-muted);">Penguasaan</div></div>
+                            <div class="journey-step tka" onclick="openTKAModal()"><div class="journey-icon">🚀</div><div class="journey-text">TKA</div><div style="font-size:0.65rem;color:var(--accent-coral); font-weight:800;">Uji Nyali!</div></div>
                         </div>
                     </div>
                 </div>
@@ -363,7 +490,6 @@
                     <div class="card">
                         <div class="card-title">Daftar Nilai Siswa (Data Asli)</div>
                         <div class="table-responsive">
-                            <!-- JUDUL KELAS DIGANTI ASAL SEKOLAH -->
                             <table><thead><tr><th>Nama Siswa</th><th>Asal Sekolah</th><th>Jenis Tes</th><th>Bilangan</th><th>Geometri</th><th>Penalaran</th><th>Skor Akhir</th><th>Status</th></tr></thead>
                             <tbody id="tableGuruBody"><tr><td colspan="8" style="text-align:center;">Memuat data...</td></tr></tbody></table>
                         </div>
@@ -455,7 +581,6 @@
             <p id="diagDesc" style="color: var(--text-muted); margin-bottom: 24px;">Ini bukan ujian untuk menentukan peringkat. Ini petualangan untuk mencari tahu di mana kekuatanmu.</p>
             <div style="width: 100%; max-width: 300px; margin: 0 auto 24px;">
                 <div class="input-group"><label>Nama Lengkap</label><input type="text" id="studentName" placeholder="Contoh: Ahmad Fauzi"></div>
-                <!-- INPUT KELAS DIGANTI ASAL SEKOLAH -->
                 <div class="input-group"><label>Asal Sekolah</label><input type="text" id="studentSchool" placeholder="Contoh: SD Negeri 1"></div>
             </div>
             <button class="btn btn-yellow" id="btnStartQuiz" style="width: 100%; font-size: 1.1rem; padding: 16px;" onclick="startQuiz()">Mulai Petualangan</button>
@@ -528,16 +653,27 @@
             'view-tentang': { title: 'Tentang Platform', subtitle: 'Informasi & Profil Pengembang' }
         };
 
-        // === FUNGSI TANGGAL REALTIME ===
+        // === FUNGSI MASUK APLIKASI (LANDING -> DASHBOARD) ===
+        function enterApp() {
+            document.body.classList.remove('landing-mode');
+            document.getElementById('view-landing').style.display = 'none';
+            switchView('view-siswa'); // Langsung ke Dashboard Siswa
+            window.scrollTo(0, 0);
+        }
+
+        function returnToLanding() {
+            document.body.classList.add('landing-mode');
+            document.getElementById('view-landing').style.display = 'block';
+            views.forEach(v => v.classList.remove('active'));
+            views.forEach(v => { if(v.id !== 'view-landing') v.style.display = 'none'; });
+            window.scrollTo(0, 0);
+        }
+
         function updateRealtimeDate() {
             const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
             const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
             const now = new Date();
-            const dayName = days[now.getDay()];
-            const day = now.getDate();
-            const month = months[now.getMonth()];
-            const year = now.getFullYear();
-            document.getElementById('realtimeDate').innerText = `${dayName}, ${day} ${month} ${year}`;
+            document.getElementById('realtimeDate').innerText = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
         }
 
         function checkLoginStatus() { if (sessionStorage.getItem('isAuthorized') === 'true') { logoutBtn.style.display = 'flex'; } else { logoutBtn.style.display = 'none'; } }
@@ -545,11 +681,16 @@
         updateRealtimeDate(); 
 
         function switchView(viewId, el = null) {
+            if (document.body.classList.contains('landing-mode')) document.body.classList.remove('landing-mode');
+            
             if ((viewId === 'view-guru' || viewId === 'view-admin') && sessionStorage.getItem('isAuthorized') !== 'true') {
                 targetViewAfterPin = viewId; pinModal.style.display = 'flex'; document.getElementById('pinInput').value = ''; document.getElementById('pinInput').focus(); return; 
             }
             views.forEach(v => v.classList.remove('active'));
+            views.forEach(v => v.style.display = 'none');
+            document.getElementById(viewId).style.display = 'block';
             document.getElementById(viewId).classList.add('active');
+            
             navItems.forEach(nav => nav.classList.remove('active'));
             if (el) el.classList.add('active');
             else { const activeNav = Array.from(navItems).find(n => n.getAttribute('onclick')?.includes(viewId)); if (activeNav) activeNav.classList.add('active'); }
@@ -610,7 +751,6 @@
                     const tr = document.createElement('tr'); const readiness = parseInt(row[7]) || 0;
                     const status = readiness >= 70 ? '<span class="tag tag-green">Tuntas</span>' : '<span class="tag tag-red">Remedial</span>';
                     const jenisTes = row[8] || 'Diagnostik';
-                    // Kolom ke-2 (row[2]) sekarang berisi Asal Sekolah
                     tr.innerHTML = `<td><strong>${row[1]}</strong></td><td>${row[2]}</td><td><span class="tag ${jenisTes === 'TKA' ? 'tag-red' : 'tag-green'}">${jenisTes}</span></td><td>${row[3]}</td><td>${row[4]}</td><td>${row[6]}</td><td><strong>${readiness}</strong></td><td>${status}</td>`;
                     tbody.appendChild(tr);
                     tB += parseInt(row[3]) || 0; tG += parseInt(row[4]) || 0; tD += parseInt(row[5]) || 0; tP += parseInt(row[6]) || 0;
@@ -634,7 +774,6 @@
                 const response = await fetch(URL_APPS_SCRIPT); const data = await response.json();
                 const reversedData = data.reverse(); const studentData = reversedData.find(row => row[1].toLowerCase().includes(searchName));
                 if (!studentData) { resultDiv.innerHTML = '<div class="card" style="text-align:center; padding: 32px;"><div style="font-size: 3rem; margin-bottom: 16px;">🔍</div><h3 style="color:var(--accent-coral); margin-bottom: 8px;">Data Tidak Ditemukan</h3><p style="color:var(--text-muted); font-size:0.9rem;">Pastikan nama anak sudah benar dan sudah mengerjakan tes.</p></div>'; return; }
-                // row[2] sekarang berisi Asal Sekolah
                 const [time, name, sekolah, bil, geo, dataScore, pen, readiness, jenisTes] = studentData;
                 let strengths = [], weaknesses = [];
                 if (bil >= 70) strengths.push('Bilangan'); else weaknesses.push('Bilangan');
@@ -708,13 +847,13 @@
 
             document.getElementById('diag-loading').style.display = 'none';
             document.getElementById('studentName').value = '';
-            document.getElementById('studentSchool').value = ''; // Kosongkan input sekolah
+            document.getElementById('studentSchool').value = '';
             navItems.forEach(nav => nav.classList.remove('active'));
             if (el) el.classList.add('active');
         }
 
         async function openTKAModal() {
-            currentTestMode = "TKA"; cbtTimeLeft = 60 * 60; // 60 Menit untuk TKA
+            currentTestMode = "TKA"; cbtTimeLeft = 60 * 60;
             diagScreen.style.display = 'flex';
             document.getElementById('diag-welcome').style.display = 'flex';
             document.getElementById('diag-quiz').style.display = 'none';
@@ -815,7 +954,6 @@
             localStorage.setItem('math_ready_mistakes', JSON.stringify(mistakes)); 
             localStorage.setItem('student_name', studentName);
             
-            // Kirim data dengan nama sekolah
             const dataToSend = { 
                 nama: studentName, sekolah: studentSchool, 
                 bilangan: scores.bilangan, geometri: scores.geometri, 

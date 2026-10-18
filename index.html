@@ -58,6 +58,7 @@
         .btn-yellow { background: var(--accent-yellow); color: #1E293B; } .btn-yellow:hover { background: #D97706; color: white; }
         .btn-outline { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); } .btn-outline:hover { background: rgba(255,255,255,0.2); }
         .btn-coral { background: var(--accent-coral); color: white; } .btn-coral:hover { background: #E11D48; }
+        .btn-primary { background: var(--primary); color: white; } .btn-primary:hover { background: var(--primary-hover); }
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
         .stat-item { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; }
         .chart-container-small { width: 90px; height: 90px; position: relative; margin-bottom: 12px; }
@@ -80,6 +81,7 @@
         .journey-step.active .journey-icon { border-color: var(--primary); background: rgba(14, 165, 233, 0.1); }
         .journey-step.completed .journey-icon { background: var(--accent-mint); color: white; border-color: var(--accent-mint); }
         .journey-step.tka .journey-icon { background: linear-gradient(135deg, #F43F5E, #F59E0B); color: white; border-color: transparent; box-shadow: 0 0 15px rgba(244,63,94,0.5); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(244,63,94,0.7); } 70% { box-shadow: 0 0 0 15px rgba(244,63,94,0); } 100% { box-shadow: 0 0 0 0 rgba(244,63,94,0); } }
         .journey-text { text-align: center; font-size: 0.85rem; font-weight: 700; }
         .journey-line { position: absolute; top: 25px; left: 12%; right: 12%; height: 3px; background: var(--border-color); z-index: 1; }
         .mistake-box { background: #FEF2F2; border: 1px solid #FECACA; border-radius: 8px; padding: 12px; margin-bottom: 12px; }
@@ -110,7 +112,6 @@
         .materi-text { font-size: 0.9rem; line-height: 1.5; color: var(--text-muted); margin-bottom: 12px; }
         .contoh-box { background: rgba(14, 165, 233, 0.1); padding: 12px; border-radius: 6px; font-size: 0.85rem; margin-bottom: 8px; }
         .pembahasan-box { background: rgba(16, 185, 129, 0.1); padding: 12px; border-radius: 6px; font-size: 0.85rem; }
-        .highlight { font-weight: 700; color: var(--primary); }
 
         @media (max-width: 1024px) { .grid-layout { grid-template-columns: 1fr; } }
         @media (max-width: 768px) {
@@ -122,7 +123,7 @@
 
         /* CBT Styles */
         #diagnosticScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-base); z-index: 999; overflow-y: auto; flex-direction: column; }
-        .cbt-header { background: var(--bg-surface); padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 10; }
+        .cbt-header { background: var(--bg-surface); padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 10; transition: background 0.5s; }
         .cbt-timer { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; color: var(--accent-coral); display: flex; align-items: center; gap: 8px; background: rgba(244,63,94,0.1); padding: 8px 16px; border-radius: 8px; }
         .cbt-body { flex-grow: 1; padding: 24px; max-width: 800px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; }
         .cbt-footer { background: var(--bg-surface); padding: 16px 24px; display: flex; justify-content: space-between; border-top: 1px solid var(--border-color); position: sticky; bottom: 0; z-index: 10; }
@@ -194,9 +195,7 @@
                 <h2 id="materiTitle">Materi Pembelajaran</h2>
                 <button class="close-btn" onclick="closeMateriModal()">✕</button>
             </div>
-            <div id="materiList">
-                <!-- Diisi oleh Javascript -->
-            </div>
+            <div id="materiList"></div>
         </div>
     </div>
 
@@ -236,20 +235,16 @@
                 <div class="cert-border-inner">
                     <div class="cert-title">SERTIFIKAT PENGHARGAAN</div>
                     <div class="cert-subtitle">Certificate of Learning Achievement</div>
-                    
                     <div class="cert-text">Diberikan dengan bangga kepada:</div>
                     <div class="cert-name" id="certStudentName">Nama Siswa</div>
                     <div class="cert-desc">Atas dedikasi, ketekunan, dan keberhasilannya dalam menyelesaikan Diagnostic Assessment Matematika pada Platform MATH READY SD dengan predikat sangat baik.</div>
-                    
                     <div class="cert-score-box">
                         <div class="cert-score" id="certScore">80%</div>
                         <div class="cert-score-label">Readiness</div>
                     </div>
-
                     <div class="cert-footer">
                         <div class="cert-date">
-                            Pekalongan, <span id="certDate">27 Oktober 2026</span><br>
-                            <strong>MATH READY SD</strong>
+                            Pekalongan, <span id="certDate">27 Oktober 2026</span><br><strong>MATH READY SD</strong>
                         </div>
                         <div class="cert-signature">
                             <div class="cert-sig-line"></div>
@@ -261,7 +256,7 @@
             </div>
         </div>
         <button class="btn-print-cert" onclick="printCertificate()">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
             Cetak / Simpan PDF
         </button>
     </div>
@@ -316,7 +311,7 @@
                     </div>
                     <div class="card"><div class="card-title">Penguasaanku</div><div class="stats-grid" id="statsGrid"></div></div>
                     
-                    <!-- PERJALANAN BELAJAR (INTERAKTIF) -->
+                    <!-- PERJALANAN BELAJAR -->
                     <div class="card">
                         <div class="card-title">Perjalanan Belajar</div>
                         <div class="journey-timeline">
@@ -336,10 +331,11 @@
                                 <div class="journey-text">Kelas 6</div>
                                 <div style="font-size:0.65rem;color:var(--text-muted);">Penguasaan</div>
                             </div>
-                            <div class="journey-step tka" onclick="alert('Simulasi TKA 30 Soal HOTS akan segera hadir di Tahap 3!')">
+                            <!-- IKON TKA (KLIK UNTUK SIMULASI) -->
+                            <div class="journey-step tka" onclick="openTKAModal()">
                                 <div class="journey-icon">🚀</div>
                                 <div class="journey-text">TKA</div>
-                                <div style="font-size:0.65rem;color:var(--text-muted);">Siap</div>
+                                <div style="font-size:0.65rem;color:var(--accent-coral); font-weight:800;">Uji Nyali!</div>
                             </div>
                         </div>
                     </div>
@@ -368,8 +364,8 @@
                     <div class="card">
                         <div class="card-title">Daftar Nilai Siswa (Data Asli)</div>
                         <div class="table-responsive">
-                            <table><thead><tr><th>Nama Siswa</th><th>Kelas</th><th>Bilangan</th><th>Geometri</th><th>Penalaran</th><th>Skor Akhir</th><th>Status</th></tr></thead>
-                            <tbody id="tableGuruBody"><tr><td colspan="7" style="text-align:center;">Memuat data...</td></tr></tbody></table>
+                            <table><thead><tr><th>Nama Siswa</th><th>Kelas</th><th>Jenis Tes</th><th>Bilangan</th><th>Geometri</th><th>Penalaran</th><th>Skor Akhir</th><th>Status</th></tr></thead>
+                            <tbody id="tableGuruBody"><tr><td colspan="8" style="text-align:center;">Memuat data...</td></tr></tbody></table>
                         </div>
                         <button class="btn btn-yellow" style="margin-top:16px; width:100%;" onclick="fetchGuruData()">🔄 Refresh Data dari Database</button>
                     </div>
@@ -453,21 +449,23 @@
 
     <!-- OVERLAY DIAGNOSTIC CBT -->
     <div id="diagnosticScreen">
+        <!-- Pre-start screen -->
         <div id="diag-welcome" class="diag-welcome">
-            <div class="diag-welcome-icon">🚀</div>
-            <h1 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 12px;">Yuk, Cek Kemampuanmu!</h1>
-            <p style="color: var(--text-muted); margin-bottom: 24px;">Ini bukan ujian untuk menentukan peringkat. Ini petualangan untuk mencari tahu di mana kekuatanmu.</p>
+            <div class="diag-welcome-icon" id="diagWelcomeIcon">🚀</div>
+            <h1 id="diagTitle" style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 12px;">Yuk, Cek Kemampuanmu!</h1>
+            <p id="diagDesc" style="color: var(--text-muted); margin-bottom: 24px;">Ini bukan ujian untuk menentukan peringkat. Ini petualangan untuk mencari tahu di mana kekuatanmu.</p>
             <div style="width: 100%; max-width: 300px; margin: 0 auto 24px;">
                 <div class="input-group"><label>Nama Lengkap</label><input type="text" id="studentName" placeholder="Contoh: Ahmad Fauzi"></div>
                 <div class="input-group"><label>Kelas</label><select id="studentClass"><option value="6A">Kelas 6A</option><option value="6B">Kelas 6B</option><option value="5A">Kelas 5A</option><option value="4A">Kelas 4A</option></select></div>
             </div>
-            <button class="btn btn-yellow" style="width: 100%; font-size: 1.1rem; padding: 16px;" onclick="startQuiz()">Mulai Petualangan</button>
+            <button class="btn btn-yellow" id="btnStartQuiz" style="width: 100%; font-size: 1.1rem; padding: 16px;" onclick="startQuiz()">Mulai Petualangan</button>
             <button class="btn" style="width: 100%; background: transparent; color: var(--text-muted); margin-top: 12px;" onclick="closeDiagnostic()">Nanti saja</button>
         </div>
 
+        <!-- Quiz screen -->
         <div id="diag-quiz" style="display: none; flex-direction: column; height: 100%;">
-            <div class="cbt-header">
-                <div style="font-weight: 800; font-family: var(--font-heading); color: var(--primary); display: flex; align-items: center; gap: 8px;"><span style="font-size: 1.2rem;">📝</span> Simulasi TKA</div>
+            <div class="cbt-header" id="cbtHeader">
+                <div style="font-weight: 800; font-family: var(--font-heading); color: var(--primary); display: flex; align-items: center; gap: 8px;"><span style="font-size: 1.2rem;">📝</span> <span id="cbtTitle">Simulasi TKA</span></div>
                 <div class="cbt-timer" id="cbtTimer">⏱ 15:00</div>
             </div>
             <div class="cbt-body">
@@ -493,7 +491,7 @@
         <div id="diag-review" class="diag-welcome" style="display: none;">
             <div style="font-size: 4rem; margin-bottom: 16px;">📋</div>
             <h2 style="font-family: var(--font-heading);">Waktu Hampir Habis atau Selesai?</h2>
-            <p style="color: var(--text-muted); margin-bottom: 24px;">Pastikan Bapak/Ibu/Siswa sudah memeriksa semua jawaban. Jawaban yang kosong tidak akan mendapat poin.</p>
+            <p style="color: var(--text-muted); margin-bottom: 24px;">Pastikan sudah memeriksa semua jawaban. Jawaban kosong tidak mendapat poin.</p>
             <div style="background: var(--bg-surface); padding: 24px; border-radius: 16px; width: 100%; border: 1px solid var(--border-color); margin-bottom: 24px;">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem;"><span>Total Soal:</span> <strong id="reviewTotal">10</strong></div>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem;"><span>Sudah Dijawab:</span> <strong id="reviewAnswered" style="color: var(--accent-mint);">10</strong></div>
@@ -572,64 +570,40 @@
             const listDiv = document.getElementById('materiList');
             listDiv.innerHTML = '<div style="text-align:center; padding: 20px; color:var(--text-muted);">Memuat materi dari database...</div>';
             document.getElementById('materiModal').style.display = 'flex';
-
             try {
                 const response = await fetch(URL_APPS_SCRIPT + "?action=getMateri");
                 const data = await response.json();
-                
-                // Filter berdasarkan kelas (data[0] = Kelas)
                 const filteredMateri = data.filter(row => row[0] === kelas);
-
-                if (filteredMateri.length === 0) {
-                    listDiv.innerHTML = '<div style="text-align:center; padding: 20px; color:var(--text-muted);">Belum ada materi untuk kelas ini.</div>';
-                    return;
-                }
-
+                if (filteredMateri.length === 0) { listDiv.innerHTML = '<div style="text-align:center; padding: 20px; color:var(--text-muted);">Belum ada materi untuk kelas ini.</div>'; return; }
                 listDiv.innerHTML = '';
                 filteredMateri.forEach((row, index) => {
-                    // Data: [Kelas, Topik, Materi Singkat, Contoh Soal, Pembahasan]
-                    const div = document.createElement('div');
-                    div.className = 'materi-item';
-                    div.innerHTML = `
-                        <h3>${index + 1}. ${row[1]}</h3>
-                        <div class="materi-text">${row[2]}</div>
-                        <div class="contoh-box">
-                            <strong>Contoh Soal:</strong><br>
-                            ${row[3]}
-                        </div>
-                        <div class="pembahasan-box">
-                            <strong>Pembahasan:</strong><br>
-                            ${row[4]}
-                        </div>
-                    `;
+                    const div = document.createElement('div'); div.className = 'materi-item';
+                    div.innerHTML = `<h3>${index + 1}. ${row[1]}</h3><div class="materi-text">${row[2]}</div><div class="contoh-box"><strong>Contoh Soal:</strong><br>${row[3]}</div><div class="pembahasan-box"><strong>Pembahasan:</strong><br>${row[4]}</div>`;
                     listDiv.appendChild(div);
                 });
-
-            } catch (error) {
-                listDiv.innerHTML = '<div style="text-align:center; padding: 20px; color:var(--accent-coral);">Gagal memuat materi. Periksa koneksi internet.</div>';
-            }
+            } catch (error) { listDiv.innerHTML = '<div style="text-align:center; padding: 20px; color:var(--accent-coral);">Gagal memuat materi.</div>'; }
         }
-
         function closeMateriModal() { document.getElementById('materiModal').style.display = 'none'; }
 
         // === TARIK DATA GURU ===
         let teacherChartInstance = null;
         async function fetchGuruData() {
-            const tbody = document.getElementById('tableGuruBody'); tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Memuat data...</td></tr>';
+            const tbody = document.getElementById('tableGuruBody'); tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">Memuat data...</td></tr>';
             try {
                 const response = await fetch(URL_APPS_SCRIPT); const data = await response.json(); tbody.innerHTML = '';
-                if(data.length === 0) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Belum ada data.</td></tr>'; document.getElementById('totalSiswa').innerText = '0'; renderTeacherChart([0,0,0,0]); return; }
+                if(data.length === 0) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">Belum ada data.</td></tr>'; document.getElementById('totalSiswa').innerText = '0'; renderTeacherChart([0,0,0,0]); return; }
                 data.reverse(); document.getElementById('totalSiswa').innerText = data.length;
                 let tB=0, tG=0, tD=0, tP=0;
                 data.forEach(row => {
                     const tr = document.createElement('tr'); const readiness = parseInt(row[7]) || 0;
                     const status = readiness >= 70 ? '<span class="tag tag-green">Tuntas</span>' : '<span class="tag tag-red">Remedial</span>';
-                    tr.innerHTML = `<td><strong>${row[1]}</strong></td><td>${row[2]}</td><td>${row[3]}</td><td>${row[4]}</td><td>${row[6]}</td><td><strong>${readiness}</strong></td><td>${status}</td>`;
+                    const jenisTes = row[8] || 'Diagnostik';
+                    tr.innerHTML = `<td><strong>${row[1]}</strong></td><td>${row[2]}</td><td><span class="tag ${jenisTes === 'TKA' ? 'tag-red' : 'tag-green'}">${jenisTes}</span></td><td>${row[3]}</td><td>${row[4]}</td><td>${row[6]}</td><td><strong>${readiness}</strong></td><td>${status}</td>`;
                     tbody.appendChild(tr);
                     tB += parseInt(row[3]) || 0; tG += parseInt(row[4]) || 0; tD += parseInt(row[5]) || 0; tP += parseInt(row[6]) || 0;
                 });
                 renderTeacherChart([Math.round(tB/data.length), Math.round(tG/data.length), Math.round(tD/data.length), Math.round(tP/data.length)]);
-            } catch (error) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:red;">Gagal memuat data.</td></tr>'; }
+            } catch (error) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:red;">Gagal memuat data.</td></tr>'; }
         }
         function renderTeacherChart(chartData = [0,0,0,0]) {
             const isDark = html.getAttribute('data-theme') === 'dark';
@@ -646,18 +620,18 @@
             try {
                 const response = await fetch(URL_APPS_SCRIPT); const data = await response.json();
                 const reversedData = data.reverse(); const studentData = reversedData.find(row => row[1].toLowerCase().includes(searchName));
-                if (!studentData) { resultDiv.innerHTML = '<div class="card" style="text-align:center; padding: 32px;"><div style="font-size: 3rem; margin-bottom: 16px;">🔍</div><h3 style="color:var(--accent-coral); margin-bottom: 8px;">Data Tidak Ditemukan</h3><p style="color:var(--text-muted); font-size:0.9rem;">Pastikan nama anak sudah benar dan sudah mengerjakan tes di menu Diagnostic.</p></div>'; return; }
-                const [time, name, kelas, bil, geo, dataScore, pen, readiness] = studentData;
+                if (!studentData) { resultDiv.innerHTML = '<div class="card" style="text-align:center; padding: 32px;"><div style="font-size: 3rem; margin-bottom: 16px;">🔍</div><h3 style="color:var(--accent-coral); margin-bottom: 8px;">Data Tidak Ditemukan</h3><p style="color:var(--text-muted); font-size:0.9rem;">Pastikan nama anak sudah benar dan sudah mengerjakan tes.</p></div>'; return; }
+                const [time, name, kelas, bil, geo, dataScore, pen, readiness, jenisTes] = studentData;
                 let strengths = [], weaknesses = [];
                 if (bil >= 70) strengths.push('Bilangan'); else weaknesses.push('Bilangan');
                 if (geo >= 70) strengths.push('Geometri'); else weaknesses.push('Geometri');
                 if (dataScore >= 70) strengths.push('Data'); else weaknesses.push('Data');
                 if (pen >= 70) strengths.push('Penalaran'); else weaknesses.push('Penalaran');
-                let suggestion = weaknesses.length === 0 ? "Luar biasa! Anak Anda sudah sangat menguasai semua materi." : `Ajak anak untuk lebih banyak berlatih soal <strong>${weaknesses[0]}</strong>. Gunakan benda-benda nyata di rumah untuk membantu visualisasi.`;
+                let suggestion = weaknesses.length === 0 ? "Luar biasa! Anak Anda sudah sangat menguasai semua materi." : `Ajak anak untuk lebih banyak berlatih soal <strong>${weaknesses[0]}</strong>. Gunakan benda-benda nyata di rumah.`;
                 resultDiv.innerHTML = `
                     <div class="card" style="border-left: 4px solid ${readiness >= 70 ? 'var(--accent-mint)' : 'var(--accent-coral)'};">
                         <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;">
-                            <div><h3 style="font-size:1.2rem; margin-bottom:4px;">${name}</h3><p style="font-size:0.85rem; color:var(--text-muted);">Kelas ${kelas} • Tes terakhir: ${time}</p></div>
+                            <div><h3 style="font-size:1.2rem; margin-bottom:4px;">${name}</h3><p style="font-size:0.85rem; color:var(--text-muted);">Kelas ${kelas} • Tes ${jenisTes || 'Diagnostik'}: ${time}</p></div>
                             <div style="text-align:center; background:var(--bg-base); padding:8px 16px; border-radius:12px;"><div style="font-size:0.7rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Readiness</div><div style="font-size:1.5rem; font-weight:800; color:${readiness >= 70 ? 'var(--accent-mint)' : 'var(--accent-coral)'};">${readiness}%</div></div>
                         </div>
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
@@ -679,11 +653,13 @@
             } catch (error) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:red;">Gagal memuat soal.</td></tr>'; }
         }
 
-        // === CBT LOGIC ===
-        let questionsData = []; let userAnswers = []; let flaggedQuestions = []; let currentQuestionIndex = 0; let selectedOptions = []; let studentName = ""; let studentClass = ""; let cbtTimerInterval = null; let cbtTimeLeft = 15 * 60; 
+        // === CBT LOGIC (DIAGNOSTIC & TKA) ===
+        let questionsData = []; let userAnswers = []; let flaggedQuestions = []; let currentQuestionIndex = 0; let selectedOptions = []; let studentName = ""; let studentClass = ""; let cbtTimerInterval = null; let cbtTimeLeft = 15 * 60; let currentTestMode = "Diagnostik"; 
+
         function formatTime(seconds) { const m = Math.floor(seconds / 60).toString().padStart(2, '0'); const s = (seconds % 60).toString().padStart(2, '0'); return `⏱ ${m}:${s}`; }
+        
         function startCbtTimer() {
-            cbtTimeLeft = 15 * 60; document.getElementById('cbtTimer').innerText = formatTime(cbtTimeLeft);
+            document.getElementById('cbtTimer').innerText = formatTime(cbtTimeLeft);
             document.getElementById('cbtTimer').style.color = 'var(--accent-coral)'; document.getElementById('cbtTimer').style.background = 'rgba(244,63,94,0.1)';
             if(cbtTimerInterval) clearInterval(cbtTimerInterval);
             cbtTimerInterval = setInterval(() => {
@@ -692,41 +668,123 @@
                 if (cbtTimeLeft <= 0) { clearInterval(cbtTimerInterval); alert("Waktu Habis!"); submitQuiz(); }
             }, 1000);
         }
+
         async function openDiagnostic(el = null) {
-            diagScreen.style.display = 'flex'; document.getElementById('diag-welcome').style.display = 'flex'; document.getElementById('diag-quiz').style.display = 'none'; document.getElementById('diag-review').style.display = 'none'; document.getElementById('diag-loading').style.display = 'flex'; document.getElementById('diag-result').style.display = 'none';
-            try { const response = await fetch(URL_APPS_SCRIPT + "?action=getQuestions"); const data = await response.json(); questionsData = data.map(row => { return { id: row[0], domain: row[1], type: row[2], question: row[3], options: [row[4], row[5], row[6], row[7]], correctAnswer: row[8].toString().split(',').map(Number) }; }); } catch (e) { alert("Gagal memuat soal."); questionsData = []; }
-            document.getElementById('diag-loading').style.display = 'none'; document.getElementById('studentName').value = ''; navItems.forEach(nav => nav.classList.remove('active')); if (el) el.classList.add('active');
+            currentTestMode = "Diagnostik";
+            cbtTimeLeft = 15 * 60;
+            diagScreen.style.display = 'flex';
+            document.getElementById('diag-welcome').style.display = 'flex';
+            document.getElementById('diag-quiz').style.display = 'none';
+            document.getElementById('diag-review').style.display = 'none';
+            document.getElementById('diag-loading').style.display = 'flex'; 
+            document.getElementById('diag-result').style.display = 'none';
+            
+            // Reset Vibe to Diagnostic
+            document.getElementById('diagWelcomeIcon').innerText = "🚀";
+            document.getElementById('diagTitle').innerText = "Yuk, Cek Kemampuanmu!";
+            document.getElementById('diagDesc').innerText = "Ini bukan ujian untuk menentukan peringkat. Ini petualangan untuk mencari tahu di mana kekuatanmu.";
+            document.getElementById('btnStartQuiz').innerText = "Mulai Petualangan";
+            document.getElementById('cbtHeader').style.background = 'var(--bg-surface)';
+            document.getElementById('cbtTitle').innerText = "Diagnostic Assessment";
+            document.getElementById('cbtTitle').style.color = 'var(--primary)';
+
+            try {
+                const response = await fetch(URL_APPS_SCRIPT + "?action=getQuestions");
+                const data = await response.json();
+                questionsData = data.map(row => { return { id: row[0], domain: row[1], type: row[2], question: row[3], options: [row[4], row[5], row[6], row[7]], correctAnswer: row[8].toString().split(',').map(Number) }; });
+            } catch (e) { alert("Gagal memuat soal."); questionsData = []; }
+
+            document.getElementById('diag-loading').style.display = 'none';
+            document.getElementById('studentName').value = '';
+            navItems.forEach(nav => nav.classList.remove('active'));
+            if (el) el.classList.add('active');
         }
-        function closeDiagnostic() { if(cbtTimerInterval) clearInterval(cbtTimerInterval); diagScreen.style.display = 'none'; switchView('view-siswa'); renderDashboardCharts(); }
+
+        async function openTKAModal() {
+            currentTestMode = "TKA";
+            cbtTimeLeft = 60 * 60; // 60 Menit untuk TKA
+            diagScreen.style.display = 'flex';
+            document.getElementById('diag-welcome').style.display = 'flex';
+            document.getElementById('diag-quiz').style.display = 'none';
+            document.getElementById('diag-review').style.display = 'none';
+            document.getElementById('diag-loading').style.display = 'flex'; 
+            document.getElementById('diag-result').style.display = 'none';
+            
+            // Set Vibe to TKA
+            document.getElementById('diagWelcomeIcon').innerText = "🚀";
+            document.getElementById('diagTitle').innerText = "Simulasi TKA - Uji Nyali!";
+            document.getElementById('diagDesc').innerHTML = "Ujian ini terdiri dari <strong>30 Soal HOTS</strong> dengan waktu <strong>60 Menit</strong>. Siapkan mental dan fokusmu. Kerjakan dengan jujur!";
+            document.getElementById('btnStartQuiz').innerText = "Mulai Simulasi TKA";
+            document.getElementById('cbtHeader').style.background = 'linear-gradient(135deg, #F43F5E, #F59E0B)';
+            document.getElementById('cbtTitle').innerText = "SIMULASI TKA";
+            document.getElementById('cbtTitle').style.color = 'white';
+
+            try {
+                const response = await fetch(URL_APPS_SCRIPT + "?action=getTKAQuestions");
+                const data = await response.json();
+                questionsData = data.map(row => { return { id: row[0], domain: row[1], type: row[2], question: row[3], options: [row[4], row[5], row[6], row[7]], correctAnswer: row[8].toString().split(',').map(Number) }; });
+            } catch (e) { alert("Gagal memuat soal TKA."); questionsData = []; }
+
+            document.getElementById('diag-loading').style.display = 'none';
+            document.getElementById('studentName').value = '';
+            navItems.forEach(nav => nav.classList.remove('active'));
+        }
+
+        function closeDiagnostic() { 
+            if(cbtTimerInterval) clearInterval(cbtTimerInterval); 
+            diagScreen.style.display = 'none'; 
+            switchView('view-siswa'); 
+            renderDashboardCharts(); 
+        }
+
         function startQuiz() {
-            studentName = document.getElementById('studentName').value.trim(); studentClass = document.getElementById('studentClass').value;
-            if (!studentName) { alert("Tolong isi Nama Lengkap!"); return; } if (questionsData.length === 0) { alert("Soal belum tersedia."); return; }
-            document.getElementById('pageTitle').innerText = `Halo, ${studentName.split(' ')[0]}! 👋`; document.getElementById('diag-welcome').style.display = 'none'; document.getElementById('diag-quiz').style.display = 'flex'; currentQuestionIndex = 0; userAnswers = []; flaggedQuestions = []; startCbtTimer(); renderQuestion();
+            studentName = document.getElementById('studentName').value.trim(); 
+            studentClass = document.getElementById('studentClass').value;
+            if (!studentName) { alert("Tolong isi Nama Lengkap!"); return; } 
+            if (questionsData.length === 0) { alert("Soal belum tersedia."); return; }
+            
+            document.getElementById('pageTitle').innerText = `Halo, ${studentName.split(' ')[0]}! 👋`; 
+            document.getElementById('diag-welcome').style.display = 'none'; 
+            document.getElementById('diag-quiz').style.display = 'flex'; 
+            currentQuestionIndex = 0; userAnswers = []; flaggedQuestions = []; 
+            startCbtTimer(); 
+            renderQuestion();
         }
+
         function renderQuestion() {
             const q = questionsData[currentQuestionIndex]; selectedOptions = userAnswers[currentQuestionIndex] ? [...userAnswers[currentQuestionIndex]] : [];
-            document.getElementById('progressText').innerText = `Soal ${currentQuestionIndex + 1} / ${questionsData.length}`; document.getElementById('questionTopic').innerText = q.domain; document.getElementById('questionText').innerText = q.question;
-            document.getElementById('btnPrev').style.display = currentQuestionIndex === 0 ? 'none' : 'flex'; document.getElementById('btnNext').innerText = (currentQuestionIndex === questionsData.length - 1) ? "Selesai & Review" : "Selanjutnya";
+            document.getElementById('progressText').innerText = `Soal ${currentQuestionIndex + 1} / ${questionsData.length}`; 
+            document.getElementById('questionTopic').innerText = q.domain; 
+            document.getElementById('questionText').innerText = q.question;
+            document.getElementById('btnPrev').style.display = currentQuestionIndex === 0 ? 'none' : 'flex'; 
+            document.getElementById('btnNext').innerText = (currentQuestionIndex === questionsData.length - 1) ? "Selesai & Review" : "Selanjutnya";
+            
             const btnFlag = document.getElementById('btnFlag');
             if(flaggedQuestions.includes(currentQuestionIndex)) { btnFlag.style.background = 'var(--accent-yellow)'; btnFlag.style.color = 'white'; btnFlag.style.borderColor = 'var(--accent-yellow)'; btnFlag.innerHTML = '🚩 Hapus Tanda Ragu-ragu'; } else { btnFlag.style.background = 'transparent'; btnFlag.style.color = 'var(--text-main)'; btnFlag.style.borderColor = 'var(--border-color)'; btnFlag.innerHTML = '🚩 Tandai Ragu-ragu'; }
+            
             const optionsList = document.getElementById('optionsList'); optionsList.innerHTML = '';
             q.options.forEach((opt, index) => { const btn = document.createElement('button'); btn.className = `option-btn ${q.type === 'PGK' ? 'multi' : ''}`; if(selectedOptions.includes(index)) btn.classList.add('selected'); btn.innerHTML = `<div class="option-indicator"></div><span>${opt}</span>`; btn.onclick = () => handleOptionClick(index, q.type, btn); optionsList.appendChild(btn); });
         }
+
         function handleOptionClick(index, type, btnElement) {
             if (type === 'PG') { selectedOptions = [index]; Array.from(document.getElementById('optionsList').children).forEach(child => child.classList.remove('selected')); btnElement.classList.add('selected'); } else { if (selectedOptions.includes(index)) { selectedOptions = selectedOptions.filter(i => i !== index); btnElement.classList.remove('selected'); } else { selectedOptions.push(index); btnElement.classList.add('selected'); } }
             userAnswers[currentQuestionIndex] = [...selectedOptions];
         }
+
         function toggleFlag() { if(flaggedQuestions.includes(currentQuestionIndex)) { flaggedQuestions = flaggedQuestions.filter(i => i !== currentQuestionIndex); } else { flaggedQuestions.push(currentQuestionIndex); } renderQuestion(); }
         function prevQuestion() { if (currentQuestionIndex > 0) { currentQuestionIndex--; renderQuestion(); } }
         function nextQuestion() { if (currentQuestionIndex < questionsData.length - 1) { currentQuestionIndex++; renderQuestion(); } else { showReviewScreen(); } }
+        
         function openQuestionGrid() {
             const grid = document.getElementById('gridNumbers'); grid.innerHTML = '';
             questionsData.forEach((_, i) => { const div = document.createElement('div'); div.className = 'grid-num'; if (i === currentQuestionIndex) div.classList.add('active'); if (userAnswers[i] && userAnswers[i].length > 0) div.classList.add('answered'); if (flaggedQuestions.includes(i)) div.classList.add('flagged'); div.innerText = i + 1; div.onclick = () => { currentQuestionIndex = i; renderQuestion(); closeQuestionGrid(); }; grid.appendChild(div); });
             document.getElementById('questionGridModal').style.display = 'flex';
         }
         function closeQuestionGrid() { document.getElementById('questionGridModal').style.display = 'none'; }
+        
         function showReviewScreen() { document.getElementById('diag-quiz').style.display = 'none'; document.getElementById('diag-review').style.display = 'flex'; let answeredCount = userAnswers.filter(a => a && a.length > 0).length; document.getElementById('reviewTotal').innerText = questionsData.length; document.getElementById('reviewAnswered').innerText = answeredCount; document.getElementById('reviewFlagged').innerText = flaggedQuestions.length; }
         function backToQuiz() { document.getElementById('diag-review').style.display = 'none'; document.getElementById('diag-quiz').style.display = 'flex'; }
+        
         function calculateScores() {
             let domainStats = { "Bilangan": { correct: 0, total: 0 }, "Geometri & Pengukuran": { correct: 0, total: 0 }, "Data": { correct: 0, total: 0 }, "Penalaran": { correct: 0, total: 0 } }; let totalCorrect = 0;
             questionsData.forEach((q, index) => { let domain = q.domain; if (!domainStats[domain]) domainStats[domain] = { correct: 0, total: 0 }; domainStats[domain].total += 1; let ua = userAnswers[index] || []; let ca = q.correctAnswer || []; ua.sort((a,b) => a-b); ca.sort((a,b) => a-b); if (ua.length === ca.length && ua.every((val, i) => val === ca[i])) { domainStats[domain].correct += 1; totalCorrect += 1; } });
@@ -737,22 +795,39 @@
             if (domainStats["Penalaran"].total > 0) scores.penalaran = Math.round((domainStats["Penalaran"].correct / domainStats["Penalaran"].total) * 100);
             scores.readiness = Math.round((totalCorrect / questionsData.length) * 100); return scores;
         }
+        
         function getWrongQuestions() {
             let mistakes = [];
             questionsData.forEach((q, index) => { let ua = userAnswers[index] || []; let ca = q.correctAnswer || []; ua.sort((a,b) => a-b); ca.sort((a,b) => a-b); if (!(ua.length === ca.length && ua.every((val, i) => val === ca[i]))) { let studentAnswerText = ua.map(idx => q.options[idx]).join(', ') || "Tidak dijawab"; let correctAnswerText = ca.map(idx => q.options[idx]).join(', '); mistakes.push({ domain: q.domain, question: q.question, studentAnswer: studentAnswerText, correctAnswer: correctAnswerText }); } });
             return mistakes;
         }
+        
         async function submitQuiz() {
             if(cbtTimerInterval) clearInterval(cbtTimerInterval); document.getElementById('diag-review').style.display = 'none'; document.getElementById('diag-loading').style.display = 'flex';
             const scores = calculateScores(); const mistakes = getWrongQuestions();
-            localStorage.setItem('math_ready_scores', JSON.stringify(scores)); localStorage.setItem('math_ready_mistakes', JSON.stringify(mistakes)); localStorage.setItem('student_name', studentName);
-            const dataToSend = { nama: studentName, kelas: studentClass, bilangan: scores.bilangan, geometri: scores.geometri, skorData: scores.data, penalaran: scores.penalaran, readiness: scores.readiness, jenisTes: "Diagnostik" };
+            
+            // Simpan ke LocalStorage untuk dashboard
+            localStorage.setItem('math_ready_scores', JSON.stringify(scores)); 
+            localStorage.setItem('math_ready_mistakes', JSON.stringify(mistakes)); 
+            localStorage.setItem('student_name', studentName);
+            
+            // Kirim ke database dengan Jenis Tes yang sesuai
+            const dataToSend = { 
+                nama: studentName, kelas: studentClass, 
+                bilangan: scores.bilangan, geometri: scores.geometri, 
+                skorData: scores.data, penalaran: scores.penalaran, 
+                readiness: scores.readiness, jenisTes: currentTestMode 
+            };
+            
             try { await fetch(URL_APPS_SCRIPT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dataToSend) }); } catch (error) {}
+            
             setTimeout(() => { document.getElementById('diag-loading').style.display = 'none'; document.getElementById('diag-result').style.display = 'flex'; }, 1500);
         }
+
         function showCertificate() { const savedName = localStorage.getItem('student_name') || "Siswa Hebat"; const savedData = JSON.parse(localStorage.getItem('math_ready_scores')); const readiness = savedData ? savedData.readiness : 0; document.getElementById('certStudentName').innerText = savedName; document.getElementById('certScore').innerText = readiness + "%"; const options = { year: 'numeric', month: 'long', day: 'numeric' }; document.getElementById('certDate').innerText = new Date().toLocaleDateString('id-ID', options); document.getElementById('certificateModal').style.display = 'block'; }
         function closeCertificate() { document.getElementById('certificateModal').style.display = 'none'; }
         function printCertificate() { window.print(); }
+        
         function renderDashboardCharts() {
             let data = { bilangan: 0, geometri: 0, data: 0, penalaran: 0, readiness: 0 }; const savedData = localStorage.getItem('math_ready_scores'); if (savedData) { const parsed = JSON.parse(savedData); data = { bilangan: parsed.bilangan, geometri: parsed.geometri, data: parsed.data || 0, penalaran: parsed.penalaran, readiness: parsed.readiness }; }
             document.getElementById('readinessScore').innerText = data.readiness + "%"; const btnCert = document.getElementById('btnCertificate'); if (data.readiness >= 80) { btnCert.style.display = 'block'; } else { btnCert.style.display = 'none'; }
@@ -762,6 +837,7 @@
             statsData.forEach(stat => { const div = document.createElement('div'); div.className = 'stat-item'; div.innerHTML = `<div class="chart-container-small"><canvas id="${stat.id}"></canvas><div class="chart-value">${stat.value}</div></div><div class="stat-label">${stat.label}</div><div class="stat-status ${stat.statusClass}">${stat.status}</div>`; gridContainer.appendChild(div); const ctx = document.getElementById(stat.id).getContext('2d'); new Chart(ctx, { type: 'doughnut', data: { datasets: [{ data: [stat.value, 100 - stat.value], backgroundColor: [stat.color, trackColor], borderWidth: 0, cutout: '80%' }] }, options: { responsive: true, maintainAspectRatio: false, animation: { duration: 1500 }, plugins: { legend: { display: false }, tooltip: { enabled: false } } } }); });
             renderMistakes(); 
         }
+        
         function renderMistakes() {
             const container = document.getElementById('mistakeList'); const savedMistakes = localStorage.getItem('math_ready_mistakes');
             if (!savedMistakes) { container.innerHTML = '<p style="font-size:0.85rem; color:var(--text-muted); text-align:center; padding: 20px 0;">Belum ada data kesalahan. Ayo kerjakan tes!</p>'; return; }
@@ -769,6 +845,7 @@
             if (mistakes.length === 0) { container.innerHTML = '<div style="text-align:center; padding: 20px 0;"><div style="font-size: 2.5rem; margin-bottom: 8px;">🌟</div><p style="font-size:0.9rem; color:var(--accent-mint); font-weight:700;">Luar biasa! Semua jawabanmu benar.</p></div>'; return; }
             container.innerHTML = ''; mistakes.forEach(m => { const div = document.createElement('div'); div.className = 'mistake-box'; div.innerHTML = `<h4>${m.domain}</h4><p style="font-weight: 700; margin-bottom: 8px; color: var(--text-main); font-size: 0.85rem;">${m.question}</p><p style="color: var(--accent-coral); margin-bottom: 4px; font-weight: 600;">❌ Jawabanmu: ${m.studentAnswer}</p><p style="color: var(--accent-mint); font-weight: 600;">✅ Kunci: ${m.correctAnswer}</p>`; container.appendChild(div); });
         }
+        
         document.addEventListener('DOMContentLoaded', renderDashboardCharts);
     </script>
 </body>

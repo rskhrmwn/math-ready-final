@@ -947,7 +947,12 @@
             document.getElementById('questionTopic').innerText = q.domain; 
             
             // Menggunakan innerHTML agar tag <img> bisa terbaca
-            document.getElementById('questionText').innerHTML = q.question;
+            let questionHTML = q.question;
+if (questionHTML.includes('[GAMBAR]')) {
+    const imgUrl = `https://raw.githubusercontent.com/rskhrmwn/math-ready-final/main/gambar${q.id}.jpg`;
+    questionHTML = questionHTML.replace('[GAMBAR]', `<img src="${imgUrl}" style="max-width:100%; border-radius:8px; margin-bottom:12px;" onerror="this.style.display='none'"><br>`);
+}
+document.getElementById('questionText').innerHTML = questionHTML;
             
             document.getElementById('btnPrev').style.display = currentQuestionIndex === 0 ? 'none' : 'flex'; 
             document.getElementById('btnNext').innerText = (currentQuestionIndex === questionsData.length - 1) ? "Selesai & Review" : "Selanjutnya";

@@ -949,7 +949,7 @@
             // Menggunakan innerHTML agar tag <img> bisa terbaca
             let questionHTML = q.question;
 if (questionHTML.includes('[GAMBAR]')) {
-    const imgUrl = `https://raw.githubusercontent.com/rskhrmwn/math-ready-final/main/gambar${q.id}.jpg`;
+    const imgUrl = `https://raw.githubusercontent.com/rskhrmwn/math-ready-final/main/gambar${q.id}.png`;
     questionHTML = questionHTML.replace('[GAMBAR]', `<img src="${imgUrl}" style="max-width:100%; border-radius:8px; margin-bottom:12px;" onerror="this.style.display='none'"><br>`);
 }
 document.getElementById('questionText').innerHTML = questionHTML;

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MATH READY SD - Premium Learning Platform</title>
     
+    <!-- OPEN GRAPH & META TAGS -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rskhrmwn.github.io/math-ready-final/">
     <meta property="og:title" content="MATH READY SD - Persiapkan Anak Anda Menghadapi TKA Matematika">
@@ -675,8 +676,11 @@
     </div>
 
     <script>
+        // ==========================================
         // GANTI DENGAN URL APPS SCRIPT BAPAK
+        // ==========================================
         const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbx_u6hsHuXa6e9pCPY4NxOxPmZE4auH0Ll7GjQu3iWNECDuDFp5vLwXnahR01DjJF7Q/exec";
+        
         const PIN_RAHASIA = "123456"; 
         let targetViewAfterPin = "";
 
@@ -757,7 +761,8 @@
             try {
                 const response = await fetch(URL_APPS_SCRIPT, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    // MENGGUNAKAN text/plain UNTUK MENGHINDARI ERROR CORS
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify({ action: 'login', email: email, password: password })
                 });
                 const result = await response.json();
@@ -793,7 +798,8 @@
             try {
                 const response = await fetch(URL_APPS_SCRIPT, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    // MENGGUNAKAN text/plain UNTUK MENGHINDARI ERROR CORS
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify({ action: 'register', nama: name, sekolah: school, email: email, password: password })
                 });
                 const result = await response.json();
@@ -1388,7 +1394,6 @@
                 localStorage.setItem('math_ready_tka_scores', JSON.stringify(scores));
             }
             
-            // MENGGUNAKAN ACTION 'submitScore' SESUAI APPS SCRIPT BARU
             const dataToSend = { 
                 action: 'submitScore',
                 nama: studentName, sekolah: studentSchool, 
@@ -1399,7 +1404,7 @@
                 streak: currentStreak
             };
             
-            try { await fetch(URL_APPS_SCRIPT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dataToSend) }); } catch (error) {}
+            try { await fetch(URL_APPS_SCRIPT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(dataToSend) }); } catch (error) {}
             
             setTimeout(() => { document.getElementById('diag-loading').style.display = 'none'; document.getElementById('diag-result').style.display = 'flex'; }, 2000);
         }
@@ -1421,12 +1426,10 @@
         async function renderDashboardCharts() {
             const user = JSON.parse(localStorage.getItem('math_ready_user'));
             
-            // Update Greeting jika login
             if (user) {
                 document.getElementById('pageTitle').innerText = `Halo, ${user.nama.split(' ')[0]}! 👋`;
             }
 
-            // Update XP & Streak
             let xp = localStorage.getItem('math_ready_xp') || 0;
             let streak = localStorage.getItem('math_ready_streak') || 0;
             let savedName = localStorage.getItem('student_name');
@@ -1453,14 +1456,12 @@
             document.getElementById('xpDisplay').innerText = xp;
             document.getElementById('streakDisplay').innerText = `${streak} Hari`;
 
-            // Update Skor Kesiapan & Sertifikat
             let data = { bilangan: 0, geometri: 0, data: 0, penalaran: 0, readiness: 0 }; 
             const savedData = localStorage.getItem('math_ready_scores'); 
             if (savedData) { const parsed = JSON.parse(savedData); data = { bilangan: parsed.bilangan, geometri: parsed.geometri, data: parsed.data || 0, penalaran: parsed.penalaran, readiness: parsed.readiness }; }
             
             document.getElementById('readinessScore').innerText = data.readiness + "%"; 
             
-            // LOGIKA SERTIFIKAT: HANYA BERDASARKAN TKA >= 80
             const tkaDataStr = localStorage.getItem('math_ready_tka_scores');
             const btnCert = document.getElementById('btnCertificate');
             const certNote = document.getElementById('certNote');
